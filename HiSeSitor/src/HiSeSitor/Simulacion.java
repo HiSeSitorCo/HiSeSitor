@@ -2,7 +2,7 @@ package HiSeSitor;
 
 
 	public class Simulacion {
-		int paus;
+		public int intervalo;
 		public Estado estado;
 		
 
