@@ -1,0 +1,18 @@
+Simulacion:
+
+	+Luis:
+		-loadMap()
+		-escribeResultados()
+	+Guille:
+		-correSimulacion()
+		-addAleatOponents()
+	+Victor:
+		-createGrafo()
+
+Estado:
+	+L:	
+		-initGraph()
+		-estima()
+		-calcula()
+	+G:
+		addAleat
