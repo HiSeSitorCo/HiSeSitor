@@ -1,4 +1,4 @@
-package HiSeSitor
+package HiSeSitor;
 
 public class Estado {
 
