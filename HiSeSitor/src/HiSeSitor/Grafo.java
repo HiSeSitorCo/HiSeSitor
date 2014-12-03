@@ -1,6 +1,7 @@
 package HiSeSitor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import HiSeSitor.Nodo;
@@ -18,19 +19,26 @@ import edu.uci.ics.jung.graph.SparseMultigraph;
 public class Grafo {
 	
 	/*Nodos son enteros y las aristas tambien hasta nuevo aviso*/
-	SparseMultigraph<Integer, Integer> g;
+	SparseMultigraph<Integer, Nodo> g;
 	
 	public Grafo (){
 		g = new SparseMultigraph<>();
 	}
+	/*
+	 * Probablemente esta función carezca de sentido
+	 */
 	public void addNode (Nodo n){
-		/*Igual este metodo es un sin sentido...
-		 * 
-		 * Faltaria informacion de donde meter el nodo...*/
+		
 		
 	}
-	public void addNode (List<Integer> aristas){
-		/*Añade un nodo a las aristas que se le indiquen*/
+	/**
+	 * 
+	 * @param aristas Lista de conexiones del nodo
+	 * @param n Nodo a insertar
+	 * @return True si se inserta correctamente. False en caso contrario
+	 */
+	public boolean addNode (List<Integer> aristas, Nodo n){
+		return g.addEdge(n, aristas);
 	}
 
 	public List<Nodo> getShortestPath (Nodo n1, Nodo n2){
@@ -38,5 +46,8 @@ public class Grafo {
 		/*Devuelve una lista con nodos sucesivos*/
 		return ln;
 	}
-
+	
+	public int getNodesCount (){
+		return g.getVertexCount();
+	}
 }
