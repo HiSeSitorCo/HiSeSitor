@@ -19,14 +19,17 @@ package HiSeSitor;
 				guardaValoresEstado();
 				updateEstado(nodo);
 			}
+
+
 		}
 
 
-		public void addAleatOponents() {
+		public void addAleatOponents(int n) {
+			while (n--) estado.addAleatOponent();
 		}
 
 		public void loadMap(){
-			
+				
 		}
 		public void escribeResultados() {
 			

@@ -32,5 +32,13 @@ Estado:
 Grafo: 
 		-Clase Grafo
 		
+
+//futuro aka ETA
+Sensor
+	+Unknown
+		-getData(Nodo);
+Estrategia
+	+Unknown
+		-evaluaNodo(Nodo, Sensor)
 		
 		
