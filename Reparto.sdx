@@ -17,7 +17,7 @@ Estado:
 		-guardaValoresEstado();
 	+G:
 		-addAleatOponents();
-		-busca()
+		-busca() : Nodo nodo
 		-isCalcula();
 		-isEstima();
 		
@@ -26,6 +26,8 @@ Estado:
 		-decide();
 		-updateSensor();
 		-evaluaVictoria();
+	+Unknown
+		-updateEstado(Nodo nodo);
 		
 Grafo: 
 		-Clase Grafo
