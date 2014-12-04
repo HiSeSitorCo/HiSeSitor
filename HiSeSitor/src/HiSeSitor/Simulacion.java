@@ -1,6 +1,10 @@
 package HiSeSitor;
 
-
+/**
+ * 
+ * @author Luis
+ *
+ */
 	public class Simulacion {
 		public int intervalo;
 		public Estado estado;

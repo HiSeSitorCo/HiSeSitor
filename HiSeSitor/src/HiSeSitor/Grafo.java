@@ -1,11 +1,9 @@
 package HiSeSitor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import HiSeSitor.Nodo;
-import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 
 /**
