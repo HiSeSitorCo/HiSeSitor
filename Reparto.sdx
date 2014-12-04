@@ -17,20 +17,37 @@ Estado:
 		-guardaValoresEstado();
 	+G:
 		-addAleatOponents();
-		-busca()
+		-busca() : Nodo nodo
 		-isCalcula();
 		-isEstima();
+		-updateEstado(Nodo nodo);
 		
 	+Victor
 		-getAdyacentes();
 		-decide();
 		-updateSensor();
 		-evaluaVictoria();
+	+Unknown
 		
 Grafo: 
-		public Grafo ()
-		public void addNode (Nodo n) //  Probablemente esta función carezca de sentido
-		public boolean addNode (List<Integer> aristas, Nodo n)
-		public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
-		public int getNodesCount ()
+		-Clase Grafo
+			public Grafo ()
+			public void addNode (Nodo n) //  Probablemente esta función carezca de sentido
+			public boolean addNode (List<Integer> aristas, Nodo n)
+			public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
+			public int getNodesCount ()
+		-Unknown
+			//FALTA -> setCazador(nodo);
+			//FALTA -> getPresas();
+			//Falta -> getDistancia(nodo, nodo;
+			//FALTA -> creaPresa(Nodo) & borraPresa(Nodo)
+
+//futuro aka ETA
+Sensor
+	+Unknown
+		-getData(Nodo);
+Estrategia
+	+Unknown
+		-evaluaNodo(Nodo, Sensor)
+		
 		
