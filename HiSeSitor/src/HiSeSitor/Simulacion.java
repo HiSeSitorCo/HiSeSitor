@@ -1,7 +1,7 @@
 package HiSeSitor;
 
+
 	public class Simulacion {
-		
 		public int intervalo;
 		public Estado estado;
 		public Sensores sensores;
