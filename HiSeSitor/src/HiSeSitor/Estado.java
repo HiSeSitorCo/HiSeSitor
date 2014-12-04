@@ -7,6 +7,9 @@ public class Estado {
 	public Random random;
 	public ArrayList<int> hiddenNodes;
 	public int numHN;
+	public Nodo cazador;
+	public Nodo inicio;
+	public int presas = 0;
 	public Estado() {
 		initHiddenNodes();
 
@@ -18,10 +21,29 @@ public class Estado {
 	public void addAleatOponent(){
 		int rng = random.nextInt(numHN+1)
 		Nodo auxN = grafo.getNodo(hiddenNodes[rng]);
+		grafo.creaPresa(auxN);
+		presa++;
 		hiddenNodes.remove(rng);
 	}
 
-	public void busca(){}
+	public void busca(){
+	}
+
+
+	public void updateEstado(Nodo nodo) {
+
+		cazador = grafo.setCazador(nodo);
+		ArrayList<Nodo> presas = grafo.getPresas();
+		int dist = grafo.getDistancia(cazador, inicio);
+		for (Nodo aux : presas) {
+			if (grafo.getDistancia(aux, inicio) > dist) {
+				presas--;
+				grafo.borraPresa(aux);
+			}
+			
+		}
+		updateSensor();
+	}
 
 /*Este par de funciones deberén de, con un sensor y una estrategia decidir
 si tiene suficiente información para el nodo dado como para poder calcularlo
@@ -36,7 +58,7 @@ si tiene suficiente información para el nodo dado como para poder calcularlo
 
 
 //__OTROS NO GUILLE
-	public void initGraph(){}
+	public void initGraph(){} //Recomiendo inicializar el inicio
 	public void estima(){}
 	//recomiendo el uso de un futuro s.evalua(n, x); para esta funcion
 	public void calcula(){}

@@ -26,6 +26,7 @@ package HiSeSitor;
 
 		public void addAleatOponents(int n) {
 			while (n--) estado.addAleatOponent();
+			
 		}
 
 		public void loadMap(){

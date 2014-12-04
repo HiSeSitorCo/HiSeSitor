@@ -20,6 +20,7 @@ Estado:
 		-busca() : Nodo nodo
 		-isCalcula();
 		-isEstima();
+		-updateEstado(Nodo nodo);
 		
 	+Victor
 		-getAdyacentes();
@@ -27,7 +28,6 @@ Estado:
 		-updateSensor();
 		-evaluaVictoria();
 	+Unknown
-		-updateEstado(Nodo nodo);
 		
 Grafo: 
 		-Clase Grafo
@@ -36,6 +36,11 @@ Grafo:
 			public boolean addNode (List<Integer> aristas, Nodo n)
 			public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
 			public int getNodesCount ()
+		-Unknown
+			//FALTA -> setCazador(nodo);
+			//FALTA -> getPresas();
+			//Falta -> getDistancia(nodo, nodo;
+			//FALTA -> creaPresa(Nodo) & borraPresa(Nodo)
 
 //futuro aka ETA
 Sensor
