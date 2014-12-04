@@ -31,7 +31,11 @@ Estado:
 		
 Grafo: 
 		-Clase Grafo
-		
+			public Grafo ()
+			public void addNode (Nodo n) //  Probablemente esta función carezca de sentido
+			public boolean addNode (List<Integer> aristas, Nodo n)
+			public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
+			public int getNodesCount ()
 
 //futuro aka ETA
 Sensor
