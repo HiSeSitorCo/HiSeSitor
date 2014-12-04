@@ -1,6 +1,6 @@
 package HiSeSitor;
 
-
+	//comentario para test
 	public class Simulacion {
 		public int intervalo;
 		public Estado estado;
