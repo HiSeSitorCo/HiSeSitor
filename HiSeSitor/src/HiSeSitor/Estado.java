@@ -29,7 +29,7 @@ public class Estado {
 	public void busca(){
 	}
 
-
+	//me he ajenciado esta funcion
 	public void updateEstado(Nodo nodo) {
 
 		cazador = grafo.setCazador(nodo);
@@ -57,7 +57,7 @@ si tiene suficiente información para el nodo dado como para poder calcularlo
 	}
 
 
-//__OTROS NO GUILLE
+//__OTROS NO GUILLE 
 	public void initGraph(){} //Recomiendo inicializar el inicio
 	public void estima(){}
 	//recomiendo el uso de un futuro s.evalua(n, x); para esta funcion
