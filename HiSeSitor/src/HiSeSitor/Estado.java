@@ -26,8 +26,26 @@ public class Estado {
 		hiddenNodes.remove(rng);
 	}
 
-	public void busca(){
+	public Nodo busca(){
+		estrategia.update(); //recalcular subestructuras
+		Nodo objetivo = estrategia.getObjetivo(); //coger el nodo con mayor puntuación
+		return grafo.getShortestPathNode(actual, objetivo);
+		
 	}
+	
+	/* codigo obsoleto
+	private void minMax(int prof) {
+		if (presa == 0 || prof < 0) return;
+		ArrayList<Nodo> moves = null;
+		moves = getAdyacentes();
+		for (Nodo nodo : moves) {
+			aux = evaluaNodo(nodo);
+			if (valor < aux) {
+				aux = valor;
+				eleccion = nodo;
+		}
+	}*/
+	
 
 	//me he ajenciado esta funcion
 	public void updateEstado(Nodo nodo) {
@@ -45,12 +63,8 @@ public class Estado {
 		updateSensor();
 	}
 
-/*Este par de funciones deberén de, con un sensor y una estrategia decidir
-si tiene suficiente información para el nodo dado como para poder calcularlo
- o por el contrario solo puede hacer una estimación. La información la da el 
- sensor (de forma binaria o tiene o no tiene) y la estrategia evalua esa información*/
 	public boolean isCalcula(Sensor x, Estrategia s, Nodo n){
-		return x.getData(n);
+		return x.isVisto(n);
 	}
 	public boolean isEstima(Sensor x, Estrategia s, Nodo n){
 		return !isCalcula(x,s);
