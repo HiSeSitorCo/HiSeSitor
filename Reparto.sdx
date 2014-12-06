@@ -17,7 +17,7 @@ Estado:
 		-guardaValoresEstado();
 	+G:
 		-addAleatOponents(); //DONE
-		-busca() : Nodo nodo
+		-busca() : Nodo nodo //DONE
 		-isCalcula(); //DONE
 		-isEstima(); //DONE
 		-updateEstado(Nodo nodo); //DONE
@@ -35,6 +35,7 @@ Grafo:
 			public void addNode (Nodo n) //  Probablemente esta función carezca de sentido
 			public boolean addNode (List<Integer> aristas, Nodo n)
 			public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
+			//FALTA public List<Nodo> getShortestPathNode (Nodo n1, Nodo n2) //de el nodo al que ir
 			public int getNodesCount ()
 		-Unknown
 			//FALTA -> setCazador(nodo);
@@ -45,9 +46,12 @@ Grafo:
 //futuro aka ETA
 Sensor
 	+Unknown
-		-getData(Nodo);
+		-isVisto(Nodo) : boolean
 Estrategia
 	+Unknown
-		-evaluaNodo(Nodo, Sensor)
+		-evaluaNodo(Nodo)
+		-getSensores()
+		-update()//recalcular subestructuras
+		-getObjetivo() : nodo//coger el nodo con mayor puntuación
 		
 		
