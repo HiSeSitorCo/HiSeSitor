@@ -4,8 +4,8 @@ Simulacion:
 		-loadMap()
 		-escribeResultados()
 	+Guille:
-		-correSimulacion()
-		-addAleatOponents()
+		-correSimulacion() //DONE
+		-addAleatOponents() //DONE
 	+Victor:
 		-createGrafo()
 
@@ -16,11 +16,11 @@ Estado:
 		-calcula()
 		-guardaValoresEstado();
 	+G:
-		-addAleatOponents();
+		-addAleatOponents(); //DONE
 		-busca() : Nodo nodo
-		-isCalcula();
-		-isEstima();
-		-updateEstado(Nodo nodo);
+		-isCalcula(); //DONE
+		-isEstima(); //DONE
+		-updateEstado(Nodo nodo); //DONE
 		
 	+Victor
 		-getAdyacentes();
