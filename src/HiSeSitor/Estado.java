@@ -1,15 +1,19 @@
 package HiSeSitor;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Estado {
 
 	public Grafo grafo;
 
 	public Random random;
-	public ArrayList<int> hiddenNodes;
+	public ArrayList<int> hiddenNodes = new ArrayList<>();
 	public int numHN;
 	public Nodo cazador;
 	public Nodo inicio;
 	public int presas = 0;
+	
 	public Estado() {
 		initHiddenNodes();
 
@@ -17,6 +21,12 @@ public class Estado {
 
 
 //__GUILLE
+
+	private void initHiddenNodes() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	public void addAleatOponent(){
 		int rng = random.nextInt(numHN+1)
