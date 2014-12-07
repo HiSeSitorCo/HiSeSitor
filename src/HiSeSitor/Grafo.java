@@ -25,7 +25,7 @@ public class Grafo {
 		g = new SparseMultigraph<>();
 	}
 	/*
-	 * Probablemente esta función carezca de sentido
+	 * Probablemente esta funciï¿½n carezca de sentido
 	 */
 	public void addNode (Nodo n){
 		
