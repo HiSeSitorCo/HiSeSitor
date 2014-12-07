@@ -18,6 +18,7 @@ public class Nodo {
 		this.score = score;
 	}
 
+
 	public int getId() {
 		return id;
 	}
