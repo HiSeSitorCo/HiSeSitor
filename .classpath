@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-3d-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-3d-demos-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-algorithms-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-api-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-graph-impl-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-io-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-jai-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-jai-samples-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-samples-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guillermo/Descargas/HiSeSitor-Brontes/lib/jung-visualization-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

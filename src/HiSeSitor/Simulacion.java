@@ -11,13 +11,13 @@ package HiSeSitor;
 		public void Simulacion() {}
 		public void correSimulacion() {
 			if (estado == null) {
-				estado = initGraph();
+				estado = estado.initGraph();
 				addAleatOponents();
 			}
 			while((nodo = busca())!= null) {
-				nodo = busca();
-				guardaValoresEstado();
-				updateEstado(nodo);
+				nodo = estado.busca();
+				estado.guardaValoresEstado();
+				estado.updateEstado(nodo);
 			}
 
 
