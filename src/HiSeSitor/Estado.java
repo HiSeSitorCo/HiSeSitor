@@ -1,25 +1,28 @@
 package HiSeSitor;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Estado {
 
 	public Grafo grafo;
 
 	public Random random;
-	public ArrayList<int> hiddenNodes;
+	public ArrayList<Integer> hiddenNodes;
 	public int numHN;
 	public Nodo cazador;
 	public Nodo inicio;
 	public int presas = 0;
+	
 	public Estado() {
 		initHiddenNodes();
-
 	}
 
 
 //__GUILLE
 
 	public void addAleatOponent(){
-		int rng = random.nextInt(numHN+1)
+		int rng = random.nextInt(numHN+1);
 		Nodo auxN = grafo.getNodo(hiddenNodes[rng]);
 		grafo.creaPresa(auxN);
 		presa++;
