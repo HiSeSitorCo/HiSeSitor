@@ -78,7 +78,14 @@ public class Estado {
 	public void calcula(){}
 	public void guardaValoresEstado(){}
 
-	public void getAdyacentes(){}
+	/**
+	 * @author Victor
+	 * 
+	 * 
+	 */
+	public void getAdyacentes(){
+		
+	}
 
 	public void decide(){}
 

@@ -1,5 +1,8 @@
 package HiSeSitor;
 
+
+import java.util.ArrayList;
+
 /**
  * 
  * @author Victor
@@ -35,7 +38,9 @@ public class Nodo {
 		this.score = score;
 	}
 	
-	
+	public String toString (){
+		return "ID: "+id+"| Score: "+score;
+	}
 	
 	
 

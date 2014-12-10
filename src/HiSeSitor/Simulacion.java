@@ -34,7 +34,11 @@ package HiSeSitor;
 		public void escribeResultados() {
 			
 		}
+		/**
+		 * @author Victor
+		 * 
+		 */
 		public void createGrafo() {
-			
+			estado.initGraph();
 		}
 }
