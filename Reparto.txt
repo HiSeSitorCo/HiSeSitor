@@ -7,7 +7,7 @@ Simulacion:
 		-correSimulacion() //DONE
 		-addAleatOponents() //DONE
 	+Victor:
-		-createGrafo()
+		-createGrafo() //DONE
 
 Estado:
 	+L:	
@@ -31,9 +31,9 @@ Estado:
 		
 Grafo: 
 		-Clase Grafo
-			public Grafo ()
-			public void addNode (Nodo n) //  Probablemente esta función carezca de sentido
-			public boolean addNode (List<Integer> aristas, Nodo n)
+			public Grafo () //Done
+			public void addNode (Nodo n) //Done
+			public boolean addNode (List<Integer> aristas, Nodo n) //Done
 			public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
 			//FALTA public List<Nodo> getShortestPathNode (Nodo n1, Nodo n2) //de el nodo al que ir
 			public int getNodesCount ()

@@ -45,7 +45,8 @@ import java.util.ArrayList;
 		public void escribeResultados() {
 			
 		}
-		public void createGraph() {
+		public void createGrafo() {
+			estado.initGraph();
 			
 		}
 }
