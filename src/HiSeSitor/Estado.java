@@ -23,9 +23,21 @@ public class Estado {
 //__GUILLE
 
 	private void initHiddenNodes() {
-		// TODO Auto-generated method stub
+		for (Nodo n : grafo.getListaNodos()) {
+			for (Sensor s : estrategia.getSensores()) {
+				if (s.isVisto()) {
+					visto = true;
+					break;
+				}
+			}
+			if (!visto) {
+				hiddenNodes.Add(n);
+			}
+			visto = false;
+		}
 		
 	}
+
 
 
 	public void addAleatOponent(){
@@ -70,7 +82,7 @@ public class Estado {
 			}
 			
 		}
-		updateSensor();
+		updateSensores();
 	}
 
 	public boolean isCalcula(Sensor x, Estrategia s, Nodo n){
@@ -88,12 +100,19 @@ public class Estado {
 	public void calcula(){}
 	public void guardaValoresEstado(){}
 
-	public void getAdyacentes(){}
+	public listaca getAdyacentes(){
+		return grafo.getAdyacentes();
+	}
 
-	public void decide(){}
+	public void updateSensores(){
+		estrategia.updateSensores();
+	}
 
-	public void updateSensor(){}
-
-	public void evaluaVictoria(){}
+	public boolean evaluaVictoria(){
+		if (presas==0) {
+			return true;
+		}
+		return false;
+	}
 
 }

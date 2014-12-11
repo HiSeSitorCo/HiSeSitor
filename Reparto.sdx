@@ -2,12 +2,12 @@ Simulacion:
 
 	+Luis:
 		-loadMap()
-		-escribeResultados()
+		-escribeResultados() 
 	+Guille:
 		-correSimulacion() //DONE
 		-addAleatOponents() //DONE
 	+Victor:
-		-createGrafo()
+		-createGrafo() //DONE
 
 Estado:
 	+L:	
@@ -16,17 +16,19 @@ Estado:
 		-calcula()
 		-guardaValoresEstado();
 	+G:
+
+		-private void initHiddenNodes(); //DONE
 		-addAleatOponents(); //DONE
 		-busca() : Nodo nodo //DONE
 		-isCalcula(); //DONE
 		-isEstima(); //DONE
 		-updateEstado(Nodo nodo); //DONE
-		
+		// NO NECESARIA - decide();
+		-evaluaVictoria(); //DONE
+		-getAdyacentes(); 
+		-updateSensores();
+
 	+Victor
-		-getAdyacentes();
-		-decide();
-		-updateSensor();
-		-evaluaVictoria();
 	+Unknown
 		
 Grafo: 
@@ -50,6 +52,7 @@ Sensor
 Estrategia
 	+Unknown
 		-evaluaNodo(Nodo)
+		-updateSensores();
 		-getSensores()
 		-update()//recalcular subestructuras
 		-getObjetivo() : nodo//coger el nodo con mayor puntuación
