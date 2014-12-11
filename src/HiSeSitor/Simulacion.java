@@ -2,11 +2,12 @@ package HiSeSitor;
 
 import java.util.ArrayList;
 
+	//comentario para test
 	public class Simulacion {
 		public int intervalo;
 		public Estado estado;
-		public ArrayList<Sensor> sensores;
-		public Nodo nodo;			//por que hay un nodo aqui?????????????????????????
+		public Sensores sensores;
+		public Node nodo;
 		
 
 		public Simulacion() {
@@ -16,16 +17,15 @@ import java.util.ArrayList;
 			this.nodo = new Nodo(0, 0);
 		}
 		
-		
 		public void correSimulacion() {
 			if (estado == null) {
-				estado = initGraph();
+				estado = estado.initGraph();
 				addAleatOponents();
 			}
 			while((nodo = busca())!= null) {
-				nodo = busca();
-				guardaValoresEstado();
-				updateEstado(nodo);
+				nodo = estado.busca();
+				estado.guardaValoresEstado();
+				estado.updateEstado(nodo);
 			}
 
 
@@ -33,10 +33,7 @@ import java.util.ArrayList;
 
 
 		public void addAleatOponents(int n) {
-			
-			for(int i=0;i<n;i++)
-				estado.addAleatOponent();
-
+			while (n--) estado.addAleatOponent();
 		}
 
 		public void loadMap(){
@@ -45,7 +42,8 @@ import java.util.ArrayList;
 		public void escribeResultados() {
 			
 		}
-		public void createGraph() {
+		public void createGrafo() {
+			estado.initGraph();
 			
 		}
 }

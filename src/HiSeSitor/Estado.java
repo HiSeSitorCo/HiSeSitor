@@ -8,7 +8,7 @@ public class Estado {
 	public Grafo grafo;
 
 	public Random random;
-	public ArrayList<Integer> hiddenNodes;
+	public ArrayList<int> hiddenNodes = new ArrayList<>();
 	public int numHN;
 	public Nodo cazador;
 	public Nodo inicio;
@@ -16,13 +16,20 @@ public class Estado {
 	
 	public Estado() {
 		initHiddenNodes();
+
 	}
 
 
 //__GUILLE
 
+	private void initHiddenNodes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	public void addAleatOponent(){
-		int rng = random.nextInt(numHN+1);
+		int rng = random.nextInt(numHN+1)
 		Nodo auxN = grafo.getNodo(hiddenNodes[rng]);
 		grafo.creaPresa(auxN);
 		presa++;
