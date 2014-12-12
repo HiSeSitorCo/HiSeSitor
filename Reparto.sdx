@@ -2,7 +2,7 @@ Simulacion:
 
 	+Luis:
 		-loadMap()
-		-escribeResultados() 
+		-escribeResultados()
 	+Guille:
 		-correSimulacion() //DONE
 		-addAleatOponents() //DONE
