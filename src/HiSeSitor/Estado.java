@@ -8,7 +8,7 @@ public class Estado {
 	public Grafo grafo;
 
 	public Random random;
-	public ArrayList<int> hiddenNodes = new ArrayList<>();
+	public ArrayList<Integer> hiddenNodes = new ArrayList<>();
 	public int numHN;
 	public Nodo cazador;
 	public Nodo inicio;

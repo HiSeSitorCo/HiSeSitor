@@ -2,12 +2,11 @@ package HiSeSitor;
 
 import java.util.ArrayList;
 
-	//comentario para test
 	public class Simulacion {
 		public int intervalo;
 		public Estado estado;
-		public Sensores sensores;
-		public Node nodo;
+		public ArrayList<Sensor> sensores;
+		public Nodo nodo;		// repito, por que hay un nodo suelto por aqui???
 		
 
 		public Simulacion() {
@@ -33,12 +32,14 @@ import java.util.ArrayList;
 
 
 		public void addAleatOponents(int n) {
-			while (n--) estado.addAleatOponent();
+			for(int i=0;i<n;i++) 
+				estado.addAleatOponent();
 		}
 
 		public void loadMap(){
 				
 		}
+		
 		public void escribeResultados() {
 			
 		}
