@@ -39,17 +39,24 @@ Grafo:
 			public List<Nodo> getShortestPath (Nodo n1, Nodo n2)
 			//FALTA public Nodo getShortestPathNode (Nodo n1, Nodo n2) //de el nodo al que ir
 			public int getNodesCount ()
+			//FAKTA public int getDist()
 		-Unknown
 			//FALTA -> setCazador(nodo);
 			//FALTA -> getPresas();
 			//Falta -> getDistancia(nodo, nodo;
 			//FALTA -> creaPresa(Nodo) & borraPresa(Nodo)
+			//FALTA -> union(grafo g) //Mete el grafo por parametro en el grafo invocador
 
 //futuro aka ETA
 Sensor
 	+Unknown
-		-isVisto(Nodo) : boolean
+		-isVisto(Nodo) : boolean//DONE
+		-public void updateKnoledge() //DONE
+		-grafo getSensorGraph() //DONE
+		-private boolean checkNode(Nodo check, Nodo actual) //DONE DUMMIE
+
 Estrategia
+
 	+Unknown
 		-evaluaNodo(Nodo)
 		-updateSensores();
