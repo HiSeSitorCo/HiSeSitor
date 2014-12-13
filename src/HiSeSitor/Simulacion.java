@@ -1,5 +1,8 @@
 package HiSeSitor;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 	public class Simulacion {
@@ -36,15 +39,14 @@ import java.util.ArrayList;
 				estado.addAleatOponent();
 		}
 
-		public void loadMap(){
-				
-		}
 		
 		public void escribeResultados() {
 			
 		}
 		public void createGrafo() {
 			estado.initGraph();
+			}
+
 			
 		}
 }
