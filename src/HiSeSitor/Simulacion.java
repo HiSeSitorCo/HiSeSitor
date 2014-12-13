@@ -10,7 +10,7 @@ import java.util.ArrayList;
 		public Estado estado;
 		public ArrayList<Sensor> sensores;
 		public Nodo nodo;		// repito, por que hay un nodo suelto por aqui???
-		
+
 
 		public Simulacion() {
 			this.intervalo = 0;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 			this.sensores = new ArrayList<Sensor>();
 			this.nodo = new Nodo(0, 0);
 		}
-		
+
 		public void correSimulacion() {
 			if (estado == null) {
 				estado = estado.initGraph();
@@ -35,18 +35,18 @@ import java.util.ArrayList;
 
 
 		public void addAleatOponents(int n) {
-			for(int i=0;i<n;i++) 
+			for(int i=0;i<n;i++)
 				estado.addAleatOponent();
 		}
 
-		
+
 		public void escribeResultados() {
-			
+
 		}
 		public void createGrafo() {
 			estado.initGraph();
 			}
 
-			
+
 		}
 }

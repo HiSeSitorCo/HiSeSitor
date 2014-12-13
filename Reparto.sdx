@@ -1,7 +1,7 @@
 Simulacion:
 
 	+Luis:
-		-loadMap()
+		-loadMap() //DONE
 		-escribeResultados()
 	+Guille:
 		-correSimulacion() //DONE
@@ -10,8 +10,8 @@ Simulacion:
 		-createGrafo() //DONE
 
 Estado:
-	+L:	
-		-initGraph()
+	+L:
+		-initGraph() //A MEDIAS
 		-estima()
 		-calcula()
 		-guardaValoresEstado();
@@ -25,13 +25,13 @@ Estado:
 		-updateEstado(Nodo nodo); //DONE
 		// NO NECESARIA - decide();
 		-evaluaVictoria(); //DONE
-		-getAdyacentes(); 
-		-updateSensores();
+		-getAdyacentes(); //DONE
+		-updateSensores(); //DONE
 
 	+Victor
 	+Unknown
-		
-Grafo: 
+
+Grafo:
 		-Clase Grafo
 			public Grafo ()
 			public void addNode (Nodo n) //  Probablemente esta función carezca de sentido
@@ -58,10 +58,10 @@ Sensor
 Estrategia
 
 	+Unknown
-		-evaluaNodo(Nodo)
-		-updateSensores();
-		-getSensores()
+		//Creo que no es necesaria //-evaluaNodo(Nodo)
+		-updateSensores(); //DONE
+		-getSensores() //DONE
 		-update()//recalcular subestructuras
 		-getObjetivo() : nodo//coger el nodo con mayor puntuación
-		
-		
+
+

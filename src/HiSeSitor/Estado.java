@@ -19,6 +19,10 @@ public class Estado {
 	public int presas = 0;
 	public int definicionMalla = 50;
 
+
+	public Grafo memoria;
+	public Grafo mapa;
+
 	public Estado() {
 		initHiddenNodes();
 
@@ -101,7 +105,7 @@ public class Estado {
 	         br = new BufferedReader(fr);
 
 	         String linea;
-	         
+
 	         linea=br.readLine();
 	         String[] lineaTamano = linea.split(",");
 
@@ -119,53 +123,53 @@ public class Estado {
 	        	 tamanoMapa[i]=Integer.parseInt(lineaTamano[1]);
 	        	 i++;
 	         }
-	            
+
 	      }
 	      catch(Exception e){
 	         e.printStackTrace();
 	      }
 	    return tamanoMapa;
 	}
-	
+
 	// __OTROS NO GUILLE
 	public void initGraph() {
 		this.grafo = new Grafo();
-		
+
 		ArrayList<Nodo> lista1 = new ArrayList<Nodo>();
 		ArrayList<Nodo> lista2 = new ArrayList<Nodo>();
-		
+
 		int[] coordenadas = this.loadMap();
-		
+
 		int nNodosX = (coordenadas[0]*this.definicionMalla)/100;
 		int nNodosY = (coordenadas[1]*this.definicionMalla)/100;
-		
+
 		for(int i=0;i<nNodosY;i++){
-			
+
 			Nodo a = new Nodo(1, 0);
 			for(int j=0;j<nNodosX;j++){
-				
+
 				Nodo aux = new Nodo(1,0);
-				
+
 				if (lista1.get(j)!=null)
 					this.grafo.addEdge(1, a, lista1.get(j));
-				
+
 				if (lista1.get(j-1)!=null)
 					this.grafo.addEdge(1, a, lista1.get(j-1));
-				
+
 				if (lista1.get(j+1)!=null)
 					this.grafo.addEdge(1, a, lista1.get(j+1));
-				
+
 				lista2.add(aux);
 				this.grafo.addEdge(1, a, aux);
 				a = aux;
 			}
-			
+
 			lista1.clear();
 			lista1 = lista2;
 			lista2.clear();
 
 		}
-		
+
 		// falta quitar las aristas que atraviesan muros
 	}
 
