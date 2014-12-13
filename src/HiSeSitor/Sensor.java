@@ -6,8 +6,7 @@ import java.util.Random;
 public class Sensor {
 	//Funciones DUMMIE
 	public Grafo sensorKnoledge;
-	public Grafo memoria;
-	public Grafo mapa;
+	public Estado estado;
 
 	public boolean isVisto(Nodo n) {
 		return sensorKnoledge.contains(n);
@@ -20,7 +19,7 @@ public class Sensor {
 	grafo getSensorGraph() {
 		Grafo sensor = new Grafo();
 		ArrayList<Nodo> list = getGraphList();
-		Nodo actual = mapa.getActual();
+		Nodo actual = estado.mapa.getActual();
 		for (Nodo n : list) {
 			if (checkNode(n, actual) == true) sensor.add(n);
 		}
