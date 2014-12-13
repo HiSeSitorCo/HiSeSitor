@@ -15,6 +15,7 @@ public class Estado {
 	public ArrayList<Integer> hiddenNodes = new ArrayList<>();
 	public int numHN;
 	public Nodo cazador;
+	public Estrategia estrategia;
 	public Nodo inicio;
 	public int presas = 0;
 	public int definicionMalla = 50;
