@@ -91,7 +91,7 @@ public class Grafo {
 
 	}
 
-	public List<Nodo> getAdjacents(Nodo n) {
+	public ArrayList<Nodo> getAdjacents(Nodo n) {
 		ArrayList<Nodo> ln = new ArrayList<>();
 		ln.addAll(g.getNeighbors(n));
 		return ln;
@@ -121,6 +121,46 @@ public class Grafo {
 		frame.pack();
 		frame.setVisible(true);
 
+	}
+
+	public ArrayList<Nodo> getListaNodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void creaPresa(Nodo auxN) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Nodo getShortestPathNode(Nodo actual, Nodo objetivo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Nodo setCazador(Nodo nodo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Nodo> getPresas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getDistancia(Nodo actual, Nodo inicio) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public boolean contains(Nodo n) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void union(Grafo sensorGraph) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

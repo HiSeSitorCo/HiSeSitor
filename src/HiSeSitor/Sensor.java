@@ -16,12 +16,12 @@ public class Sensor {
 		sensorKnoledge.union(getSensorGraph());
 
 	}
-	grafo getSensorGraph() {
+	public Grafo getSensorGraph() {
 		Grafo sensor = new Grafo();
-		ArrayList<Nodo> list = getGraphList();
-		Nodo actual = estado.mapa.getActual();
+		ArrayList<Nodo> list = sensor.getListaNodos();
+		Nodo actual = estado.actual;
 		for (Nodo n : list) {
-			if (checkNode(n, actual) == true) sensor.add(n);
+			if (checkNode(n, actual) == true) sensor.add(n); //Necesario revisar por la parte de grafo
 		}
 
 	}
@@ -31,7 +31,7 @@ public class Sensor {
 	*/
 	private boolean checkNode(Nodo check, Nodo actual) {
 		//dummie
-		if (getDist() > 1) {
+		if (sensorKnoledge.getDistancia(check, actual) > 1) {
 			return false;
 		}
 		return true;

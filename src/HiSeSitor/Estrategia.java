@@ -1,5 +1,6 @@
 package HiSeSitor;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,10 +25,10 @@ public class Estrategia {
     //dependera de cada estrategia
     public void update() { //REVISAR ESTO PORQUE EL TEMA NODOS NO MOLA NADA
         int i = 9;
-        Grafo memoria = estado.memoria;
+        //Grafo memoria = estado.memoria;
         for (Sensor s : sensores) {
-            for (Nodo n : s.sensorKnoledge) {
-                if (getDistancia(n, estado.actual) < 2) {
+            for (Nodo n : s.sensorKnoledge.getListaNodos()) {
+                if (s.sensorKnoledge.getDistancia(n, estado.actual) < 2) {
                     n.score = i;
                     i--;
                 } else {n.score = -1;}
@@ -36,17 +37,16 @@ public class Estrategia {
         }
 
     }
-
-    public Nodo getObjetivo(){
-        List<Nodo> nodos = getAdyacentes(estado.actual);
+	public Nodo getObjetivo(){
+        ArrayList<Nodo> nodos = estado.getAdyacentes(estado.actual);
         int max = 0;
         Nodo dest = null;
         for (Nodo n : nodos) {
             if (max < n.score) {
-                max = n.score;
+                max = (int) n.score;
                 dest = n;
             }
         }
-        return n;
+        return dest;
     }
 }

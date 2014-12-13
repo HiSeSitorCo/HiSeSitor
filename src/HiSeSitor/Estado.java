@@ -12,9 +12,10 @@ public class Estado {
 	public Grafo grafo;
 
 	public Random random;
-	public ArrayList<Integer> hiddenNodes = new ArrayList<>();
+	public ArrayList<Nodo> hiddenNodes = new ArrayList<>();
 	public int numHN;
-	public Nodo cazador;
+	public Nodo actual;
+	public Estrategia estrategia;
 	public Nodo inicio;
 	public int presas = 0;
 	public int definicionMalla = 50;
@@ -31,15 +32,16 @@ public class Estado {
 	// __GUILLE
 
 	private void initHiddenNodes() {
-		for (Nodo n : grafo.getListaNodos()) {
+		boolean visto = false;
+		for (Nodo n : mapa.getListaNodos()) { 
 			for (Sensor s : estrategia.getSensores()) {
-				if (s.isVisto()) {
+				if (s.isVisto(n)) {
 					visto = true;
 					break;
 				}
 			}
 			if (!visto) {
-				hiddenNodes.Add(n);
+				hiddenNodes.add(n);
 			}
 			visto = false;
 		}
@@ -47,15 +49,15 @@ public class Estado {
 	}
 
 	public void addAleatOponent(){
-		int rng = random.nextInt(numHN+1)
-		Nodo auxN = grafo.getNodo(hiddenNodes[rng]);
-		grafo.creaPresa(auxN);
-		presa++;
+		int rng = random.nextInt(numHN+1);
+		Nodo auxN = hiddenNodes.get(rng);
+		grafo.creaPresa(auxN); 
+		presas++;
 		hiddenNodes.remove(rng);
 	}
 
 	public Nodo busca() {
-		estrategia.update(); // recalcular subestructuras
+		estrategia.update(); //recalcular subestructuras
 		Nodo objetivo = estrategia.getObjetivo(); // coger el nodo con mayor
 													// puntuación
 		return grafo.getShortestPathNode(actual, objetivo);
@@ -72,13 +74,13 @@ public class Estado {
 	// me he ajenciado esta funcion
 	public void updateEstado(Nodo nodo) {
 
-		cazador = grafo.setCazador(nodo);
-		ArrayList<Nodo> presas = grafo.getPresas();
-		int dist = grafo.getDistancia(cazador, inicio);
-		for (Nodo aux : presas) {
-			if (grafo.getDistancia(aux, inicio) > dist) {
+		actual = grafo.setCazador(nodo); 
+		ArrayList<Nodo> presasList = grafo.getPresas(); 
+		int dist = grafo.getDistancia(actual, inicio); 
+		for (Nodo aux : presasList) {
+			if (grafo.getDistancia(aux, inicio) > dist) { 
 				presas--;
-				grafo.borraPresa(aux);
+				grafo.creaPresa(aux); 
 			}
 
 		}
@@ -90,7 +92,7 @@ public class Estado {
 	}
 
 	public boolean isEstima(Sensor x, Estrategia s, Nodo n) {
-		return !isCalcula(x, s);
+		return !isCalcula(x, s, n);
 	}
 
 	@SuppressWarnings("resource")
@@ -176,14 +178,14 @@ public class Estado {
 	public void estima() {
 	}
 
-	// recomiendo el uso de un futuro s.evalua(n, x); para esta funcion
+
 	public void calcula() {
 	}
 
 	public void guardaValoresEstado() {
 	}
 
-	public List<Nodo> getAdyacentes(Nodo n) {
+	public ArrayList<Nodo> getAdyacentes(Nodo n) {
 		return grafo.getAdjacents(n);
 	}
 
