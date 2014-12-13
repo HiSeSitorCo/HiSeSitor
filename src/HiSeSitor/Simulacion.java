@@ -9,15 +9,15 @@ public class Simulacion {
 	public int intervalo;
 	public Estado estado;
 	public ArrayList<Sensor> sensores;
-	public Nodo nodo;		// repito, por que hay un nodo suelto por aqui???
 
 
-	public Simulacion() {
+	public Simulacion(ArrayList<Sensor> sensores) {
 		this.intervalo = 0;
 		this.estado = new Estado();
-		this.sensores = new ArrayList<Sensor>();
-		this.nodo = new Nodo(0, 0);
+		this.sensores = sensores;
 	}
+	
+
 
 	public void correSimulacion() {
 		if (estado == null) {
