@@ -38,6 +38,15 @@ public class Estrategia {
     }
 
     public Nodo getObjetivo(){
-
+        List<Nodo> nodos = getAdyacentes(estado.actual);
+        int max = 0;
+        Nodo dest = null;
+        for (Nodo n : nodos) {
+            if (max < n.score) {
+                max = n.score;
+                dest = n;
+            }
+        }
+        return n;
     }
 }
