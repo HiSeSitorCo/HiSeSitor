@@ -6,7 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.graph.SparseMultigraph;
@@ -27,9 +31,11 @@ public class Grafo {
 	SparseMultigraph<Nodo, Integer> g;
 	/* Autoincremento para el id de las aristas */
 	int edgecount;
-
+	int x;
+	int y;
 	static HashMap<Integer, Integer> hm;
 	static ArrayList<Nodos> nods;
+	ArrayList<ArrayList<Nodo>> grafo;
 
 	public Grafo() {
 		g = new SparseMultigraph<>();
@@ -210,6 +216,76 @@ public class Grafo {
 	public void borraPresa(Nodo aux) {
 		aux.presa=false;
 		
+	}
+	
+	public void generaGrafo (int x, int y){
+		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
+		int edgecount = 0;
+		this.x = x;
+		this.y = y;
+		for(int i = 0; i < y; i++){
+			tmp.add(new ArrayList<Nodo>());
+			for(int j = 0; j < x; j++){
+				tmp.get(i).add(new Nodo(-1,0));
+			}
+		}
+		for(int i = 0; i < tmp.size(); i++){
+			for(int j = 0; j < tmp.get(i).size(); j++){
+				Nodo n = tmp.get(i).get(j);
+				//Arriba
+				if(i>0){
+					g.addEdge(edgecount, tmp.get(i-1).get(j), n);
+					edgecount++;
+				}
+				if(i<y-1){ //Abajo
+					g.addEdge(edgecount, tmp.get(i+1).get(j), n);
+					edgecount++;
+				}
+				if(j<y-1){ //Derecha
+					g.addEdge(edgecount, tmp.get(i).get(j+1), n);
+					edgecount++;
+				}
+				if(j>0){ //Izquierda
+					g.addEdge(edgecount, tmp.get(i).get(j-1), n);
+					edgecount++;
+				}
+				if(j>0 && i>0){ //Arriba izquierda
+					g.addEdge(edgecount, tmp.get(i-1).get(j-1), n);
+					edgecount++;
+				}
+				if(j<x-1 && i>0){ //Arriba Derecha
+					g.addEdge(edgecount, tmp.get(i-1).get(j+1), n);
+					edgecount++;
+				}
+				if(j>0 && i<y-1){ //Abajo izquierda
+					g.addEdge(edgecount, tmp.get(i+1).get(j-1), n);
+					edgecount++;
+				}
+				if(j<x-1 && i<y-1){ //Abajo derecha
+					g.addEdge(edgecount, tmp.get(i+1).get(j+1), n);
+					edgecount++;
+				}
+			}
+			grafo = tmp;
+		}
+		
+	}
+	public void plotNewGraph(){
+		JFrame jf = new JFrame("Plotting new Graph");
+		jf.setSize(400, 400);
+		JPanel jp = new JPanel();
+		jp.setLayout(new BoxLayout(jp,BoxLayout.Y_AXIS));
+		jf.add(jp);
+		ArrayList<JPanel> list = new ArrayList<>();
+		for(int i = 0; i < y; i++){
+			list.add(new JPanel());
+			list.get(i).add(new JLabel(i+""));
+			for(int j = 0;j <x; j++){
+				list.get(i).add(new JButton(grafo.get(i).get(j).toString()));
+			}
+			jp.add(list.get(i));
+		}
+		jf.setVisible(true);
 	}
 }
 
