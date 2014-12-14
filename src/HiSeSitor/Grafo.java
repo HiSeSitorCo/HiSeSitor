@@ -232,12 +232,14 @@ public class Grafo {
 		
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		int edgecount = 0;
+		int w=0;
 		this.x = x;
 		this.y = y;
 		for(int i = 0; i < y; i++){
 			tmp.add(new ArrayList<Nodo>());
 			for(int j = 0; j < x; j++){
-				tmp.get(i).add(new Nodo(-1,0));
+				tmp.get(i).add(new Nodo(w,0));
+				w++;
 			}
 		}
 		
