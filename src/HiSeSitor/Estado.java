@@ -88,12 +88,11 @@ public class Estado {
 		ArrayList<Nodo> presasList = mapa.getPresas(); 
 		int dist = mapa.getDistancia(actual, inicio); 
 		for (Nodo aux : presasList) {
-			if (mapa.getDistancia(aux, inicio) > dist) { 
+			if (mapa.getDistancia(aux, inicio) <= dist) { 
 				presas--;
 				mapa.borraPresa(aux); 
 				System.out.println("Se ha escapado un hijo puta, MIERDA");
 			}
-
 		}
 		updateSensores();
 	}
@@ -210,7 +209,7 @@ public class Estado {
 		
 		this.mapa.generaGrafo(nNodosX, nNodosY);
 		
-		this.mapa.plotGraph();
+		//this.mapa.plotGraph();
 		
 		mapa.setCazador();
 

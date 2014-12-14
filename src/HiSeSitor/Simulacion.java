@@ -39,7 +39,7 @@ public class Simulacion {
 		System.out.println("A buscar!");
 		while((nodo = estado.busca())!= null && estado.presas > 0) {
 
-			System.out.println("A buscar! Quedan:" + estado.presas);
+			System.out.println("A buscar! Quedan:" + estado.presas + " y el cazador esta en la posicion:" + estado.getActual());
 			estado.guardaValoresEstado();
 			estado.updateEstado(nodo);
 		}
