@@ -2,10 +2,11 @@ package HiSeSitor;
 
 import java.util.ArrayList;
 
-public class main {
+public class Main {
 
 	/**
 	 * Main de prueba
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class main {
 		Estrategia dummiest = new Estrategia_espiral_test(sen);
 		Simulacion sim = new Simulacion(sen, dummiest);
 		sim.correSimulacion(dummiest);
-		
+
 	}
 
 }

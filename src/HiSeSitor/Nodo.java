@@ -1,29 +1,25 @@
 package HiSeSitor;
 
-
-import java.util.ArrayList;
-
 /**
  * 
  * @author Victor
  * 
- * Habria que definir esta clase en algun momento proximo
+ *         Habria que definir esta clase en algun momento proximo
  *
  */
 public class Nodo {
-	
-	int id; /*Identificador unico para cada nodo*/
-	double score; /*Puntuacion definida por la estrategia y/o heuristica*/
+
+	int id; /* Identificador unico para cada nodo */
+	double score; /* Puntuacion definida por la estrategia y/o heuristica */
 	boolean cazador = false;
 	boolean presa = false;
 	boolean cazada = false;
-	
+
 	public Nodo(int id, double score) {
 		super();
 		this.id = id;
 		this.score = score;
 	}
-
 
 	public int getId() {
 		return id;
@@ -40,11 +36,9 @@ public class Nodo {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	
-	public String toString (){
-		return "ID: "+id+"| Score: "+score;
+
+	public String toString() {
+		return "ID: " + id + "| Score: " + score;
 	}
-	
-	
 
 }

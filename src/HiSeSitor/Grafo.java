@@ -55,9 +55,6 @@ public class Grafo {
 		}
 	}
 
-		
-	
-	
 	/**
 	 * 
 	 * @param aristas
@@ -66,9 +63,9 @@ public class Grafo {
 	 *            Nodo a insertar
 	 * @return True si se inserta correctamente. False en caso contrario
 	 */
-	/*public boolean addNode(List<Integer> aristas, Nodo n) {
-		return true;
-	}*/
+	/*
+	 * public boolean addNode(List<Integer> aristas, Nodo n) { return true; }
+	 */
 
 	public List<Nodo> getShortestPath(Nodo n1, Nodo n2) {
 		List<Nodo> lv = new ArrayList<>();
@@ -81,7 +78,7 @@ public class Grafo {
 			lv.add(n.antecesores.get(i).id);
 		}
 		lv.add(n.getId());
-		//System.out.println(lv.size());
+		// System.out.println(lv.size());
 		return lv;
 
 	}
@@ -123,10 +120,12 @@ public class Grafo {
 		return g.addEdge(arista, n1, n2);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void plotGraph() {
 		CircleLayout layout = new CircleLayout(g);
 		layout.setSize(new Dimension(300, 300));
-		BasicVisualizationServer<String, Integer> vv = new BasicVisualizationServer<String, Integer>(layout);
+		BasicVisualizationServer<String, Integer> vv = new BasicVisualizationServer<String, Integer>(
+				layout);
 		vv.setPreferredSize(new Dimension(350, 350));
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
@@ -141,7 +140,7 @@ public class Grafo {
 
 	public ArrayList<Nodo> getListaNodos() {
 		ArrayList<Nodo> aux = new ArrayList<>();
-		aux.addAll(g.getVertices()); 
+		aux.addAll(g.getVertices());
 		return aux;
 	}
 
@@ -153,9 +152,9 @@ public class Grafo {
 				break;
 			}
 		}
-		System.out.println("HAY MANITO");
+		System.out.println("PRESA CREADA");
 		auxN.presa = true;
-		
+
 	}
 
 	public Nodo getShortestPathNode(Nodo actual, Nodo objetivo) {
@@ -184,7 +183,7 @@ public class Grafo {
 		Nodo nodo = list.get(rng);
 		return setCazador(nodo);
 	}
-	
+
 	public ArrayList<Nodo> getPresas() {
 		ArrayList<Nodo> presasL = new ArrayList<>();
 		ArrayList<Nodo> list = getListaNodos();
@@ -210,91 +209,91 @@ public class Grafo {
 			if (contains(n) == false) {
 				addNode(n, sensorGraph);
 			}
-		}	
+		}
 	}
 
 	public Nodo getCazador() {
 		ArrayList<Nodo> lista = getListaNodos();
 		for (Nodo n : lista) {
-			if (n.cazador == true) return n;
+			if (n.cazador == true)
+				return n;
 		}
 		return null;
 	}
 
 	public void borraPresa(Nodo aux) {
-		aux.presa=false;
-		
+		aux.presa = false;
+
 	}
-	
-	public void generaGrafo (int x, int y){
-		
-		System.out.println("hola perraca");
-		
+
+	public void generaGrafo(int x, int y) {
+
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		int edgecount = 0;
-		int w=0;
+		int w = 0;
 		this.x = x;
 		this.y = y;
-		for(int i = 0; i < y; i++){
+		for (int i = 0; i < y; i++) {
 			tmp.add(new ArrayList<Nodo>());
-			for(int j = 0; j < x; j++){
-				tmp.get(i).add(new Nodo(w,0));
+			for (int j = 0; j < x; j++) {
+				tmp.get(i).add(new Nodo(w, 0));
 				w++;
 			}
 		}
-		
-		for(int i = 0; i < tmp.size(); i++){
-			for(int j = 0; j < tmp.get(i).size(); j++){
+
+		for (int i = 0; i < tmp.size(); i++) {
+			for (int j = 0; j < tmp.get(i).size(); j++) {
 				Nodo n = tmp.get(i).get(j);
-				//Arriba
-				if(i>0){
-					g.addEdge(edgecount, tmp.get(i-1).get(j), n);
+				// Arriba
+				if (i > 0) {
+					g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
 					edgecount++;
 				}
-				if(i<y-1){ //Abajo
-					g.addEdge(edgecount, tmp.get(i+1).get(j), n);
+				if (i < y - 1) { // Abajo
+					g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
 					edgecount++;
 				}
-				if(j<y-1){ //Derecha
-					g.addEdge(edgecount, tmp.get(i).get(j+1), n);
+				if (j < y - 1) { // Derecha
+					g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
 					edgecount++;
 				}
-				if(j>0){ //Izquierda
-					g.addEdge(edgecount, tmp.get(i).get(j-1), n);
+				if (j > 0) { // Izquierda
+					g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
 					edgecount++;
 				}
-				if(j>0 && i>0){ //Arriba izquierda
-					g.addEdge(edgecount, tmp.get(i-1).get(j-1), n);
+				if (j > 0 && i > 0) { // Arriba izquierda
+					g.addEdge(edgecount, tmp.get(i - 1).get(j - 1), n);
 					edgecount++;
 				}
-				if(j<x-1 && i>0){ //Arriba Derecha
-					g.addEdge(edgecount, tmp.get(i-1).get(j+1), n);
+				if (j < x - 1 && i > 0) { // Arriba Derecha
+					g.addEdge(edgecount, tmp.get(i - 1).get(j + 1), n);
 					edgecount++;
 				}
-				if(j>0 && i<y-1){ //Abajo izquierda
-					g.addEdge(edgecount, tmp.get(i+1).get(j-1), n);
+				if (j > 0 && i < y - 1) { // Abajo izquierda
+					g.addEdge(edgecount, tmp.get(i + 1).get(j - 1), n);
 					edgecount++;
 				}
-				if(j<x-1 && i<y-1){ //Abajo derecha
-					g.addEdge(edgecount, tmp.get(i+1).get(j+1), n);
+				if (j < x - 1 && i < y - 1) { // Abajo derecha
+					g.addEdge(edgecount, tmp.get(i + 1).get(j + 1), n);
 					edgecount++;
 				}
 			}
 			grafo = tmp;
 		}
-		
+
 	}
-	public void plotNewGraph(){
+
+	public void plotNewGraph() {
 		JFrame jf = new JFrame("Plotting new Graph");
 		jf.setSize(400, 400);
 		JPanel jp = new JPanel();
-		jp.setLayout(new BoxLayout(jp,BoxLayout.Y_AXIS));
+		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
 		jf.add(jp);
 		ArrayList<JPanel> list = new ArrayList<>();
-		for(int i = 0; i < y; i++){
+		for (int i = 0; i < y; i++) {
 			list.add(new JPanel());
-			list.get(i).add(new JLabel(i+""));
-			for(int j = 0;j <x; j++){
+			list.get(i).add(new JLabel(i + ""));
+			for (int j = 0; j < x; j++) {
 				list.get(i).add(new JButton(grafo.get(i).get(j).toString()));
 			}
 			jp.add(list.get(i));
