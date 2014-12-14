@@ -13,6 +13,15 @@ public class Estrategia {
             s.updateKnoledge();
         }
     }
+    
+    public Estrategia (ArrayList<Sensor> sen) {
+    	sensores = sen;
+    }
+    
+    public void setEstado(Estado estado) {
+    	this.estado = estado;
+    }
+    
     public ArrayList<Sensor> getSensores() {
         return sensores;
     }
@@ -38,7 +47,8 @@ public class Estrategia {
 
     }
 	public Nodo getObjetivo(){
-        ArrayList<Nodo> nodos = estado.getAdyacentes(estado.actual);
+		
+        ArrayList<Nodo> nodos = estado.getAdyacentes(estado.getActual());
         int max = 0;
         Nodo dest = null;
         for (Nodo n : nodos) {

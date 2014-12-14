@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -37,10 +38,20 @@ public class Grafo {
 	/*
 	 * Probablemente esta funci�n carezca de sentido
 	 */
-	public void addNode(Nodo n) {
-
+	public void addNode(Nodo n, Grafo ref) {
+		ArrayList<Nodo> ady = ref.getAdjacents(n);
+		g.addVertex(n);
+		for (Nodo ad : ady) {
+			if (contains(ad) == true) {
+				Integer i = g.findEdge(n, ad);
+				g.addEdge(i, n, ad);
+			}
+		}
 	}
 
+		
+	
+	
 	/**
 	 * 
 	 * @param aristas
@@ -49,9 +60,9 @@ public class Grafo {
 	 *            Nodo a insertar
 	 * @return True si se inserta correctamente. False en caso contrario
 	 */
-	public boolean addNode(List<Integer> aristas, Nodo n) {
+	/*public boolean addNode(List<Integer> aristas, Nodo n) {
 		return true;
-	}
+	}*/
 
 	public List<Nodo> getShortestPath(Nodo n1, Nodo n2) {
 		List<Nodo> lv = new ArrayList<>();
@@ -109,8 +120,7 @@ public class Grafo {
 	public void plotGraph() {
 		CircleLayout layout = new CircleLayout(g);
 		layout.setSize(new Dimension(300, 300));
-		BasicVisualizationServer<String, Integer> vv = new BasicVisualizationServer<String, Integer>(
-				layout);
+		BasicVisualizationServer<String, Integer> vv = new BasicVisualizationServer<String, Integer>(layout);
 		vv.setPreferredSize(new Dimension(350, 350));
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
@@ -124,42 +134,81 @@ public class Grafo {
 	}
 
 	public ArrayList<Nodo> getListaNodos() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Nodo> aux = new ArrayList<>();
+		aux.addAll(g.getVertices()); 
+		return aux;
 	}
 
 	public void creaPresa(Nodo auxN) {
-		// TODO Auto-generated method stub
+		auxN.presa = true;
 		
 	}
 
 	public Nodo getShortestPathNode(Nodo actual, Nodo objetivo) {
-		// TODO Auto-generated method stub
-		return null;
+		return getShortestPath(actual, objetivo).get(0);
 	}
 
 	public Nodo setCazador(Nodo nodo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Nodo> aux = getListaNodos();
+		for (Nodo n : aux) {
+			if (n.cazador == true) {
+				n.cazador = false;
+				nodo.cazador = true;
+				return nodo;
+			}
+		}
+		nodo.cazador = true;
+		return nodo;
 	}
 
+	public Nodo setCazador() {
+		Random random = new Random();
+		ArrayList<Nodo> list = getListaNodos();
+
+		int tam = list.size();
+		int rng = random.nextInt(tam);
+		Nodo nodo = list.get(rng);
+		return setCazador(nodo);
+	}
+	
 	public ArrayList<Nodo> getPresas() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Nodo> presasL = new ArrayList<>();
+		ArrayList<Nodo> list = getListaNodos();
+		for (Nodo n : list) {
+			if (n.presa == true) {
+				presasL.add(n);
+			}
+		}
+		return presasL;
 	}
 
 	public int getDistancia(Nodo actual, Nodo inicio) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getShortestPath(actual, inicio).size();
 	}
 
 	public boolean contains(Nodo n) {
-		// TODO Auto-generated method stub
-		return false;
+		return g.containsVertex(n);
 	}
 
 	public void union(Grafo sensorGraph) {
-		// TODO Auto-generated method stub
+		ArrayList<Nodo> sglist = sensorGraph.getListaNodos();
+		for (Nodo n : sglist) {
+			if (contains(n) == false) {
+				addNode(n, sensorGraph);
+			}
+		}	
+	}
+
+	public Nodo getCazador() {
+		ArrayList<Nodo> lista = getListaNodos();
+		for (Nodo n : lista) {
+			if (n.cazador == true) return n;
+		}
+		return null;
+	}
+
+	public void borraPresa(Nodo aux) {
+		aux.presa=false;
 		
 	}
 }

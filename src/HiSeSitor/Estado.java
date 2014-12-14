@@ -11,7 +11,7 @@ public class Estado {
 
 	public Grafo grafo;
 
-	public Random random;
+	public Random random = new Random();
 	public ArrayList<Nodo> hiddenNodes = new ArrayList<>();
 	public int numHN;
 	public Nodo actual;
@@ -24,7 +24,9 @@ public class Estado {
 	public Grafo memoria;
 	public Grafo mapa;
 
-	public Estado() {
+	public Estado(Estrategia estr) {
+		initGraph();
+		this.estrategia = estr;
 		initHiddenNodes();
 
 	}
@@ -49,9 +51,10 @@ public class Estado {
 	}
 
 	public void addAleatOponent(){
+	
 		int rng = random.nextInt(numHN+1);
 		Nodo auxN = hiddenNodes.get(rng);
-		grafo.creaPresa(auxN); 
+		mapa.creaPresa(auxN); 
 		presas++;
 		hiddenNodes.remove(rng);
 	}
@@ -60,6 +63,9 @@ public class Estado {
 		estrategia.update(); //recalcular subestructuras
 		Nodo objetivo = estrategia.getObjetivo(); // coger el nodo con mayor
 													// puntuación
+		if (actual == null) {
+			actual = mapa.getCazador();
+		}
 		return grafo.getShortestPathNode(actual, objetivo);
 
 	}
@@ -80,7 +86,7 @@ public class Estado {
 		for (Nodo aux : presasList) {
 			if (grafo.getDistancia(aux, inicio) > dist) { 
 				presas--;
-				grafo.creaPresa(aux); 
+				grafo.borraPresa(aux); 
 			}
 
 		}
@@ -135,7 +141,7 @@ public class Estado {
 
 	// __OTROS NO GUILLE
 	public void initGraph() {
-		this.grafo = new Grafo();
+		this.mapa = new Grafo();
 
 		ArrayList<Nodo> lista1 = new ArrayList<Nodo>();
 		ArrayList<Nodo> lista2 = new ArrayList<Nodo>();
@@ -148,22 +154,25 @@ public class Estado {
 		for(int i=0;i<nNodosY;i++){
 
 			Nodo a = new Nodo(1, 0);
+			mapa.g.addVertex(a);
 			for(int j=0;j<nNodosX;j++){
 
 				Nodo aux = new Nodo(1,0);
-
-				if (lista1.get(j)!=null)
-					this.grafo.addEdge(1, a, lista1.get(j));
-
-				if (lista1.get(j-1)!=null)
-					this.grafo.addEdge(1, a, lista1.get(j-1));
-
-				if (lista1.get(j+1)!=null)
-					this.grafo.addEdge(1, a, lista1.get(j+1));
-
-				lista2.add(aux);
-				this.grafo.addEdge(1, a, aux);
-				a = aux;
+				mapa.g.addVertex(aux);
+				if (lista1.isEmpty()==false) {
+					if (lista1.get(j)!=null)
+						mapa.addEdge(1, a, lista1.get(j));
+	
+					if (lista1.get(j-1)!=null)
+						mapa.addEdge(1, a, lista1.get(j-1));
+	
+					if (lista1.get(j+1)!=null)
+						mapa.addEdge(1, a, lista1.get(j+1));
+	
+					lista2.add(aux);
+					mapa.addEdge(1, a, aux);
+					a = aux;
+				}
 			}
 
 			lista1.clear();
@@ -171,6 +180,8 @@ public class Estado {
 			lista2.clear();
 
 		}
+		
+		mapa.setCazador();
 
 		// falta quitar las aristas que atraviesan muros
 	}
@@ -186,7 +197,7 @@ public class Estado {
 	}
 
 	public ArrayList<Nodo> getAdyacentes(Nodo n) {
-		return grafo.getAdjacents(n);
+		return mapa.getAdjacents(n);
 	}
 
 	public void updateSensores() {
@@ -198,6 +209,10 @@ public class Estado {
 			return true;
 		}
 		return false;
+	}
+
+	public Nodo getActual() {
+		return mapa.getCazador();
 	}
 
 }

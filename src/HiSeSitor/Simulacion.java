@@ -11,25 +11,32 @@ public class Simulacion {
 	public ArrayList<Sensor> sensores;
 
 
-	public Simulacion(ArrayList<Sensor> sensores) {
+	public Simulacion(ArrayList<Sensor> sensores, Estrategia estr) {
 		this.intervalo = 0;
-		this.estado = new Estado();
+		//this.estado = new Estado(estr);
 		this.sensores = sensores;
 	}
 	
 
 
-	public void correSimulacion() {
+	public void correSimulacion(Estrategia estr) {
+		Nodo nodo = null;
 		if (estado == null) {
 			int enemigos = 5; //OJO ESTA PUESTO HARDCODE
-			estado = new Estado();
+			estado = new Estado(estr);
+			for (Sensor x : estr.sensores)
+				x.setEstado(estado);
+			estr.setEstado(estado);
 			estado.initGraph();
 			addAleatOponents(enemigos);
+			
 		}
+		estado.mapa.plotGraph();
+		/*
 		while((nodo = estado.busca())!= null) {
 			estado.guardaValoresEstado();
 			estado.updateEstado(nodo);
-		}
+		}*/
 
 
 	}

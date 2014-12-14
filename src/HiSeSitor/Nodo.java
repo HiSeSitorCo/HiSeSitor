@@ -14,6 +14,9 @@ public class Nodo {
 	
 	int id; /*Identificador unico para cada nodo*/
 	double score; /*Puntuacion definida por la estrategia y/o heuristica*/
+	boolean cazador = false;
+	boolean presa = false;
+	boolean cazada = false;
 	
 	public Nodo(int id, double score) {
 		super();
