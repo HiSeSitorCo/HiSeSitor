@@ -51,7 +51,7 @@ public class Estado {
 	}
 
 	public void addAleatOponent(){
-	
+		if (hiddenNodes.size() < 1) return;
 		int rng = random.nextInt(numHN+1);
 		Nodo auxN = hiddenNodes.get(rng);
 		mapa.creaPresa(auxN); 
@@ -66,7 +66,7 @@ public class Estado {
 		if (actual == null) {
 			actual = mapa.getCazador();
 		}
-		return grafo.getShortestPathNode(actual, objetivo);
+		return mapa.getShortestPathNode(getActual(), objetivo);
 
 	}
 
@@ -77,16 +77,22 @@ public class Estado {
 	 * valor; eleccion = nodo; } }
 	 */
 
+	
+	public void initEstado() {
+		updateSensores();
+		inicio = getActual();
+	}
 	// me he ajenciado esta funcion
 	public void updateEstado(Nodo nodo) {
 
-		actual = grafo.setCazador(nodo); 
-		ArrayList<Nodo> presasList = grafo.getPresas(); 
-		int dist = grafo.getDistancia(actual, inicio); 
+		actual = mapa.setCazador(nodo); 
+		ArrayList<Nodo> presasList = mapa.getPresas(); 
+		int dist = mapa.getDistancia(actual, inicio); 
 		for (Nodo aux : presasList) {
-			if (grafo.getDistancia(aux, inicio) > dist) { 
+			if (mapa.getDistancia(aux, inicio) > dist) { 
 				presas--;
-				grafo.borraPresa(aux); 
+				mapa.borraPresa(aux); 
+				System.out.println("Se ha escapado un hijo puta, MIERDA");
 			}
 
 		}
@@ -143,7 +149,7 @@ public class Estado {
 	public void initGraph() {
 		this.mapa = new Grafo();
 
-		ArrayList<Nodo> lista1 = new ArrayList<Nodo>();
+		/*ArrayList<Nodo> lista1 = new ArrayList<Nodo>();
 		ArrayList<Nodo> lista2 = new ArrayList<Nodo>();
 
 		int[] coordenadas = this.loadMap();
@@ -179,7 +185,24 @@ public class Estado {
 			lista1 = lista2;
 			lista2.clear();
 
-		}
+		}*/
+
+
+		Nodo a,b,c,d,e;
+		a = new Nodo(10,0);
+		b = new Nodo(20,0);
+		c = new Nodo(30,0);
+		d = new Nodo(40,0);
+		e = new Nodo(50,0);
+		
+        mapa.addEdge(1, a, b);
+        mapa.addEdge(2, b, c);
+        mapa.addEdge(3, c, d);
+        mapa.addEdge(4, a, c);
+        mapa.addEdge(5, a, e);
+        mapa.addEdge(6, e, b);
+        mapa.addEdge(7, e, c);
+		
 		
 		mapa.setCazador();
 

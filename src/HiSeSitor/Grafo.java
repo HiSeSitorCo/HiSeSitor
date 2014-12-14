@@ -49,7 +49,7 @@ public class Grafo {
 		g.addVertex(n);
 		for (Nodo ad : ady) {
 			if (contains(ad) == true) {
-				Integer i = g.findEdge(n, ad);
+				Integer i = ref.g.findEdge(n, ad);
 				g.addEdge(i, n, ad);
 			}
 		}
@@ -81,7 +81,7 @@ public class Grafo {
 			lv.add(n.antecesores.get(i).id);
 		}
 		lv.add(n.getId());
-		System.out.println(lv.size());
+		//System.out.println(lv.size());
 		return lv;
 
 	}
@@ -146,6 +146,14 @@ public class Grafo {
 	}
 
 	public void creaPresa(Nodo auxN) {
+		ArrayList<Nodo> list = getListaNodos();
+		for (Nodo n : list) {
+			if (auxN.id == n.id) {
+				n.presa = true;
+				break;
+			}
+		}
+		System.out.println("HAY MANITO");
 		auxN.presa = true;
 		
 	}
