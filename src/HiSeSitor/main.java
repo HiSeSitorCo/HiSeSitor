@@ -12,7 +12,7 @@ public class main {
 		Sensor dummie = new Sensor();
 		ArrayList<Sensor> sen = new ArrayList<>();
 		sen.add(dummie);
-		Estrategia dummiest = new Estrategia(sen);
+		Estrategia dummiest = new Estrategia_espiral_test(sen);
 		Simulacion sim = new Simulacion(sen, dummiest);
 		sim.correSimulacion(dummiest);
 		

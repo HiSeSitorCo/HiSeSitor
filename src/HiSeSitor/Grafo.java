@@ -159,7 +159,7 @@ public class Grafo {
 	}
 
 	public Nodo getShortestPathNode(Nodo actual, Nodo objetivo) {
-		return getShortestPath(actual, objetivo).get(0);
+		return getShortestPath(actual, objetivo).get(1);
 	}
 
 	public Nodo setCazador(Nodo nodo) {
