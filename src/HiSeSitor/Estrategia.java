@@ -37,7 +37,7 @@ public class Estrategia {
         //Grafo memoria = estado.memoria;
         for (Sensor s : sensores) {
             for (Nodo n : s.sensorKnoledge.getListaNodos()) {
-                if (s.sensorKnoledge.getDistancia(n, estado.actual) < 2) {
+                if (s.sensorKnoledge.getDistancia(n, estado.getActual()) < 3) {
                     n.score = i;
                     i--;
                 } else {n.score = -1;}

@@ -31,16 +31,19 @@ public class Sensor {
 			if (n.presa == true) {
 				n.cazada = true;
 				n.presa = false;
+				estado.presas--;
+
+				System.out.println("Has atrapado a un cabroncete, sigue asi!");
 			}
 		}
 
 	}
 	public Grafo getSensorGraph() {
 		Grafo sensor = new Grafo();
-		ArrayList<Nodo> list = sensor.getListaNodos();
-		Nodo actual = estado.actual;
+		ArrayList<Nodo> list = estado.mapa.getListaNodos();
+		Nodo actual = estado.getActual();
 		for (Nodo n : list) {
-			if (checkNode(n, actual) == true) sensor.addNode(n, estado.mapa); //Necesario revisar por la parte de grafo
+			if (checkNode(n, estado.getActual()) == true) sensor.addNode(n, estado.mapa); //Necesario revisar por la parte de grafo
 		}
 		return sensor;
 
@@ -51,7 +54,8 @@ public class Sensor {
 	*/
 	private boolean checkNode(Nodo check, Nodo actual) {
 		//dummie
-		if (sensorKnoledge.getDistancia(check, actual) > 1) {
+		
+		if (estado.mapa.getDistancia(check, actual) > 2) {
 			return false;
 		}
 		return true;

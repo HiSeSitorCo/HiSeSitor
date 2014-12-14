@@ -29,14 +29,20 @@ public class Simulacion {
 			estr.setEstado(estado);
 			estado.initGraph();
 			addAleatOponents(enemigos);
+			estado.initEstado();
 			
 		}
-		estado.mapa.plotGraph();
-		/*
-		while((nodo = estado.busca())!= null) {
+		//estado.mapa.plotGraph();
+
+		System.out.println("Nuestro objetivo, pillar a " + estado.presas + " Malditos malnacidos");
+
+		System.out.println("A buscar!");
+		while((nodo = estado.busca())!= null && estado.presas > 0) {
+
+			System.out.println("A buscar! Quedan:" + estado.presas);
 			estado.guardaValoresEstado();
 			estado.updateEstado(nodo);
-		}*/
+		}
 
 
 	}
