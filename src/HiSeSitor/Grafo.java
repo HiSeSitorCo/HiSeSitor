@@ -227,6 +227,9 @@ public class Grafo {
 	}
 	
 	public void generaGrafo (int x, int y){
+		
+		System.out.println("hola perraca");
+		
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		int edgecount = 0;
 		this.x = x;
@@ -237,6 +240,7 @@ public class Grafo {
 				tmp.get(i).add(new Nodo(-1,0));
 			}
 		}
+		
 		for(int i = 0; i < tmp.size(); i++){
 			for(int j = 0; j < tmp.get(i).size(); j++){
 				Nodo n = tmp.get(i).get(j);

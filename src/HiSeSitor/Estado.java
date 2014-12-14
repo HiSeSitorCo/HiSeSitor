@@ -28,7 +28,6 @@ public class Estado {
 		initGraph();
 		this.estrategia = estr;
 		initHiddenNodes();
-
 	}
 
 	// __GUILLE
@@ -185,7 +184,7 @@ public class Estado {
 			lista1 = lista2;
 			lista2.clear();
 
-		}*/
+		}
 
 
 		Nodo a,b,c,d,e;
@@ -202,7 +201,16 @@ public class Estado {
         mapa.addEdge(5, a, e);
         mapa.addEdge(6, e, b);
         mapa.addEdge(7, e, c);
+		*/
 		
+		int[] coordenadas = this.loadMap();
+
+		int nNodosX = (coordenadas[0]*this.definicionMalla)/100;
+		int nNodosY = (coordenadas[1]*this.definicionMalla)/100;
+		
+		this.mapa.generaGrafo(nNodosX, nNodosY);
+		
+		this.mapa.plotGraph();
 		
 		mapa.setCazador();
 
