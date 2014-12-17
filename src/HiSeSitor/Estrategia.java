@@ -8,7 +8,7 @@ public class Estrategia {
 
 	public void updateSensores() {
 		for (Sensor s : sensores) {
-			s.updateKnoledge();
+			s.updateKnowledge();
 		}
 	}
 
@@ -34,8 +34,8 @@ public class Estrategia {
 		int i = 9;
 		// Grafo memoria = estado.memoria;
 		for (Sensor s : sensores) {
-			for (Nodo n : s.sensorKnoledge.getListaNodos()) {
-				if (s.sensorKnoledge.getDistancia(n, estado.getActual()) < 3) {
+			for (Nodo n : s.sensorKnowledge.getListaNodos()) {
+				if (s.sensorKnowledge.getDistancia(n, estado.getActual()) < 3) {
 					n.score += i;
 					i--;
 				} else {

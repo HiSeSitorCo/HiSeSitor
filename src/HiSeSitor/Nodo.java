@@ -40,5 +40,19 @@ public class Nodo {
 	public String toString() {
 		return "ID: " + id + "| Score: " + score;
 	}
+	int compareTo(Nodo n){
+		return Integer.compare(this.id,n.id);
+	}
+	@Override
+    public boolean equals(Object object)
+    {
+        boolean sameSame = false;
 
+        if (object != null && object instanceof Nodo)
+        {
+            sameSame = this.id == ((Nodo) object).id;
+        }
+
+        return sameSame;
+    }
 }

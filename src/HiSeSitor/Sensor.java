@@ -4,29 +4,29 @@ import java.util.ArrayList;
 
 public class Sensor {
 	// Funciones DUMMIE
-	public Grafo sensorKnoledge;
+	public Grafo sensorKnowledge;
 	public Estado estado;
 
 	public boolean isVisto(Nodo n) {
-		return sensorKnoledge.contains(n);
+		return sensorKnowledge.contains(n);
 	}
 
 	public Sensor(Estado est) {
-		sensorKnoledge = new Grafo();
+		sensorKnowledge = new Grafo();
 		estado = est;
 	}
 
 	public Sensor() {
-		sensorKnoledge = new Grafo();
+		sensorKnowledge = new Grafo();
 	}
 
 	public void setEstado(Estado e) {
 		estado = e;
 	}
 
-	public void updateKnoledge() {
-		sensorKnoledge.union(getSensorGraph());
-		for (Nodo n : sensorKnoledge.getListaNodos()) {
+	public void updateKnowledge() {
+		sensorKnowledge.union(getSensorGraph());
+		for (Nodo n : sensorKnowledge.getListaNodos()) {
 			if (n.presa == true) {
 				n.cazada = true;
 				n.presa = false;

@@ -17,8 +17,8 @@ public class Estrategia_espiral_test extends Estrategia {
 		visitados.add(estado.getActual());
 		// Grafo memoria = estado.memoria;
 		for (Sensor s : sensores) {
-			for (Nodo n : s.sensorKnoledge.getListaNodos()) {
-				if (s.sensorKnoledge.getDistancia(n, estado.getActual()) < 3
+			for (Nodo n : s.sensorKnowledge.getListaNodos()) {
+				if (s.sensorKnowledge.getDistancia(n, estado.getActual()) < 3
 						&& visitados.contains(n) != true) {
 					n.score += i;
 					i--;

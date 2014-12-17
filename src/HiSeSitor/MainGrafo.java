@@ -16,9 +16,13 @@ public class MainGrafo {
 		b = new Nodo(20, 0);
 		c = new Nodo(30, 0);
 		d = new Nodo(40, 0);
-		e = new Nodo(50, 0);
-
+		e = new Nodo(10, 0);
+		
 		g.addEdge(1, a, b);
+		g.plotGraph();
+		boolean la = g.contains(e);
+
+		/*g.addEdge(1, a, b);
 		g.addEdge(2, b, c);
 		g.addEdge(3, c, d);
 		g.addEdge(4, a, c);
@@ -30,7 +34,7 @@ public class MainGrafo {
 		lv.addAll(g.getShortestPath(a, d));
 		for (int i = 0; i < lv.size(); i++) {
 			System.out.println(lv.get(i).toString());
-		}
+		}*/
 		g.plotGraph();
 
 	}

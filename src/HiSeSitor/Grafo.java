@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.graph.SparseMultigraph;
+import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
@@ -117,6 +118,11 @@ public class Grafo {
 	}
 
 	public boolean addEdge(int arista, Nodo n1, Nodo n2) {
+		if(n1.equals(n2))
+			return false;
+		if(g.containsVertex(n1)&&g.containsVertex(n2)&&g.getNeighbors(n1).contains(n2)){
+			return false;
+		}
 		return g.addEdge(arista, n1, n2);
 	}
 
@@ -200,7 +206,10 @@ public class Grafo {
 	}
 
 	public boolean contains(Nodo n) {
-		return g.containsVertex(n);
+		ArrayList<Nodo> ar = new ArrayList<>();
+		ar.addAll(g.getVertices());
+		boolean b = ar.contains(n);
+		return b;
 	}
 
 	public void union(Grafo sensorGraph) {

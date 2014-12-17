@@ -194,7 +194,6 @@ public class Estado {
 		// this.mapa.plotGraph();
 
 		mapa.setCazador();
-
 		// falta quitar las aristas que atraviesan muros
 	}
 
