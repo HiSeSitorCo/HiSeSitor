@@ -8,8 +8,6 @@ import java.util.Random;
 
 public class Estado {
 
-	public Grafo grafo;
-
 	public Random random = new Random();
 	public ArrayList<Nodo> hiddenNodes = new ArrayList<>();
 	public int numHN;
@@ -70,19 +68,11 @@ public class Estado {
 
 	}
 
-	/*
-	 * codigo obsoleto private void minMax(int prof) { if (presa == 0 || prof <
-	 * 0) return; ArrayList<Nodo> moves = null; moves = getAdyacentes(); for
-	 * (Nodo nodo : moves) { aux = evaluaNodo(nodo); if (valor < aux) { aux =
-	 * valor; eleccion = nodo; } }
-	 */
-
 	public void initEstado() {
 		updateSensores();
 		inicio = getActual();
 	}
 
-	// me he ajenciado esta funcion
 	public void updateEstado(Nodo nodo) {
 
 		actual = mapa.setCazador(nodo);
@@ -147,51 +137,12 @@ public class Estado {
 	public void initGraph() {
 		this.mapa = new Grafo();
 
-		/*
-		 * ArrayList<Nodo> lista1 = new ArrayList<Nodo>(); ArrayList<Nodo>
-		 * lista2 = new ArrayList<Nodo>();
-		 * 
-		 * int[] coordenadas = this.loadMap();
-		 * 
-		 * int nNodosX = (coordenadas[0]*this.definicionMalla)/100; int nNodosY
-		 * = (coordenadas[1]*this.definicionMalla)/100;
-		 * 
-		 * for(int i=0;i<nNodosY;i++){
-		 * 
-		 * Nodo a = new Nodo(1, 0); mapa.g.addVertex(a); for(int
-		 * j=0;j<nNodosX;j++){
-		 * 
-		 * Nodo aux = new Nodo(1,0); mapa.g.addVertex(aux); if
-		 * (lista1.isEmpty()==false) { if (lista1.get(j)!=null) mapa.addEdge(1,
-		 * a, lista1.get(j));
-		 * 
-		 * if (lista1.get(j-1)!=null) mapa.addEdge(1, a, lista1.get(j-1));
-		 * 
-		 * if (lista1.get(j+1)!=null) mapa.addEdge(1, a, lista1.get(j+1));
-		 * 
-		 * lista2.add(aux); mapa.addEdge(1, a, aux); a = aux; } }
-		 * 
-		 * lista1.clear(); lista1 = lista2; lista2.clear();
-		 * 
-		 * }
-		 * 
-		 * 
-		 * Nodo a,b,c,d,e; a = new Nodo(10,0); b = new Nodo(20,0); c = new
-		 * Nodo(30,0); d = new Nodo(40,0); e = new Nodo(50,0);
-		 * 
-		 * mapa.addEdge(1, a, b); mapa.addEdge(2, b, c); mapa.addEdge(3, c, d);
-		 * mapa.addEdge(4, a, c); mapa.addEdge(5, a, e); mapa.addEdge(6, e, b);
-		 * mapa.addEdge(7, e, c);
-		 */
-
 		int[] coordenadas = this.loadMap();
 
 		int nNodosX = (coordenadas[0] * this.definicionMalla) / 100;
 		int nNodosY = (coordenadas[1] * this.definicionMalla) / 100;
 
 		this.mapa.generaGrafo(nNodosX, nNodosY);
-
-		// this.mapa.plotGraph();
 
 		mapa.setCazador();
 
