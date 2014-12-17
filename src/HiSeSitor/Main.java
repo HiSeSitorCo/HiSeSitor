@@ -14,8 +14,11 @@ public class Main {
 		ArrayList<Sensor> sen = new ArrayList<>();
 		sen.add(dummie);
 		Estrategia dummiest = new Estrategia_espiral_test(sen);
-		Simulacion sim = new Simulacion(sen, dummiest);
+		Simulacion sim = new Simulacion(5);
 		sim.correSimulacion(dummiest);
+		System.out.println("********************************FIN SIM");
+		Simulacion sim1 = new Simulacion(5);
+		sim1.correSimulacion(dummiest);
 
 	}
 
