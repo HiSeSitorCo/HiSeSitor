@@ -133,19 +133,11 @@ public class Estado {
 		return tamanoMapa;
 	}
 
-	// __OTROS NO GUILLE
 	public void initGraph() {
 		this.mapa = new Grafo();
-
-		int[] coordenadas = this.loadMap();
-
-		int nNodosX = (coordenadas[0] * this.definicionMalla) / 100;
-		int nNodosY = (coordenadas[1] * this.definicionMalla) / 100;
-
-		this.mapa.generaGrafo(nNodosX, nNodosY);
-
+		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
+		this.mapa.plotGraph();
 		mapa.setCazador();
-		// falta quitar las aristas que atraviesan muros
 	}
 
 	public void estima() {

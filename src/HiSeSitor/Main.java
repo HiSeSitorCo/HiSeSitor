@@ -17,9 +17,6 @@ public class Main {
 		Simulacion sim = new Simulacion(5);
 		sim.correSimulacion(dummiest);
 		System.out.println("********************************FIN SIM");
-		Simulacion sim1 = new Simulacion(5);
-		sim1.correSimulacion(dummiest);
-
 	}
 
 }

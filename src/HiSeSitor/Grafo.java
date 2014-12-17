@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.graph.SparseMultigraph;
-import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
@@ -118,9 +117,10 @@ public class Grafo {
 	}
 
 	public boolean addEdge(int arista, Nodo n1, Nodo n2) {
-		if(n1.equals(n2))
+		if (n1.equals(n2))
 			return false;
-		if(g.containsVertex(n1)&&g.containsVertex(n2)&&g.getNeighbors(n1).contains(n2)){
+		if (g.containsVertex(n1) && g.containsVertex(n2)
+				&& g.getNeighbors(n1).contains(n2)) {
 			return false;
 		}
 		return g.addEdge(arista, n1, n2);
@@ -235,13 +235,20 @@ public class Grafo {
 
 	}
 
-	public void generaGrafo(int x, int y) {
+	@SuppressWarnings("unused")
+	public void generaGrafo(int[] coordenadas, int def) {
 
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		int edgecount = 0;
 		int w = 0;
-		this.x = x;
-		this.y = y;
+		int a, b, c, d;
+
+		for (int i = 0; i < coordenadas.length; i++) {
+			coordenadas[i] = (coordenadas[i] * def) / 100;
+		}
+		this.x = coordenadas[0];
+		this.y = coordenadas[1];
+
 		for (int i = 0; i < y; i++) {
 			tmp.add(new ArrayList<Nodo>());
 			for (int j = 0; j < x; j++) {
@@ -253,23 +260,73 @@ public class Grafo {
 		for (int i = 0; i < tmp.size(); i++) {
 			for (int j = 0; j < tmp.get(i).size(); j++) {
 				Nodo n = tmp.get(i).get(j);
-				// Arriba
-				if (i > 0) {
-					g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
-					edgecount++;
+
+				for (int k = 2; k < coordenadas.length; k += 4) {
+					a = coordenadas[k];
+					b = coordenadas[k + 1];
+					c = coordenadas[k + 2];
+					d = coordenadas[k + 3];
+
+					if ((i == a && j == b) || (i == c && j == d)) {
+
+						if (i > 0) { // Arriba
+							if (a == c && b > d) {
+
+							} else {
+								g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
+								edgecount++;
+							}
+						}
+						if (i < y - 1) { // Abajo
+							if (a == c && b < d) {
+
+							} else {
+								g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
+								edgecount++;
+							}
+						}
+						if (j < y - 1) { // Derecha
+							if (b == d && a < c) {
+
+							} else {
+								g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
+								edgecount++;
+							}
+						}
+						if (j > 0) { // Izquierda
+							if (b == d && a > c) {
+
+							} else {
+								g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
+								edgecount++;
+							}
+						}
+						break;
+
+					} else {
+
+						// Arriba
+						if (i > 0) {
+							g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
+							edgecount++;
+						}
+						if (i < y - 1) { // Abajo
+							g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
+							edgecount++;
+						}
+						if (j < y - 1) { // Derecha
+							g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
+							edgecount++;
+						}
+						if (j > 0) { // Izquierda
+							g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
+							edgecount++;
+						}
+
+						break;
+					}
 				}
-				if (i < y - 1) { // Abajo
-					g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
-					edgecount++;
-				}
-				if (j < y - 1) { // Derecha
-					g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
-					edgecount++;
-				}
-				if (j > 0) { // Izquierda
-					g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
-					edgecount++;
-				}
+
 				if (j > 0 && i > 0) { // Arriba izquierda
 					g.addEdge(edgecount, tmp.get(i - 1).get(j - 1), n);
 					edgecount++;
