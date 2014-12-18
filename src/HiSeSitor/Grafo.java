@@ -309,37 +309,17 @@ public class Grafo {
 
 				Nodo n1 = tmp.get(a).get(b);
 
-				if (a == c) { // quitamos aristas verticales
-					while (b != d) { // controlamos aristas continuas
-						if (b > d) { // solo aristas de abajo a arriba
-							if (b > 0) {
-								Nodo n2 = tmp.get(a).get(b - 1);
-								g.removeEdge(g.findEdge(n1, n2));
-								g.removeEdge(g.findEdge(n2, n1));
-								n1 = tmp.get(a).get(b - 1);
-								b--;
-							}
-						}
-						if (b < d) { // solo aristas de arriba a abajo
-							Nodo n2 = tmp.get(a).get(b + 1);
+				if (b == d) { // quitamos aristas verticales
+					while (a != c) { // controlamos aristas continuas
+						if (a > c) { // solo aristas de abajo a arriba
+							Nodo n2 = tmp.get(a - 1).get(b);
 							g.removeEdge(g.findEdge(n1, n2));
 							g.removeEdge(g.findEdge(n2, n1));
-							n1 = tmp.get(a).get(b + 1);
-							b++;
+							n1 = tmp.get(a - 1).get(b);
+							a--;
 						}
-					}
-					if (b == d) { // quitamos aristas horizontales
-						while (a != c) { // controlamos aristas continuas
-							if (a > c) { // solo aristas de derecha a izquierda
-								Nodo n2 = tmp.get(a - 1).get(b);
-								g.removeEdge(g.findEdge(n1, n2));
-								g.removeEdge(g.findEdge(n2, n1));
-								n1 = tmp.get(a - 1).get(b);
-								a--;
-							}
-						}
-						if (a < c) { // solo aristas de izquierda a derecha
-							Nodo n2 = tmp.get(b).get(a+1);
+						if (a < c) { // solo aristas de arriba a abajo
+							Nodo n2 = tmp.get(a + 1).get(b);
 							g.removeEdge(g.findEdge(n1, n2));
 							g.removeEdge(g.findEdge(n2, n1));
 							n1 = tmp.get(a + 1).get(b);
@@ -348,10 +328,27 @@ public class Grafo {
 					}
 				}
 
+				if (a == c) { // quitamos aristas horizontales
+					while (b != d) { // controlamos aristas continuas
+						if (b > d) { // solo aristas de derecha a izquierda
+							Nodo n2 = tmp.get(a).get(b - 1);
+							g.removeEdge(g.findEdge(n1, n2));
+							g.removeEdge(g.findEdge(n2, n1));
+							n1 = tmp.get(a).get(b - 1);
+							b--;
+						}
+						if (b < d) { // solo aristas de izquierda a derecha
+							Nodo n2 = tmp.get(a).get(b + 1);
+							g.removeEdge(g.findEdge(n1, n2));
+							g.removeEdge(g.findEdge(n2, n1));
+							n1 = tmp.get(a).get(b + 1);
+							b++;
+						}
+					}
+				}
 			}
 			grafo = tmp;
 		}
-
 	}
 
 	public void plotNewGraph() {
