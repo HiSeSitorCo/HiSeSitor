@@ -235,19 +235,19 @@ public class Grafo {
 
 	}
 
-	@SuppressWarnings("unused")
 	public void generaGrafo(int[] coordenadas, int def) {
 
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		int edgecount = 0;
 		int w = 0;
+		int[] obstaculos = new int[1000];
 		int a, b, c, d;
 
 		for (int i = 0; i < coordenadas.length; i++) {
-			coordenadas[i] = (coordenadas[i] * def) / 100;
+			obstaculos[i] = (coordenadas[i] * def) / 100;
 		}
-		this.x = coordenadas[0];
-		this.y = coordenadas[1];
+		this.x = obstaculos[0];
+		this.y = obstaculos[1];
 
 		for (int i = 0; i < y; i++) {
 			tmp.add(new ArrayList<Nodo>());
@@ -261,70 +261,22 @@ public class Grafo {
 			for (int j = 0; j < tmp.get(i).size(); j++) {
 				Nodo n = tmp.get(i).get(j);
 
-				for (int k = 2; k < coordenadas.length; k += 4) {
-					a = coordenadas[k];
-					b = coordenadas[k + 1];
-					c = coordenadas[k + 2];
-					d = coordenadas[k + 3];
-
-					if ((i == a && j == b) || (i == c && j == d)) {
-
-						if (i > 0) { // Arriba
-							if (a == c && b > d) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
-								edgecount++;
-							}
-						}
-						if (i < y - 1) { // Abajo
-							if (a == c && b < d) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
-								edgecount++;
-							}
-						}
-						if (j < y - 1) { // Derecha
-							if (b == d && a < c) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
-								edgecount++;
-							}
-						}
-						if (j > 0) { // Izquierda
-							if (b == d && a > c) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
-								edgecount++;
-							}
-						}
-						break;
-
-					} else {
-
-						// Arriba
-						if (i > 0) {
-							g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
-							edgecount++;
-						}
-						if (i < y - 1) { // Abajo
-							g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
-							edgecount++;
-						}
-						if (j < y - 1) { // Derecha
-							g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
-							edgecount++;
-						}
-						if (j > 0) { // Izquierda
-							g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
-							edgecount++;
-						}
-
-						break;
-					}
+				// Arriba
+				if (i > 0) {
+					g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
+					edgecount++;
+				}
+				if (i < y - 1) { // Abajo
+					g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
+					edgecount++;
+				}
+				if (j < y - 1) { // Derecha
+					g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
+					edgecount++;
+				}
+				if (j > 0) { // Izquierda
+					g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
+					edgecount++;
 				}
 
 				if (j > 0 && i > 0) { // Arriba izquierda
@@ -343,6 +295,59 @@ public class Grafo {
 					g.addEdge(edgecount, tmp.get(i + 1).get(j + 1), n);
 					edgecount++;
 				}
+			}
+
+			// eliminamos las aristas de los muros
+			for (int k = 2; k < obstaculos.length; k += 4) {
+				a = obstaculos[k];
+				b = obstaculos[k + 1];
+				c = obstaculos[k + 2];
+				d = obstaculos[k + 3];
+
+				if (a == 0 && b == 0 && c == 0 && d == 0)
+					break;
+
+				Nodo n1 = tmp.get(a).get(b);
+
+				if (a == c) { // quitamos aristas verticales
+					while (b != d) { // controlamos aristas continuas
+						if (b > d) { // solo aristas de abajo a arriba
+							if (b > 0) {
+								Nodo n2 = tmp.get(a).get(b - 1);
+								g.removeEdge(g.findEdge(n1, n2));
+								g.removeEdge(g.findEdge(n2, n1));
+								n1 = tmp.get(a).get(b - 1);
+								b--;
+							}
+						}
+						if (b < d) { // solo aristas de arriba a abajo
+							Nodo n2 = tmp.get(a).get(b + 1);
+							g.removeEdge(g.findEdge(n1, n2));
+							g.removeEdge(g.findEdge(n2, n1));
+							n1 = tmp.get(a).get(b + 1);
+							b++;
+						}
+					}
+					if (b == d) { // quitamos aristas horizontales
+						while (a != c) { // controlamos aristas continuas
+							if (a > c) { // solo aristas de derecha a izquierda
+								Nodo n2 = tmp.get(a - 1).get(b);
+								g.removeEdge(g.findEdge(n1, n2));
+								g.removeEdge(g.findEdge(n2, n1));
+								n1 = tmp.get(a - 1).get(b);
+								a--;
+							}
+						}
+						if (a < c) { // solo aristas de izquierda a derecha
+							Nodo n2 = tmp.get(b).get(a+1);
+							g.removeEdge(g.findEdge(n1, n2));
+							g.removeEdge(g.findEdge(n2, n1));
+							n1 = tmp.get(a + 1).get(b);
+							a++;
+						}
+					}
+				}
+
 			}
 			grafo = tmp;
 		}

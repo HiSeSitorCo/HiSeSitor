@@ -118,13 +118,10 @@ public class Estado {
 			while ((linea = br.readLine()) != null) {
 				lineaTamano = linea.split(",");
 				tamanoMapa[i] = Integer.parseInt(lineaTamano[0]);
-				i++;
-				tamanoMapa[i] = Integer.parseInt(lineaTamano[1]);
-				i++;
-				tamanoMapa[i] = Integer.parseInt(lineaTamano[0]);
-				i++;
-				tamanoMapa[i] = Integer.parseInt(lineaTamano[1]);
-				i++;
+				tamanoMapa[i+1] = Integer.parseInt(lineaTamano[1]);
+				tamanoMapa[i+2] = Integer.parseInt(lineaTamano[2]);
+				tamanoMapa[i+3] = Integer.parseInt(lineaTamano[3]);
+				i+=4;
 			}
 
 		} catch (Exception e) {
