@@ -15,7 +15,7 @@ public class Estado {
 	public Estrategia estrategia;
 	public Nodo inicio;
 	public int presas = 0;
-	public int definicionMalla = 50;
+	public int definicionMalla = 100;
 
 	public Grafo memoria;
 	public Grafo mapa;
@@ -33,11 +33,15 @@ public class Estado {
 		for (Nodo n : mapa.getListaNodos()) {
 			for (Sensor s : estrategia.getSensores()) {
 				if (s.isVisto(n)) {
+					
 					visto = true;
 					break;
 				}
 			}
 			if (!visto) {
+				if(n.cazador == true)
+					continue;
+				System.out.println("No visto: "+n.toString());
 				hiddenNodes.add(n);
 			}
 			visto = false;
@@ -48,7 +52,7 @@ public class Estado {
 	public void addAleatOponent() {
 		if (hiddenNodes.size() < 1)
 			return;
-		int rng = random.nextInt(numHN + 1);
+		int rng = random.nextInt(hiddenNodes.size()-1);
 		Nodo auxN = hiddenNodes.get(rng);
 		mapa.creaPresa(auxN);
 		presas++;
@@ -133,7 +137,7 @@ public class Estado {
 	public void initGraph() {
 		this.mapa = new Grafo();
 		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
-		this.mapa.plotGraph();
+		this.mapa.plotGraph("Grafo Inicial");
 		mapa.setCazador();
 	}
 

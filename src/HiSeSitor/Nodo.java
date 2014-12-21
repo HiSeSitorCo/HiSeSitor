@@ -38,6 +38,9 @@ public class Nodo {
 	}
 
 	public String toString() {
+		if(cazador == true)
+			return "ID: " + id+"| CAZADOR";
+		else
 		return "ID: " + id + "| Score: " + score;
 	}
 	int compareTo(Nodo n){
@@ -55,4 +58,8 @@ public class Nodo {
 
         return sameSame;
     }
+	@Override
+	public int hashCode() {
+		  return id;
+		}
 }

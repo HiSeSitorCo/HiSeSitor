@@ -27,6 +27,7 @@ public class Sensor {
 	public void updateKnowledge() {
 		sensorKnowledge.union(getSensorGraph());
 		for (Nodo n : sensorKnowledge.getListaNodos()) {
+			//System.out.println(n.toString());
 			if (n.presa == true) {
 				n.cazada = true;
 				n.presa = false;

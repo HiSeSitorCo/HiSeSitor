@@ -1,5 +1,7 @@
 package HiSeSitor;
 
+import java.util.Scanner;
+
 public class Simulacion {
 
 	public Estado estado;
@@ -23,16 +25,14 @@ public class Simulacion {
 					x.setEstado(estado);
 
 				estr.setEstado(estado);
-				estado.initGraph();
+				//estado.initGraph();
 				addAleatOponents(MAX_ENEMIGOS);
 				estado.initEstado();
 			}
 
 			System.out.println("QUEDAN " + estado.presas
 					+ " PRESAS LIBRES TODAVIA");
-
 			while ((nodo = estado.busca()) != null && estado.presas > 0) {
-
 				System.out.println("ESTAS EN LA POSICION: "
 						+ estado.getActual() + "\tQUEDAN " + estado.presas
 						+ " PRESAS LIBRES TODAVIA");
