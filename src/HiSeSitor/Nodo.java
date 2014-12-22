@@ -14,6 +14,7 @@ public class Nodo {
 	boolean cazador = false;
 	boolean presa = false;
 	boolean cazada = false;
+	boolean obstaculo = false;
 
 	public Nodo(int id, double score) {
 		super();
@@ -35,6 +36,41 @@ public class Nodo {
 
 	public void setScore(double score) {
 		this.score = score;
+		
+	}
+	
+	
+
+	public boolean isCazador() {
+		return cazador;
+	}
+
+	public void setCazador(boolean cazador) {
+		this.cazador = cazador;
+	}
+
+	public boolean isPresa() {
+		return presa;
+	}
+
+	public void setPresa(boolean presa) {
+		this.presa = presa;
+	}
+
+	public boolean isCazada() {
+		return cazada;
+	}
+
+	public void setCazada(boolean cazada) {
+		this.cazada = cazada;
+	}
+
+	public boolean isObstaculo() {
+		return obstaculo;
+	}
+
+	public void setObstaculo(boolean obstaculo) {
+		this.obstaculo = obstaculo;
 	}
 
 	public String toString() {

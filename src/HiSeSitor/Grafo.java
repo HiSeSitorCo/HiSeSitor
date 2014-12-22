@@ -1,11 +1,9 @@
 package HiSeSitor;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Paint;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -18,20 +16,21 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import org.apache.commons.collections15.Transformer;
 
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
+import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.SparseMultigraph;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.PersistentLayout.Point;
 
 /**
  * 
  * @author Victor
- *
+ * 
  *         Gestion de grafos.
  * 
  *         Incluye los metodos necesarios para crear y operar con grafos.
@@ -47,8 +46,8 @@ public class Grafo {
 	static HashMap<Integer, Integer> hm;
 	static ArrayList<Nodos> nods;
 	ArrayList<ArrayList<Nodo>> grafo;
-	HashMap<Integer,Point> nodtopos;
-	HashMap<Point,Integer> postonod;
+	HashMap<Integer, Punto> nodtopos;
+	HashMap<Punto, Integer> postonod;
 
 	public Grafo() {
 		g = new SparseMultigraph<>();
@@ -67,7 +66,7 @@ public class Grafo {
 		for (Nodo ad : ady) {
 			if (contains(ad) == true) {
 				Integer i = ref.g.findEdge(n, ad);
-				g.addEdge(i, new Nodo(n.id,n.score), new Nodo(ad.id, ad.score));
+				g.addEdge(i, new Nodo(n.id, n.score), new Nodo(ad.id, ad.score));
 			}
 		}
 	}
@@ -83,26 +82,26 @@ public class Grafo {
 	/*
 	 * public boolean addNode(List<Integer> aristas, Nodo n) { return true; }
 	 */
-	
+
 	public List<Nodo> getShortestPath(Nodo n1, Nodo n2) {
 		List<Nodo> lv = new ArrayList<>();
 		int it = 1;
 		ArrayList<Nodos> abiertos = new ArrayList<>();
 		ArrayList<Nodo> tmp = new ArrayList<>();
 		tmp.addAll(g.getNeighbors(n1));
-		//System.out.println(tmp.toString());
-		if(tmp.contains(n2)){
+		// System.out.println(tmp.toString());
+		if (tmp.contains(n2)) {
 			lv.add(n2);
 			return lv;
 		}
 		tmp.addAll(g.getNeighbors(n1));
-		for(int i = 0; i < tmp.size(); i++)
-			abiertos.add(new Nodos(tmp.get(i),it,new ArrayList<Nodos>()));
-		while(true){
-			if(abiertos.isEmpty()){
+		for (int i = 0; i < tmp.size(); i++)
+			abiertos.add(new Nodos(tmp.get(i), it, new ArrayList<Nodos>()));
+		while (true) {
+			if (abiertos.isEmpty()) {
 				return lv;
 			}
-			if(abiertos.get(0).getId().equals(n2)){ /*Encontrado*/
+			if (abiertos.get(0).getId().equals(n2)) { /* Encontrado */
 				Nodos n = abiertos.get(0);
 				abiertos = abiertos.get(0).antecesores;
 				abiertos.add(n);
@@ -111,20 +110,20 @@ public class Grafo {
 			tmp.clear();
 			tmp.addAll(g.getNeighbors(abiertos.get(0).getId()));
 			it++;
-			for(int i = 0; i < tmp.size(); i++){
+			for (int i = 0; i < tmp.size(); i++) {
 				ArrayList<Nodos> l = new ArrayList<>();
 				l.addAll(abiertos.get(0).antecesores);
 				l.add(abiertos.get(0));
-				abiertos.add(new Nodos(tmp.get(i),it,l));
+				abiertos.add(new Nodos(tmp.get(i), it, l));
 			}
-			
+
 			abiertos.remove(0);
 		}
-		for(int i = 0; i < abiertos.size(); i++){
+		for (int i = 0; i < abiertos.size(); i++) {
 			lv.add(abiertos.get(i).getId());
 		}
-		
-		return lv;	
+
+		return lv;
 	}
 
 	public ArrayList<Nodo> getAdjacents(Nodo n) {
@@ -150,44 +149,60 @@ public class Grafo {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void plotGraph(String title) {
-		ISOMLayout layout = new ISOMLayout(g);
-		layout.setSize(new Dimension(600,600));
-		//layout.setSize(new Dimension(300, 300));
-		Transformer<Nodo,Paint> vertexColor = new Transformer<Nodo,Paint>() {
-	        public Paint transform(Nodo i) {
-	            if(i.cazador) return Color.PINK;
-	            else if(i.presa) return Color.RED;
-	            else if(i.cazada) return Color.GREEN;
-	            return Color.GRAY;
-	        }
-	    };
-	    Transformer<Nodo,Shape> vertexSize = new Transformer<Nodo,Shape>(){
-	        public Shape transform(Nodo i){
-	            Ellipse2D circle = new Ellipse2D.Double(-15, -15, 30, 30);
-	            // in this case, the vertex is twice as large
-	            if(i.cazador) return AffineTransform.getScaleInstance(2, 2).createTransformedShape(circle);
-	            else return circle;
-	        }
-	    };
-		BasicVisualizationServer<Nodo, Integer> vv = new BasicVisualizationServer<Nodo, Integer>(
-				layout);
-		vv.setPreferredSize(new Dimension(350, 350));
+		StaticLayout<Nodo, Integer> layout = new StaticLayout<>(g);
+		Transformer<Nodo, Paint> vertexColor = new Transformer<Nodo, Paint>() {
+			public Paint transform(Nodo i) {
+				if(i.obstaculo)
+					return Color.BLACK;
+				if (i.cazador)
+					return Color.WHITE;
+				else if (i.presa)
+					return Color.RED;
+				else if (i.cazada)
+					return Color.GREEN;
+				return Color.LIGHT_GRAY;
+			}
+		};
+		Transformer<Nodo, Shape> vertexSize = new Transformer<Nodo, Shape>() {
+			public Shape transform(Nodo i) {
+				Ellipse2D circle = new Ellipse2D.Double(-15, -15, 30, 30);
+				// in this case, the vertex is twice as large
+				if (i.cazador)
+					return AffineTransform.getScaleInstance(1, 1)
+							.createTransformedShape(circle);
+				else
+					return circle;
+			}
+		};
+		VisualizationViewer<Nodo, Integer> vv = new VisualizationViewer<Nodo, Integer>(
+				layout, new Dimension(800, 600));
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
 		vv.getRenderContext().setVertexFillPaintTransformer(vertexColor);
-        vv.getRenderContext().setVertexShapeTransformer(vertexSize);
+		vv.getRenderContext().setVertexShapeTransformer(vertexSize);
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+		// distance between the nodes
+		int distX = 100;
+		int distY = 100;
+		int operatingNode = 0;
+		//System.out.println(x + " y " + y);
+		for (int i = 0; i < y; i++) {
+			for (int j = 0; j < x; j++) {
+				layout.setLocation(new Nodo(operatingNode++, 0), i * distX, j
+						* distY);
+			}
+		}
+		GraphZoomScrollPane zoomPane = new GraphZoomScrollPane(vv);
+		DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
+		vv.setGraphMouse(graphMouse);
 
 		JFrame frame = new JFrame(title);
-		frame.setSize(800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JScrollPane js = new JScrollPane();
-		js.setViewportView(vv);
-		frame.getContentPane().add(vv);
+		frame.getContentPane().add(zoomPane);
+		frame.pack();
 		frame.setVisible(true);
 
 	}
-	
-    
+
 	public ArrayList<Nodo> getListaNodos() {
 		ArrayList<Nodo> aux = new ArrayList<>();
 		aux.addAll(g.getVertices());
@@ -198,6 +213,8 @@ public class Grafo {
 		ArrayList<Nodo> list = getListaNodos();
 		for (Nodo n : list) {
 			if (auxN.id == n.id) {
+				if(n.obstaculo==true)
+					continue;
 				System.out.println(n.toString());
 				n.presa = true;
 				break;
@@ -210,8 +227,8 @@ public class Grafo {
 
 	public Nodo getShortestPathNode(Nodo actual, Nodo objetivo) {
 		List<Nodo> nl = getShortestPath(actual, objetivo);
-		if(nl.size()==1)
-		return getShortestPath(actual, objetivo).get(0);
+		if (nl.size() == 1)
+			return getShortestPath(actual, objetivo).get(0);
 		else {
 			return getShortestPath(actual, objetivo).get(1);
 		}
@@ -227,17 +244,19 @@ public class Grafo {
 			}
 		}
 		nodo.cazador = true;
-		//System.out.println("El cazador esta en: "+nodo.toString());
+		// System.out.println("El cazador esta en: "+nodo.toString());
 		return nodo;
 	}
 
 	public Nodo setCazador() {
 		Random random = new Random();
 		ArrayList<Nodo> list = getListaNodos();
-		
+
 		int tam = list.size();
 		int rng = random.nextInt(tam);
 		Nodo nodo = list.get(rng);
+		if(nodo.isObstaculo())
+			nodo = setCazador();
 		return setCazador(nodo);
 	}
 
@@ -293,6 +312,7 @@ public class Grafo {
 		int edgecount = 0;
 		int w = 0;
 		int a, b, c, d;
+		boolean stop = false;
 
 		for (int i = 0; i < coordenadas.length; i++) {
 			coordenadas[i] = (coordenadas[i] * def) / 100;
@@ -304,88 +324,23 @@ public class Grafo {
 			tmp.add(new ArrayList<Nodo>());
 			for (int j = 0; j < x; j++) {
 				tmp.get(i).add(new Nodo(w, 0));
-				nodtopos.put(w, new Point(x,y));
-				postonod.put(new Point(x,y), w);
+				nodtopos.put(w, new Punto(j, i));
+				postonod.put(new Punto(j, i), w);
 				w++;
 			}
 		}
-
+		grafo = tmp;
+		plotNewGraph();
 		for (int i = 0; i < tmp.size(); i++) {
 			for (int j = 0; j < tmp.get(i).size(); j++) {
 				Nodo n = tmp.get(i).get(j);
 
-				for (int k = 2; k < coordenadas.length; k += 4) {
-					a = coordenadas[k];
-					b = coordenadas[k + 1];
-					c = coordenadas[k + 2];
-					d = coordenadas[k + 3];
-
-					if ((i == a && j == b) || (i == c && j == d)) {
-
-						if (i > 0) { // Arriba
-							if (a == c && b > d) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
-								edgecount++;
-							}
-						}
-						if (i < y - 1) { // Abajo
-							if (a == c && b < d) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
-								edgecount++;
-							}
-						}
-						if (j < y - 1) { // Derecha
-							if (b == d && a < c) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
-								edgecount++;
-							}
-						}
-						if (j > 0) { // Izquierda
-							if (b == d && a > c) {
-
-							} else {
-								g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
-								edgecount++;
-							}
-						}
-						break;
-
-					} else {
-
-						// Arriba
-						if (i > 0) {
-							g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
-							edgecount++;
-						}
-						if (i < y - 1) { // Abajo
-							g.addEdge(edgecount, tmp.get(i + 1).get(j), n);
-							edgecount++;
-						}
-						if (j < y - 1) { // Derecha
-							g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
-							edgecount++;
-						}
-						if (j > 0) { // Izquierda
-							g.addEdge(edgecount, tmp.get(i).get(j - 1), n);
-							edgecount++;
-						}
-
-						break;
-					}
-				}
-
-				if (j > 0 && i > 0) { // Arriba izquierda
-					g.addEdge(edgecount, tmp.get(i - 1).get(j - 1), n);
+				if (i > 0) {
+					g.addEdge(edgecount, tmp.get(i - 1).get(j), n);
 					edgecount++;
 				}
-				if (j < x - 1 && i > 0) { // Arriba Derecha
-					g.addEdge(edgecount, tmp.get(i - 1).get(j + 1), n);
+				if (j < y - 1) { // Derecha
+					g.addEdge(edgecount, tmp.get(i).get(j + 1), n);
 					edgecount++;
 				}
 				if (j > 0 && i < y - 1) { // Abajo izquierda
@@ -397,9 +352,67 @@ public class Grafo {
 					edgecount++;
 				}
 			}
-			grafo = tmp;
+
+		}
+		for (int i = 2; i < coordenadas.length; i += 4) {
+			int xini = coordenadas[i];
+			int yini = coordenadas[i + 1];
+			int xfin = coordenadas[i + 2];
+			int yfin = coordenadas[i + 3];
+			if (xini == 0 && yini == 0 && xfin == 0 && yfin == 0)
+				break;
+			if(euclideanDist(new Punto(xini,yini), new Punto(xfin,yfin)) <=1){
+				ArrayList<Integer> aris = new ArrayList<>();
+				Nodo n1 = new Nodo(postonod.get(new Punto(xini, yini)), 0);
+				Nodo n2 = new Nodo(postonod.get(new Punto(xfin, yfin)), 0);
+				aris.addAll(g.findEdgeSet(n1, n2));
+				g.removeEdge(aris.get(0));
+				continue;
+				
+			}
+			//System.out.println(xini + " " + yini + " " + xfin + " " + yfin);
+			for (int v = yini; v <= yfin; v++) {
+				if(stop == true){
+					stop = false;
+					break;
+				}
+				for (int u = xini; u <= xfin; u++) {
+					if(u == xini && v == yini || u==xfin && v==yfin){
+						continue;
+					}else {
+						Nodo n1 = new Nodo(postonod.get(new Punto(u, v)), 0);
+						ArrayList<Nodo> neig = new ArrayList<>();
+						ArrayList<Integer> aris = new ArrayList<>();
+						neig.addAll(g.getNeighbors(n1));
+						/*for (int l = 0; l < neig.size(); l++) {
+							aris.addAll(g.findEdgeSet(n1, neig.get(l)));
+							g.removeEdge(aris.get(0));
+							n1.obstaculo=true;
+							g.addVertex(n1);
+							aris.clear();
+						}*/
+						g.removeVertex(n1);
+						n1.obstaculo=true;
+						n1.score= -1;
+						g.addVertex(n1);
+
+					}
+					
+				}
+			}
+
 		}
 
+	}
+
+	public int euclideanDist(Punto p1, Punto p2) {
+		int x = (int) (p2.x - p1.x);
+		int y = (int) (p2.y - p1.y);
+		x = (int) Math.pow(x, 2);
+		y = (int) Math.pow(y, 2);
+		int res = x + y;
+		res = (int) Math.sqrt(res);
+		return res;
 	}
 
 	public void plotNewGraph() {
@@ -425,7 +438,7 @@ public class Grafo {
  * Clase auxiliar para la busqueda del camino mas corto
  * 
  * @author Victor
- *
+ * 
  */
 class Nodos {
 	Nodo id;
@@ -460,4 +473,59 @@ class Nodos {
 		return s;
 	}
 
+}
+
+class Punto {
+	int x;
+	int y;
+
+	public Punto(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	@Override
+	public int hashCode() {
+		return x * 1000 + y;
+	}
+
+	public String toString() {
+		return "[X: " + x + " e Y: " + y + "]";
+	}
+
+	int compareTo(Punto n) {
+		if (n.x == x && n.y == y)
+			return 0;
+		else
+			return 1;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		boolean sameSame = false;
+
+		if (object != null && object instanceof Punto) {
+			sameSame = this.x == ((Punto) object).x;
+			sameSame = this.y == ((Punto) object).y && sameSame;
+		}
+
+		return sameSame;
+	}
 }
