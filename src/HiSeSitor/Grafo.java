@@ -152,10 +152,12 @@ public class Grafo {
 		StaticLayout<Nodo, Integer> layout = new StaticLayout<>(g);
 		Transformer<Nodo, Paint> vertexColor = new Transformer<Nodo, Paint>() {
 			public Paint transform(Nodo i) {
-				if(i.obstaculo)
+				if (i.obstaculo)
 					return Color.BLACK;
 				if (i.cazador)
 					return Color.WHITE;
+				if (i.init)
+					return Color.PINK;
 				else if (i.presa)
 					return Color.RED;
 				else if (i.cazada)
@@ -184,7 +186,7 @@ public class Grafo {
 		int distX = 100;
 		int distY = 100;
 		int operatingNode = 0;
-		//System.out.println(x + " y " + y);
+		// System.out.println(x + " y " + y);
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
 				layout.setLocation(new Nodo(operatingNode++, 0), i * distX, j
@@ -213,7 +215,7 @@ public class Grafo {
 		ArrayList<Nodo> list = getListaNodos();
 		for (Nodo n : list) {
 			if (auxN.id == n.id) {
-				if(n.obstaculo==true)
+				if (n.obstaculo == true)
 					continue;
 				System.out.println(n.toString());
 				n.presa = true;
@@ -248,6 +250,16 @@ public class Grafo {
 		return nodo;
 	}
 
+	public void setArbolDondeCuenta(Nodo n) {
+		ArrayList<Nodo> aux = getListaNodos();
+		for (Nodo nodo : aux) {
+			if (nodo.equals(n)) {
+				nodo.init = true;
+				n.init = true;
+			}
+		}
+	}
+
 	public Nodo setCazador() {
 		Random random = new Random();
 		ArrayList<Nodo> list = getListaNodos();
@@ -255,7 +267,7 @@ public class Grafo {
 		int tam = list.size();
 		int rng = random.nextInt(tam);
 		Nodo nodo = list.get(rng);
-		if(nodo.isObstaculo())
+		if (nodo.isObstaculo())
 			nodo = setCazador();
 		return setCazador(nodo);
 	}
@@ -330,7 +342,6 @@ public class Grafo {
 			}
 		}
 		grafo = tmp;
-		plotNewGraph();
 		for (int i = 0; i < tmp.size(); i++) {
 			for (int j = 0; j < tmp.get(i).size(); j++) {
 				Nodo n = tmp.get(i).get(j);
@@ -361,43 +372,42 @@ public class Grafo {
 			int yfin = coordenadas[i + 3];
 			if (xini == 0 && yini == 0 && xfin == 0 && yfin == 0)
 				break;
-			if(euclideanDist(new Punto(xini,yini), new Punto(xfin,yfin)) <=1){
+			if (euclideanDist(new Punto(xini, yini), new Punto(xfin, yfin)) <= 1) {
 				ArrayList<Integer> aris = new ArrayList<>();
 				Nodo n1 = new Nodo(postonod.get(new Punto(xini, yini)), 0);
 				Nodo n2 = new Nodo(postonod.get(new Punto(xfin, yfin)), 0);
 				aris.addAll(g.findEdgeSet(n1, n2));
 				g.removeEdge(aris.get(0));
 				continue;
-				
+
 			}
-			//System.out.println(xini + " " + yini + " " + xfin + " " + yfin);
+			// System.out.println(xini + " " + yini + " " + xfin + " " + yfin);
 			for (int v = yini; v <= yfin; v++) {
-				if(stop == true){
+				if (stop == true) {
 					stop = false;
 					break;
 				}
 				for (int u = xini; u <= xfin; u++) {
-					if(u == xini && v == yini || u==xfin && v==yfin){
+					if (u == xini && v == yini || u == xfin && v == yfin) {
 						continue;
-					}else {
+					} else {
 						Nodo n1 = new Nodo(postonod.get(new Punto(u, v)), 0);
 						ArrayList<Nodo> neig = new ArrayList<>();
 						ArrayList<Integer> aris = new ArrayList<>();
 						neig.addAll(g.getNeighbors(n1));
-						/*for (int l = 0; l < neig.size(); l++) {
-							aris.addAll(g.findEdgeSet(n1, neig.get(l)));
-							g.removeEdge(aris.get(0));
-							n1.obstaculo=true;
-							g.addVertex(n1);
-							aris.clear();
-						}*/
+						/*
+						 * for (int l = 0; l < neig.size(); l++) {
+						 * aris.addAll(g.findEdgeSet(n1, neig.get(l)));
+						 * g.removeEdge(aris.get(0)); n1.obstaculo=true;
+						 * g.addVertex(n1); aris.clear(); }
+						 */
 						g.removeVertex(n1);
-						n1.obstaculo=true;
-						n1.score= -1;
+						n1.obstaculo = true;
+						n1.score = -1;
 						g.addVertex(n1);
 
 					}
-					
+
 				}
 			}
 

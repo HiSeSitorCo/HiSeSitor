@@ -139,6 +139,7 @@ public class Estado {
 		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
 		this.mapa.plotGraph("Grafo Inicial");
 		mapa.setCazador();
+		mapa.setArbolDondeCuenta(mapa.getCazador());
 	}
 
 	public void estima() {

@@ -15,6 +15,7 @@ public class Nodo {
 	boolean presa = false;
 	boolean cazada = false;
 	boolean obstaculo = false;
+	boolean init = false;
 
 	public Nodo(int id, double score) {
 		super();

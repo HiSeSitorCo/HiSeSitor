@@ -39,6 +39,7 @@ public class Simulacion {
 				estado.guardaValoresEstado();
 				estado.updateEstado(nodo);
 			}
+			System.out.println("Simulación terminada: "+nodo.toString()+" presas: "+estado.presas);
 		//}
 
 	}
