@@ -27,4 +27,38 @@ Prototipos nuevos:
         -dameEstrategiaOptima()
         -damePropuestaGenetica () {} //vacia por ahora
         -impresionSalida(Fichero o entrada o subestructura etc) //OPCIONAL
+        
+        
+    //PROCESO DE DATOS
+    
+    El proceso de datos lo separo en cuatro clases para que asi sea mucho mas facil buscar una simulacion o una iteracion y tambien simplificar el desarrollo de la estadistica. la unica clase con la que se debereis trabajar sera con Datos. el resto de clases internas quedan fuera de vuesta jurisdiccion.
+    
+    el funcionamiento es muy simple: le pasair a agregaDatos una cadena con el nombre de la estrategia, la iteracion y los valores concatenados y lo inserta en el array correspondiente. todos los datos se trabajaran en memoria para evitar el uso de ficheros. una vez terminado el proceso de simular, se llamara a procesaDatos para generar el fichero con los resultados. esta funcion hace todas las operaciones estadisticas para sacar una salida adecuada.
+    
+    si falta alguna funcion, cambio o fallo, hacedmelo saber
+    
+    
+    
+    
+    +Datos
+        - ArrayList DatosEstrategia
+        
+    public agregaDatos(String cadena);  // la cadena tendrá el nombre de la estrategia, la iteracion por la que va y los datos a guardar, en este caso, tres enteros: victoria, nNodos y tiempo
+    
+    public procesaDatos(); // genera un fichero de salida con el nombre de cada estrategia y escribirá los resultados de los calculos de la simulacion de las iteraciones de cada una de ellas
 
+
+    +DatosEstrategia
+        - nombreEstrategia
+        - ArrayList DatosIteracion
+
+
+    +DatosIteracion
+        - nombreIteracion
+        - ArrayList Lectura
+ 
+
+    +Lectura
+        - int victoria
+        - int nNodos //info
+        - int tiempo //nMovimientos
