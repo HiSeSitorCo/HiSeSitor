@@ -1,0 +1,30 @@
+Prototipos nuevos:
+
+    +GENERAL
+        //Poner condiciones a los printf y GUI de manera global para ocultarlos o mostrarlos
+    +Simulacion
+        -escribeDatos()
+    +Estrategia
+        -updateMemoria() //Iterar por los sensores y actualizar, siempre se borra por iteracion
+        -Calcula()
+        -Estima()
+        //Replantear update base -> recorrer sensores y ponderaciones
+        -generaEstimacion() //generar nodos estimados
+        //Implementar sistema de iteracion de variables
+
+    +Grafo
+        -agregar variables nodo //variables de entorno (norte este..) de descrubriento
+    +Sensor
+        //Operar con su grafo
+        -Actualizar variables de nodo en subestructura interna
+    +Proceso
+        -iteraEstrategias()
+        -iteraVariables()
+        -iteraGenetica() {} vacia por ahora
+        -procesaDatosEstrategia()
+        -procesaDatosSimulacion()
+        -procesaDatosFinales()
+        -dameEstrategiaOptima()
+        -damePropuestaGenetica () {} //vacia por ahora
+        -impresionSalida(Fichero o entrada o subestructura etc) //OPCIONAL
+
