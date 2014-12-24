@@ -142,12 +142,6 @@ public class Estado {
 		mapa.setArbolDondeCuenta(mapa.getCazador());
 	}
 
-	public void estima() {
-	}
-
-	public void calcula() {
-	}
-
 	public void guardaValoresEstado() {
 	}
 
