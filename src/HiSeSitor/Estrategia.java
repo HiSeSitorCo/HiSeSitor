@@ -69,11 +69,13 @@ public class Estrategia {
 
 
 	//Funcion a reimplementar
-	public void estima() {
+	public double estima(Nodo n) {
+		return -1;
 	}
 
 	//Funcion a reimplementar
-	public void calcula() {
+	public double calcula(Nodo n) {
+		return 1;
 	}
 
 
@@ -119,5 +121,12 @@ public class Estrategia {
 				memoria.dameNodoConID(n.id) += n.score*pond;
 			}
 		}
+	}
+
+	public double calculaEstima(Nodo n) {
+
+		if (memoria.isEstimacion(n)) {
+			return estima(n);
+		} return calcula(n);
 	}
 }

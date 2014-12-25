@@ -6,18 +6,25 @@ Prototipos nuevos:
         -escribeDatos()
     +Estrategia
         DONE-updateMemoria() //Iterar por los sensores y actualizar, siempre se borra por iteracion
-        DONE-Calcula()
-        DONE-Estima()
         DONE//Replantear update base -> recorrer sensores y ponderaciones
         DONE-generaEstimacion() //generar nodos estimados
         DONE-//Implementar sistema de iteracion de variables
-        -agregaSensorMemoria(sensor) //debe meter el valor ponderado por lo indicado para ese sensor en cada nodo en la memoria
-        -calculaEstima(nodo) //calcula el valor dado por esta estrategia para este nodo y lo guarda en el grafo del sensor
-        -checkSensores
-        -asignaVariables
+        DONE-agregaSensorMemoria(sensor) //debe meter el valor ponderado por lo indicado para ese sensor en cada nodo en la memoria
+        DONE-calculaEstima(nodo) //calcula el valor dado por esta estrategia para este nodo y lo guarda en el grafo del sensor
+        
+        /*Funciones a implementar por cada estrategia*/
+            DONE-Calcula()
+            DONE-Estima()
+            -checkSensores
+            -asignaVariables
+        /*****************************************************/
 
     +Grafo
-        -agregar variables nodo //variables de entorno (norte este..) de descrubriento
+        -agregar variables nodo //variables de entorno (norte este..) de 
+        descrubriento
+        -getListaAristas() //Coger los lados del grafo. 1 hay cosas -1 no hay nada
+        -creaNodoEstimacion() //agrega un nodo con flag de estimacion
+        -isEstimacion(Nodo) //Debe decir si el nodo es estimado o no
     +Sensor
         //Operar con su grafo
         -Actualizar variables de nodo en subestructura interna
