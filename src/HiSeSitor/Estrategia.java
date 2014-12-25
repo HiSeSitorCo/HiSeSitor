@@ -6,33 +6,31 @@ public class Estrategia {
 	public ArrayList<Sensor> sensores;
 	public Estado estado;
 	public Grafo memoria;
-	public ArrayList<int> ponderaciones = new ArrayList<>();
+	public ArrayList<Integer> ponderaciones = new ArrayList<>();
 
+	public Estrategia(ArrayList<Sensor> sensores, ArrayList<Integer> vars) {
 
-	public Estrategia(ArrayList<Sensor> sensores, ArrayList<int> vars) {
-
-
-		//Comprueba que tiene los sensores necesarios
+		// Comprueba que tiene los sensores necesarios
 		if (checkSensores(sensores) == -1) {
-			return null;
+			return;
 		}
 		this.sensores = sensores;
 
-		//Asigna variables iterables (iteraciones)
+		// Asigna variables iterables (iteraciones)
 		asignaVariables(vars);
 
-
 	}
 
-	//override
+	// override
 	public int checkSensores(ArrayList<Sensor> s) {
+		return 0;
 
-		//TODO: 
+		// TODO:
 	}
 
-	//override
-	public void asignaVariables(ArrayList<int> v) {
-		//TODO:
+	// override
+	public void asignaVariables(ArrayList<Integer> v) {
+		// TODO:
 	}
 
 	public void updateSensores() {
@@ -40,7 +38,6 @@ public class Estrategia {
 			s.updateKnowledge();
 		}
 	}
-
 
 	public Estrategia(ArrayList<Sensor> sen) {
 		sensores = sen;
@@ -67,33 +64,31 @@ public class Estrategia {
 		update();
 	}
 
-
-	//Funcion a reimplementar
+	// Funcion a reimplementar
 	public double estima(Nodo n) {
 		return -1;
 	}
 
-	//Funcion a reimplementar
+	// Funcion a reimplementar
 	public double calcula(Nodo n) {
 		return 1;
 	}
 
-
 	public void generaEstimacion() {
 		ArrayList<Nodo> lista = memoria.getListaNodos();
 		for (Nodo n : lista) {
-			ArrayList<int> aristas = n.getListaAristas();
+			ArrayList<Integer> aristas = n.getListaAristas();
 			for (int i : aristas)
-				if (i < 0) 
+				if (i < 0)
 					memoria.creaNodoEstimacion();
 		}
 	}
 
 	// dependera de cada estrategia
-	public void update() { 
+	public void update() {
 		// Grafo memoria = estado.memoria;
 		for (Sensor s : sensores) {
-			for (Nodo n : s.sensorKnowledge.getListaNodos()) 
+			for (Nodo n : s.sensorKnowledge.getListaNodos())
 				calculaEstima(n);
 			agregaSensorMemoria(s);
 		}
@@ -113,12 +108,11 @@ public class Estrategia {
 		return dest;
 	}
 
-
 	public void agregaSensorMemoria(Sensor sensor) {
 		double total;
 		for (int pond : ponderaciones) {
 			for (Nodo n : sensor.sensorKnowledge) {
-				memoria.dameNodoConID(n.id) += n.score*pond;
+				memoria.dameNodoConID(n.id) += n.score * pond;
 			}
 		}
 	}
@@ -127,6 +121,7 @@ public class Estrategia {
 
 		if (memoria.isEstimacion(n)) {
 			return estima(n);
-		} return calcula(n);
+		}
+		return calcula(n);
 	}
 }
