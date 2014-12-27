@@ -26,12 +26,13 @@ public class Simulacion {
 
 				estr.setEstado(estado);
 				//estado.initGraph();
-				addAleatOponents(MAX_ENEMIGOS);
+				addAleatOponents(10);
 				estado.initEstado();
 			}
 
 			System.out.println("QUEDAN " + estado.presas
 					+ " PRESAS LIBRES TODAVIA");
+			try{
 			while ((nodo = estado.busca()) != null && estado.presas > 0) {
 				System.out.println("ESTAS EN LA POSICION: "
 						+ estado.getActual() + "\tQUEDAN " + estado.presas
@@ -40,6 +41,9 @@ public class Simulacion {
 				estado.updateEstado(nodo);
 			}
 			System.out.println("Simulación terminada: "+nodo.toString()+" presas: "+estado.presas);
+			}catch (NullPointerException e){
+				System.err.println(e.getMessage());
+			}
 		//}
 
 	}

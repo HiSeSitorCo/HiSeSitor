@@ -20,11 +20,18 @@ Prototipos nuevos:
         /*****************************************************/
 
     +Grafo
-        -agregar variables nodo //variables de entorno (norte este..) de 
+        DONE -agregar variables nodo //variables de entorno (norte este..) de 
         descrubriento
-        -getListaAristas() //Coger los lados del grafo. 1 hay cosas -1 no hay nada
-        -creaNodoEstimacion() //agrega un nodo con flag de estimacion
-        -isEstimacion(Nodo) //Debe decir si el nodo es estimado o no
+        MOVIDA A NODO -DONE -getListaAristas() //Coger los lados del grafo. 1 hay cosas -1 no hay nada
+        MOVIDA A NODO -DONE -creaNodoEstimacion() //agrega un nodo con flag de estimacion
+        MOVIDA A NODO -DONE -isEstimacion(Nodo) //Debe decir si el nodo es estimado o no
+        
+        
+        Para el descubrimiento del norte,este, etc se usan las "variables" MAS, MENOS y FIN.
+        
+        CreaNodoEstimacion es llamar al setter de un nuevo nodo y establecer la flag de estimación a true.
+        isEstimacion no es otra cosa que el getter.
+        
     +Sensor
         //Operar con su grafo
         -Actualizar variables de nodo en subestructura interna
@@ -32,7 +39,7 @@ Prototipos nuevos:
         Por ejemplo, un nodo que dice que todas sus aristas son de tipo '+' no aporta mucha informaciÃ³n pues no sabe nada, pero uno que tiene una gran mayoria de aristas '-' si que lo hace
 
 
-    +Proceso
+    +Proceso CLASE CREADA
         -iteraEstrategias()
         -iteraVariables()
         -iteraGenetica() {} vacia por ahora

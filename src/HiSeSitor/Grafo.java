@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import org.apache.commons.collections15.Transformer;
 
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
+import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -66,7 +67,8 @@ public class Grafo {
 		for (Nodo ad : ady) {
 			if (contains(ad) == true) {
 				Integer i = ref.g.findEdge(n, ad);
-				g.addEdge(i, new Nodo(n.id, n.score), new Nodo(ad.id, ad.score));
+				g.addEdge(i, new Nodo(n.id, n.score, n.getPos()), new Nodo(
+						ad.id, ad.score, ad.getPos()));
 			}
 		}
 	}
@@ -189,8 +191,9 @@ public class Grafo {
 		// System.out.println(x + " y " + y);
 		for (int i = 0; i < y; i++) {
 			for (int j = 0; j < x; j++) {
-				layout.setLocation(new Nodo(operatingNode++, 0), i * distX, j
-						* distY);
+				layout.setLocation(
+						new Nodo(operatingNode++, 0, new Point(j, i)), j
+								* distX, i * distY);
 			}
 		}
 		GraphZoomScrollPane zoomPane = new GraphZoomScrollPane(vv);
@@ -284,7 +287,21 @@ public class Grafo {
 	}
 
 	public int getDistancia(Nodo actual, Nodo inicio) {
-		return getShortestPath(actual, inicio).size();
+		// return getShortestPath(actual, inicio).size();
+		int res = 99;
+		Transformer<Integer, Double> wtTransformer = new Transformer<Integer, Double>() {
+			public Double transform(Integer link) {
+				return 1.0;
+			}
+		};
+
+		DijkstraShortestPath<Nodo, Integer> alg = new DijkstraShortestPath<Nodo, Integer>(
+				g, wtTransformer);
+		Number dist = alg.getDistance(actual, inicio);
+		if (dist != null) {
+			res = dist.intValue();
+		}
+		return res;
 	}
 
 	public boolean contains(Nodo n) {
@@ -335,7 +352,7 @@ public class Grafo {
 		for (int i = 0; i < y; i++) {
 			tmp.add(new ArrayList<Nodo>());
 			for (int j = 0; j < x; j++) {
-				tmp.get(i).add(new Nodo(w, 0));
+				tmp.get(i).add(new Nodo(w, 0, new Point(j, i)));
 				nodtopos.put(w, new Punto(j, i));
 				postonod.put(new Punto(j, i), w);
 				w++;
@@ -374,8 +391,10 @@ public class Grafo {
 				break;
 			if (euclideanDist(new Punto(xini, yini), new Punto(xfin, yfin)) <= 1) {
 				ArrayList<Integer> aris = new ArrayList<>();
-				Nodo n1 = new Nodo(postonod.get(new Punto(xini, yini)), 0);
-				Nodo n2 = new Nodo(postonod.get(new Punto(xfin, yfin)), 0);
+				Nodo n1 = new Nodo(postonod.get(new Punto(xini, yini)), 0,
+						new Point(xini, yini));
+				Nodo n2 = new Nodo(postonod.get(new Punto(xfin, yfin)), 0,
+						new Point(xfin, yfin));
 				aris.addAll(g.findEdgeSet(n1, n2));
 				g.removeEdge(aris.get(0));
 				continue;
@@ -391,7 +410,8 @@ public class Grafo {
 					if (u == xini && v == yini || u == xfin && v == yfin) {
 						continue;
 					} else {
-						Nodo n1 = new Nodo(postonod.get(new Punto(u, v)), 0);
+						Nodo n1 = new Nodo(postonod.get(new Punto(u, v)), 0,
+								new Point(u, v));
 						ArrayList<Nodo> neig = new ArrayList<>();
 						ArrayList<Integer> aris = new ArrayList<>();
 						neig.addAll(g.getNeighbors(n1));
@@ -409,6 +429,58 @@ public class Grafo {
 					}
 
 				}
+			}
+
+		}
+		ArrayList<Nodo> nodes = new ArrayList<>();
+		nodes.addAll(g.getVertices());
+		ArrayList<Nodo> neig = new ArrayList<>();
+		for (int i = 0; i < nodes.size(); i++) {
+			Nodo n = nodes.get(i);
+			int x = (int) n.getPos().x;
+			int y = (int) n.getPos().y;
+			if(x == 0){
+				n.oeste = Nodo.FIN;
+				n.noroeste = Nodo.FIN;
+				n.suroeste = Nodo.FIN;
+			}
+			if(x == (this.x-1)){
+				n.este = Nodo.FIN;
+				n.noreste = Nodo.FIN;
+				n.sureste = Nodo.FIN;
+			}
+			if(y == 0){
+				n.noreste = Nodo.FIN;
+				n.noroeste = Nodo.FIN;
+				n.norte = Nodo.FIN;
+			}
+			if(y == (this.y-1)){
+				n.sureste = Nodo.FIN;
+				n.suroeste = Nodo.FIN;
+				n.sur = Nodo.FIN;
+			}
+			neig.clear();
+			neig.addAll(g.getNeighbors(n));
+			for(int j = 0; j < neig.size(); j++){
+				Nodo nei = neig.get(j);
+				int ny = (int) nei.getPos().y;
+				int nx = (int) nei.getPos().x;
+				if(x > nx && y == ny)
+					n.oeste = Nodo.MAS;
+				if(x < nx && y == ny)
+					n.este = Nodo.MAS;
+				if(x == nx && y > ny)
+					n.norte = Nodo.MAS;
+				if(x == nx && y < ny)
+					n.sur = Nodo.MAS;
+				if(x<nx && y < ny)
+					n.sureste = Nodo.MAS;
+				if(x<nx && y > ny)
+					n.noreste = Nodo.MAS;
+				if(x>nx && y < ny)
+					n.suroeste = Nodo.MAS;
+				if(x>nx && y > ny)
+					n.noroeste = Nodo.MAS;
 			}
 
 		}
