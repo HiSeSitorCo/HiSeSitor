@@ -33,6 +33,8 @@ public class Nodo {
 		this.score = score;
 		this.pos = pos;
 	}
+
+	
 	
 
 	public int getId() {

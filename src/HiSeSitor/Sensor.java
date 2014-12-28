@@ -43,6 +43,10 @@ public class Sensor {
 		Grafo sensor = new Grafo();
 		ArrayList<Nodo> list = estado.mapa.getListaNodos();
 		for (Nodo n : list) {
+			if (sensorKnowledge.contains(n)) {
+				Nodo aux = sensorKnowledge.getNode(n.id);
+				sensorKnowledge.updateNodo(aux, n);
+			}
 			if (checkNode(n, estado.getActual()) == true)
 				sensor.addNode(n, estado.mapa); // Necesario revisar por la
 												// parte de grafo

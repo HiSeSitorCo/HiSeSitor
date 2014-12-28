@@ -236,8 +236,8 @@ public class Grafo {
 			return getShortestPath(actual, objetivo).get(0);
 		else {
 			return getShortestPath(actual, objetivo).get(1);
-		}
-	}
+		
+}	}
 
 	public Nodo setCazador(Nodo nodo) {
 		ArrayList<Nodo> aux = getListaNodos();
@@ -513,6 +513,27 @@ public class Grafo {
 			jp.add(list.get(i));
 		}
 		jf.setVisible(true);
+	}
+
+	public void updateNodo(Nodo src, Nodo dst) {
+		int i = 0;
+		ArrayList<Integer> lista = dst.getListaAristas()
+		for (int ar : src.getListaAristas()) {
+			if (lista[i] < ar) lista[i] = ar;
+			i++;
+		}
+		dst.setNorte(lista[i]);i++;
+		dst.setNoreste(lista[i]);i++;
+		dst.setSureste(lista[i]);i++;
+		dst.setSur(lista[i]);i++;
+		dst.setSuroeste(lista[i]);i++;
+		dst.setOeste(lista[i]);i++;
+		dst.setNoroeste(lista[i]);i++;
+	}
+
+	public void getNode(int id) {
+
+		//TODO:
 	}
 }
 
