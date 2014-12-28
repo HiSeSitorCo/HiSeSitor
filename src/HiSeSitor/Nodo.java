@@ -212,5 +212,20 @@ public class Nodo {
 	public void setNoroeste(int noroeste) {
 		this.noroeste = noroeste;
 	}
+
+
+
+
+	public int getEste() {
+		return este;
+	}
+
+
+
+
+	public void setEste(int este) {
+		this.este = este;
+	}
+	
 	
 }

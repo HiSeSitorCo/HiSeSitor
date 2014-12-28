@@ -517,18 +517,31 @@ public class Grafo {
 
 	public void updateNodo(Nodo src, Nodo dst) {
 		int i = 0;
-		ArrayList<Integer> lista = dst.getListaAristas()
+		ArrayList<Integer> lista = dst.getListaAristas();
 		for (int ar : src.getListaAristas()) {
-			if (lista[i] < ar) lista[i] = ar;
+			if (lista.get(i) < ar){
+				lista.remove(i);
+				lista.add(i, ar);
+			}
 			i++;
 		}
-		dst.setNorte(lista[i]);i++;
-		dst.setNoreste(lista[i]);i++;
-		dst.setSureste(lista[i]);i++;
-		dst.setSur(lista[i]);i++;
-		dst.setSuroeste(lista[i]);i++;
-		dst.setOeste(lista[i]);i++;
-		dst.setNoroeste(lista[i]);i++;
+		i = 0;
+		dst.setNorte(lista.get(i));
+		i++;
+		dst.setNoreste(lista.get(i));
+		i++;
+		dst.setEste(lista.get(i));
+		i++;
+		dst.setSureste(lista.get(i));
+		i++;
+		dst.setSur(lista.get(i));
+		i++;
+		dst.setSuroeste(lista.get(i));
+		i++;
+		dst.setOeste(lista.get(i));
+		i++;
+		dst.setNoroeste(lista.get(i));
+		i++;
 	}
 
 	public void getNode(int id) {
