@@ -544,9 +544,13 @@ public class Grafo {
 		i++;
 	}
 
-	public void getNode(int id) {
-
-		//TODO:
+	public Nodo getNode(int id) {
+		ArrayList<Nodo> al = new ArrayList<>();
+		al.addAll(g.getVertices());
+		int l = al.indexOf(new Nodo(id,0,null));
+		if(l<0)
+			return null;
+		return al.get(l);
 	}
 }
 
