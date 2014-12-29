@@ -1,5 +1,7 @@
 package gestionDatos;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Datos {
@@ -80,6 +82,115 @@ public class Datos {
 	}
 
 	public void procesaDatos() {
+
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+
+		int mediaVictoria = 0;
+		int mediaNodos = 0;
+		int mediaInfo = 0;
+		int contadorVictoria = 0;
+		int contadorNodos = 0;
+		int contadorInfo = 0;
+
+		try {
+			fichero = new FileWriter("datosProcesados.txt");
+			pw = new PrintWriter(fichero);
+
+			/**
+			 * proceso de escritura - pw.println("Linea " + i);
+			 **/
+
+			for (int i = 0; i < this.getValoresEstrategias().size(); i++) {
+
+				pw.println("\n"
+						+ this.getValoresEstrategias(i).getNombreEstrategia()
+						+ ":");
+
+				for (int j = 0; j < this.getValoresEstrategias(i)
+						.getValoresIteraciones().size(); j++) {
+
+					pw.println("\n\t- "
+							+ this.getValoresEstrategias(i)
+									.getValoresIteraciones(j)
+									.getNombreIteracion() + ":");
+
+					for (int k = 0; k < this.getValoresEstrategias(i)
+							.getValoresIteraciones(j).getValoresLecturas()
+							.size(); k++) {
+
+						mediaVictoria += this.getValoresEstrategias(i)
+								.getValoresIteraciones(j).getValoresLecturas(k)
+								.getVictoria();
+						mediaNodos += this.getValoresEstrategias(i)
+								.getValoresIteraciones(j).getValoresLecturas(k)
+								.getnNodos();
+						mediaInfo += this.getValoresEstrategias(i)
+								.getValoresIteraciones(j).getValoresLecturas(k)
+								.getInformacion();
+					}
+
+					mediaVictoria = mediaVictoria
+							/ this.getValoresEstrategias(i)
+									.getValoresIteraciones(j)
+									.getValoresLecturas().size();
+					mediaNodos = mediaNodos
+							/ this.getValoresEstrategias(i)
+									.getValoresIteraciones(j)
+									.getValoresLecturas().size();
+					mediaInfo = mediaInfo
+							/ this.getValoresEstrategias(i)
+									.getValoresIteraciones(j)
+									.getValoresLecturas().size();
+
+					pw.println("\t\t- victoria media:" + mediaVictoria);
+					pw.println("\t\t- media nodos recorridos:" + mediaNodos);
+					pw.println("\t\t- informacion adicional:" + mediaInfo);
+
+					contadorVictoria += mediaVictoria;
+					contadorNodos += mediaNodos;
+					contadorInfo += mediaInfo;
+
+					mediaVictoria = 0;
+					mediaNodos = 0;
+					mediaInfo = 0;
+				}
+
+				contadorVictoria = contadorVictoria
+						/ this.getValoresEstrategias(i).getValoresIteraciones()
+								.size();
+				contadorNodos = contadorNodos
+						/ this.getValoresEstrategias(i).getValoresIteraciones()
+								.size();
+				contadorInfo = contadorInfo
+						/ this.getValoresEstrategias(i).getValoresIteraciones()
+								.size();
+
+				pw.println("\nTOTAL "
+						+ this.getValoresEstrategias(i).getNombreEstrategia()
+						+ ":");
+				pw.println("\t\t- victoria media:" + contadorVictoria);
+				pw.println("\t\t- media nodos recorridos:" + contadorNodos);
+				pw.println("\t\t- informacion adicional:" + contadorInfo);
+
+				contadorVictoria = 0;
+				contadorNodos = 0;
+				contadorInfo = 0;
+
+				pw.println("----------------------------------------------");
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != fichero)
+					fichero.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 
 	}
 
