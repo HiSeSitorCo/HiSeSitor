@@ -112,7 +112,8 @@ public class Estrategia {
 		double total;
 		for (int pond : ponderaciones) {
 			for (Nodo n : sensor.sensorKnowledge) {
-				memoria.dameNodoConID(n.id) += n.score * pond;
+				Nodo nod = memoria.getNode(n.id);
+				nod.setScore((n.score * pond)+nod.score);
 			}
 		}
 	}

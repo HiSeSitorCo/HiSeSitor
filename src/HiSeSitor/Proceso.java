@@ -3,6 +3,9 @@ package HiSeSitor;
 public class Proceso {
 	static boolean debug = false;
 	
+	public static void main (){
+		
+	}
 	private void iteraEstrategias(){
 		
 	}
