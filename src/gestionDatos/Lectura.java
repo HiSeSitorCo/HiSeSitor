@@ -2,26 +2,26 @@ package gestionDatos;
 
 public class Lectura {
 
-	private int victoria;
+	private int tiempo;
 	private int nNodos;
-	private int informacion;
+	private int capturados;
 
-	public Lectura(int victoria, int nNodos, int informacion) {
-		this.victoria = victoria;
+	public Lectura(int Tiempo, int nNodos, int Capturados) {
+		this.tiempo = Tiempo;
 		this.nNodos = nNodos;
-		this.informacion = informacion;
+		this.capturados = Capturados;
 	}
 
-	public int getVictoria() {
-		return victoria;
+	public int getTiempo() {
+		return tiempo;
 	}
 
 	public int getnNodos() {
 		return nNodos;
 	}
 
-	public int getInformacion() {
-		return informacion;
+	public int getCapturados() {
+		return capturados;
 	}
 
 }

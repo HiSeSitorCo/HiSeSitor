@@ -33,4 +33,72 @@ public class DatosEstrategia {
 		return -1;
 	}
 
+	public DatosIteracion mejorIteracion() {
+
+		DatosIteracion d = new DatosIteracion("auxiliar");
+		Lectura l = new Lectura(99, 0, 0);
+		d.getValoresLecturas().add(l);
+
+		for (int i = 0; i < this.getValoresIteraciones().size(); i++) {
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getCapturados() < this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados()) {
+
+				d = this.getValoresIteraciones(i);
+			}
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getCapturados() == this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados()) {
+
+				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+						.getTiempo() > this
+						.getValoresIteraciones(i)
+						.getValoresLecturas(
+								this.getValoresIteraciones(i)
+										.getValoresLecturas().size() - 1)
+						.getTiempo()) {
+
+					d = this.getValoresIteraciones(i);
+				}
+			}
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getCapturados() == this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados()) {
+
+				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+						.getTiempo() == this
+						.getValoresIteraciones(i)
+						.getValoresLecturas(
+								this.getValoresIteraciones(i)
+										.getValoresLecturas().size() - 1)
+						.getTiempo()) {
+
+					if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+							.getnNodos() <= this
+							.getValoresIteraciones(i)
+							.getValoresLecturas(
+									this.getValoresIteraciones(i)
+											.getValoresLecturas().size() - 1)
+							.getnNodos()) {
+
+						d = this.getValoresIteraciones(i);
+					}
+				}
+			}
+		}
+		return d;
+	}
+
 }
