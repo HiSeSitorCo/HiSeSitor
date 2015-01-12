@@ -33,15 +33,15 @@ public class Estado {
 		for (Nodo n : mapa.getListaNodos()) {
 			for (Sensor s : estrategia.getSensores()) {
 				if (s.isVisto(n)) {
-					
+
 					visto = true;
 					break;
 				}
 			}
 			if (!visto) {
-				if(n.cazador == true)
+				if (n.cazador == true)
 					continue;
-				System.out.println("No visto: "+n.toString());
+				System.out.println("No visto: " + n.toString());
 				hiddenNodes.add(n);
 			}
 			visto = false;
@@ -52,7 +52,7 @@ public class Estado {
 	public void addAleatOponent() {
 		if (hiddenNodes.size() < 1)
 			return;
-		int rng = random.nextInt(hiddenNodes.size()-1);
+		int rng = random.nextInt(hiddenNodes.size() - 1);
 		Nodo auxN = hiddenNodes.get(rng);
 		mapa.creaPresa(auxN);
 		presas++;
@@ -122,10 +122,10 @@ public class Estado {
 			while ((linea = br.readLine()) != null) {
 				lineaTamano = linea.split(",");
 				tamanoMapa[i] = Integer.parseInt(lineaTamano[0]);
-				tamanoMapa[i+1] = Integer.parseInt(lineaTamano[1]);
-				tamanoMapa[i+2] = Integer.parseInt(lineaTamano[2]);
-				tamanoMapa[i+3] = Integer.parseInt(lineaTamano[3]);
-				i+=4;
+				tamanoMapa[i + 1] = Integer.parseInt(lineaTamano[1]);
+				tamanoMapa[i + 2] = Integer.parseInt(lineaTamano[2]);
+				tamanoMapa[i + 3] = Integer.parseInt(lineaTamano[3]);
+				i += 4;
 			}
 
 		} catch (Exception e) {

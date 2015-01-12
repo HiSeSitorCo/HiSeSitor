@@ -38,14 +38,13 @@ public class Datos {
 		// si no existe ningna estrategia la creamos asi como la primera
 		// iteracion y la lectura que esta conlleva
 		if (auxEstr == -1) {
-			Lectura lectura = new Lectura(Integer.parseInt(recibido[2]),
+
+			DatosIteracion di = new DatosIteracion(recibido[1],
+					Integer.parseInt(recibido[2]),
 					Integer.parseInt(recibido[3]),
 					Integer.parseInt(recibido[4]));
-
-			DatosIteracion di = new DatosIteracion(recibido[1]);
 			DatosEstrategia de = new DatosEstrategia(recibido[0]);
 
-			di.getValoresLecturas().add(lectura);
 			de.getValoresIteraciones().add(di);
 			this.getValoresEstrategias().add(de);
 
@@ -56,26 +55,14 @@ public class Datos {
 
 			// si no existe, la creamos asi como la lectura que conlleva
 			if (auxIter == -1) {
-				Lectura lectura = new Lectura(Integer.parseInt(recibido[2]),
+
+				DatosIteracion di = new DatosIteracion(recibido[1],
+						Integer.parseInt(recibido[2]),
 						Integer.parseInt(recibido[3]),
 						Integer.parseInt(recibido[4]));
 
-				DatosIteracion di = new DatosIteracion(recibido[1]);
-
-				di.getValoresLecturas().add(lectura);
 				this.getValoresEstrategias(auxEstr).getValoresIteraciones()
 						.add(di);
-
-				// creamos la lectura y la añadimos tal cual a la iteracion
-				// existente
-			} else {
-				Lectura lectura = new Lectura(Integer.parseInt(recibido[2]),
-						Integer.parseInt(recibido[3]),
-						Integer.parseInt(recibido[4]));
-
-				this.getValoresEstrategias(auxEstr)
-						.getValoresIteraciones(auxIter).getValoresLecturas()
-						.add(lectura);
 			}
 		}
 
@@ -101,11 +88,14 @@ public class Datos {
 						+ this.getValoresEstrategias(i).mejorIteracion()
 								.getNombreIteracion());
 
-				for (Lectura l : this.getValoresEstrategias(i).mejorIteracion()
-						.getValoresLecturas()) {
-					pw.println(l.getTiempo() + "," + l.getnNodos() + ","
-							+ l.getCapturados());
-				}
+				pw.println(this.getValoresEstrategias(i).mejorIteracion()
+						.getTiempo()
+						+ ","
+						+ this.getValoresEstrategias(i).mejorIteracion()
+								.getnNodos()
+						+ ","
+						+ this.getValoresEstrategias(i).mejorIteracion()
+								.getCapturados());
 
 				pw.println("-----------------------------");
 
@@ -131,11 +121,6 @@ public class Datos {
 					.equals(estrategia))
 				break;
 		}
-
-		// for (Lectura l : this.getValoresEstrategias(i).mejorIteracion()
-		// .getValoresLecturas())
-		// System.out.println(l.getTiempo() + "," + l.getnNodos() + ","
-		// + l.getCapturados());
 
 		return this.getValoresEstrategias(i).mejorIteracion();
 	}

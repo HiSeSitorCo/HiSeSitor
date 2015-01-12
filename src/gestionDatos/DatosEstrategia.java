@@ -35,62 +35,31 @@ public class DatosEstrategia {
 
 	public DatosIteracion mejorIteracion() {
 
-		DatosIteracion d = new DatosIteracion("auxiliar");
-		Lectura l = new Lectura(99, 0, 0);
-		d.getValoresLecturas().add(l);
+		DatosIteracion d = new DatosIteracion("auxiliar", 99, 0, 0);
 
 		for (int i = 0; i < this.getValoresIteraciones().size(); i++) {
 
-			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados() < this
-					.getValoresIteraciones(i)
-					.getValoresLecturas(
-							this.getValoresIteraciones(i).getValoresLecturas()
-									.size() - 1).getCapturados()) {
+			if (d.getCapturados() < this.getValoresIteraciones(i)
+					.getCapturados()) {
 
 				d = this.getValoresIteraciones(i);
 			}
 
-			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados() == this
-					.getValoresIteraciones(i)
-					.getValoresLecturas(
-							this.getValoresIteraciones(i).getValoresLecturas()
-									.size() - 1).getCapturados()) {
+			if (d.getCapturados() == this.getValoresIteraciones(i)
+					.getCapturados()) {
 
-				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-						.getTiempo() > this
-						.getValoresIteraciones(i)
-						.getValoresLecturas(
-								this.getValoresIteraciones(i)
-										.getValoresLecturas().size() - 1)
-						.getTiempo()) {
+				if (d.getTiempo() > this.getValoresIteraciones(i).getTiempo()) {
 
 					d = this.getValoresIteraciones(i);
 				}
 			}
 
-			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados() == this
-					.getValoresIteraciones(i)
-					.getValoresLecturas(
-							this.getValoresIteraciones(i).getValoresLecturas()
-									.size() - 1).getCapturados()) {
+			if (d.getCapturados() == this.getValoresIteraciones(i)
+					.getCapturados()) {
 
-				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-						.getTiempo() == this
-						.getValoresIteraciones(i)
-						.getValoresLecturas(
-								this.getValoresIteraciones(i)
-										.getValoresLecturas().size() - 1)
-						.getTiempo()) {
+				if (d.getTiempo() == this.getValoresIteraciones(i).getTiempo()) {
 
-					if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-							.getnNodos() <= this
-							.getValoresIteraciones(i)
-							.getValoresLecturas(
-									this.getValoresIteraciones(i)
-											.getValoresLecturas().size() - 1)
+					if (d.getnNodos() <= this.getValoresIteraciones(i)
 							.getnNodos()) {
 
 						d = this.getValoresIteraciones(i);
