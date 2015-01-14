@@ -1,32 +1,33 @@
 package gestionDatos;
 
+import java.util.ArrayList;
+
 public class DatosIteracion {
 
 	private String nombreIteracion;
-	private int tiempo;
-	private int nNodos;
-	private int capturados;
+	private ArrayList<Lectura> valoresIteracion;
+	private ArrayList<Lectura> valoresLecturas;
 
-	public DatosIteracion(String nombreIteracion,int Tiempo, int nNodos, int Capturados) {
-		this.tiempo = Tiempo;
-		this.nNodos = nNodos;
-		this.capturados = Capturados;
+	public DatosIteracion(String nombreIteracion) {
 		this.nombreIteracion = nombreIteracion;
+		this.valoresIteracion = new ArrayList<Lectura>();
+		this.valoresLecturas = new ArrayList<Lectura>();
 	}
 
 	public String getNombreIteracion() {
 		return nombreIteracion;
 	}
-	
-	public int getTiempo() {
-		return tiempo;
+
+	public ArrayList<Lectura> getValores() {
+		return valoresIteracion;
 	}
 
-	public int getnNodos() {
-		return nNodos;
+	public ArrayList<Lectura> getValoresLecturas() {
+		return valoresLecturas;
 	}
 
-	public int getCapturados() {
-		return capturados;
+	public Lectura getValoresLecturas(int i) {
+		return valoresLecturas.get(i);
 	}
+
 }

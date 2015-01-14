@@ -3,6 +3,7 @@ package HiSeSitor;
 import java.util.ArrayList;
 
 public class Estrategia {
+	public String nombre;
 	public ArrayList<Sensor> sensores;
 	public Estado estado;
 	public Grafo memoria;
