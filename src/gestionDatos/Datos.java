@@ -283,4 +283,66 @@ public class Datos {
 		}
 		return d;
 	}
+
+	/**
+	 * iteracion mas optimizada de una estrategia
+	 * 
+	 * @param estrategia
+	 * @return
+	 */
+	public DatosIteracion mejorIteracionVisibles(String estrategia) {
+
+		int i;
+		for (i = 0; i < this.getValoresEstrategias().size(); i++) {
+			if (this.getValoresEstrategias(i).getNombreEstrategia()
+					.equals(estrategia))
+				break;
+		}
+		return this.getValoresEstrategias(i).masEficiente();
+	}
+
+	/**
+	 * iteracion que mas nodos ve
+	 * 
+	 * @param datos
+	 * @return
+	 */
+	public DatosIteracion mejorIteracionVisibles(ArrayList<DatosIteracion> datos) {
+
+		DatosIteracion d = new DatosIteracion("auxiliar");
+		Lectura l = new Lectura(999999, 0, 0);
+		d.getValoresLecturas().add(l);
+
+		for (int i = 0; i < datos.size(); i++) {
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getnNodos() < datos
+					.get(i)
+					.getValoresLecturas(
+							datos.get(i).getValoresLecturas().size() - 1)
+					.getnNodos()) {
+
+				d = datos.get(i);
+			}
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getnNodos() == datos
+					.get(i)
+					.getValoresLecturas(
+							datos.get(i).getValoresLecturas().size() - 1)
+					.getnNodos()) {
+
+				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+						.getCapturados() > datos
+						.get(i)
+						.getValoresLecturas(
+								datos.get(i).getValoresLecturas().size() - 1)
+						.getCapturados()) {
+
+					d = datos.get(i);
+				}
+			}
+		}
+		return d;
+	}
 }
