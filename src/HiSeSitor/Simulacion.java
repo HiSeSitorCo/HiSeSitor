@@ -1,11 +1,10 @@
 package HiSeSitor;
 
-import java.util.Scanner;
-
 public class Simulacion {
 
 	public Estado estado;
 	public int MAX_ENEMIGOS;
+	public int time;
 
 	public Simulacion(int maxEnemigos) {
 		this.MAX_ENEMIGOS = maxEnemigos;
@@ -13,13 +12,8 @@ public class Simulacion {
 
 	public void correSimulacion(Estrategia estr) {
 		Nodo nodo = null;
-
-		/*for (int enemigos = 1; enemigos < MAX_ENEMIGOS; enemigos++) {
-
-			System.out.println("*** SIMULACION CON " + enemigos
-					+ " ENEMIGOS ***");
-*/
-			if (estado == null) {
+		time = 0;
+				if (estado == null) {
 				estado = new Estado(estr);
 				for (Sensor x : estr.getSensores())
 					x.setEstado(estado);
@@ -34,6 +28,7 @@ public class Simulacion {
 					+ " PRESAS LIBRES TODAVIA");
 			try{
 			while ((nodo = estado.busca()) != null && estado.presas > 0) {
+				time++;
 				System.out.println("ESTAS EN LA POSICION: "
 						+ estado.getActual() + "\tQUEDAN " + estado.presas
 						+ " PRESAS LIBRES TODAVIA");

@@ -316,6 +316,18 @@ public class Grafo {
 		for (Nodo n : sglist) {
 			if (contains(n) == false) {
 				addNode(n, sensorGraph);
+			}else{
+				Nodo tm = this.getNode(n.id);
+				int s = tm.diffOfInfo(n);
+				if(s == 1){
+					/*No se hace nada, puesto que nuestra memoria tiene un nodo que aporta mas info*/
+				}else if(s == -1){ /*El nodo nuevo aporta más info y se copia*/
+					tm.copyNode(n);
+				}else if(s == 2){ /*Los nodos son estimaciones y los vamos a unir*/
+					tm.joinNode(n);					
+				}else{
+					//Nada
+				}
 			}
 		}
 	}

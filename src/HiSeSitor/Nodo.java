@@ -23,6 +23,7 @@ public class Nodo {
 	boolean obstaculo = false;
 	boolean init = false;
 	boolean estimacion = false;
+	int time;
 	Point pos;
 	int norte = -1, noreste = -1, este = -1, sureste = -1, sur = -1, suroeste = -1,
 			oeste = -1, noroeste = -1;
@@ -35,7 +36,13 @@ public class Nodo {
 	}
 
 	
+	public void setTiempoEstimacion(int time){
+		this.time = time;
+	}
 	
+	public int getTiempoEstimacion(){
+		return this.time;
+	}
 
 	public int getId() {
 		return id;
@@ -107,7 +114,99 @@ public class Nodo {
 
 		return sameSame;
 	}
-	
+	/**
+	 * 
+	 * @param n
+	 * @return 
+	 * 		   Devuelve 2 si ambos nodos son estimaciones y compensa unirlos.
+	 *         Devuelve 1, si el nodo que ejecuta el método aporta más información
+	 *         Devuelve 0, si los nodos son iguales.
+	 *         Devuelve -1, si el nodo que ejecuta el método aporta menos información
+	 *         Devuelve -2 en caso de error
+	 */
+	public int diffOfInfo(Nodo n){
+		if(n.id != this.id) /*Si el ID es distinto, casque*/
+			return -2;
+		if(n.isEstimacion() && this.isEstimacion()!=true){ /*Si el nodo es uno calculado, da mas informacion que una estimacion*/
+			return 1;
+		}
+		if(n.isEstimacion()==false && this.isEstimacion()){
+			return -1;
+		}
+		if(n.estimacion == this.estimacion){
+			if(n.estimacion == false){
+				if(n.time<this.time)
+					return -1;
+				else
+					return 1;
+			}if(n.estimacion == true){
+				return 2;
+			}	
+			
+		}
+		return 0;
+	}
+	public void joinNode (Nodo n){
+		if(!this.estimacion || !n.estimacion){
+			return;
+		}
+		if(n.score > this.score){
+			this.score = n.score;
+		}
+		if(n.time > this.time){
+			this.time = n.time;
+		}
+		if(this.norte*n.norte < 0)
+			this.norte = 1;
+		else
+			this.norte = 0;
+		if(this.noreste*n.noreste < 0)
+			this.noreste = 1;
+		else
+			this.noreste = 0;
+		if(this.este*n.este < 0)
+			this.este = 1;
+		else
+			this.este = 0;
+		if(this.sureste*n.sureste < 0)
+			this.sureste = 1;
+		else
+			this.sureste = 0;
+		if(this.sur*n.sur < 0)
+			this.sur = 1;
+		else
+			this.sur = 0;
+		if(this.suroeste*n.suroeste < 0)
+			this.suroeste = 1;
+		else
+			this.suroeste = 0;
+		if(this.oeste*n.oeste < 0)
+			this.oeste = 1;
+		else
+			this.oeste = 0;
+		if(this.noroeste*n.noroeste < 0)
+			this.noroeste = 1;
+		else
+			this.noroeste = 0;
+	}
+	public void copyNode (Nodo n){
+		this.id = n.id;
+		this.score = n.score;
+		this.cazador = n.cazador;
+		this.presa = n.presa;
+		this.obstaculo = n.obstaculo;
+		this.init = n.init;
+		this.estimacion = n.estimacion;
+		this.pos = n.pos;
+		this.norte = n.norte;
+		this.noreste = n.noreste;
+		this.este = n.este;
+		this.sureste = n.sureste;
+		this.suroeste = n.suroeste;
+		this.oeste = n.oeste;
+		this.noroeste = n.noroeste;
+
+	}
 	public ArrayList<Integer> getListaAristas(){
 		ArrayList<Integer> res = new ArrayList<>();
 		res.add(norte);
