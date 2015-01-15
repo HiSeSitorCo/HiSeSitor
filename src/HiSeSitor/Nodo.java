@@ -219,6 +219,16 @@ public class Nodo {
 		res.add(noroeste);
 		return res;
 	}
+	public void setListaAristas(ArrayList<Integer> s){
+		norte = s.get(0);
+		noreste = s.get(1);
+		este = s.get(2);
+		sureste = s.get(3);
+		sur = s.get(4);
+		suroeste = s.get(5);
+		oeste = s.get(6);
+		noroeste = s.get(7);
+	}
 	public boolean isEstimacion() {
 		return estimacion;
 	}
