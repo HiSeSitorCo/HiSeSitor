@@ -10,7 +10,7 @@ public class Simulacion {
 		this.MAX_ENEMIGOS = maxEnemigos;
 	}
 
-	public void correSimulacion(Estrategia estr) {
+	public int correSimulacion(Estrategia estr) {
 		Nodo nodo = null;
 		time = 0;
 				if (estado == null) {
@@ -40,6 +40,7 @@ public class Simulacion {
 				System.err.println(e.getMessage());
 			}
 		//}
+			return estado.presas;
 
 	}
 

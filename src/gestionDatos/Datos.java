@@ -129,6 +129,22 @@ public class Datos {
 	 * @param estrategia
 	 * @return
 	 */
+	public DatosIteracion mejorIteracionCapturados() {
+
+		ArrayList<DatosIteracion> array = new ArrayList<DatosIteracion>();
+
+		for (DatosEstrategia e : this.getValoresEstrategias()) {
+			array.add(this.mejorIteracionCapturados(e.getValoresIteraciones()));
+		}
+		return this.mejorIteracionCapturados(array);
+	}
+
+	/**
+	 * mejor iteracion de una estrategia
+	 * 
+	 * @param estrategia
+	 * @return
+	 */
 	public DatosIteracion mejorIteracionCapturados(String estrategia) {
 
 		int i;
@@ -218,6 +234,22 @@ public class Datos {
 	 * @param estrategia
 	 * @return
 	 */
+	public DatosIteracion mejorIteracionOptimizada() {
+
+		ArrayList<DatosIteracion> array = new ArrayList<DatosIteracion>();
+
+		for (DatosEstrategia e : this.getValoresEstrategias()) {
+			array.add(this.mejorIteracionOptimizada(e.getValoresIteraciones()));
+		}
+		return this.mejorIteracionOptimizada(array);
+	}
+
+	/**
+	 * iteracion mas optimizada de una estrategia
+	 * 
+	 * @param estrategia
+	 * @return
+	 */
 	public DatosIteracion mejorIteracionOptimizada(String estrategia) {
 
 		int i;
@@ -282,6 +314,22 @@ public class Datos {
 			}
 		}
 		return d;
+	}
+
+	/**
+	 * iteracion mas optimizada de una estrategia
+	 * 
+	 * @param estrategia
+	 * @return
+	 */
+	public DatosIteracion mejorIteracionVisibles() {
+
+		ArrayList<DatosIteracion> array = new ArrayList<DatosIteracion>();
+
+		for (DatosEstrategia e : this.getValoresEstrategias()) {
+			array.add(this.mejorIteracionVisibles(e.getValoresIteraciones()));
+		}
+		return this.mejorIteracionVisibles(array);
 	}
 
 	/**
