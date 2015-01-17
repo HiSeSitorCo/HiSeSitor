@@ -105,7 +105,7 @@ public class Nodo {
 		if (cazador == true)
 			return pos.x+"-"+pos.y+"--ID: " + id + "| CAZADOR";
 		else
-			return norte+""+noreste+""+este+""+sureste+sur+suroeste+oeste+noroeste+"ss"+pos.x+"-"+pos.y+"--ID: " + id + "| Score: " + score;
+			return norte+""+noreste+""+este+""+sureste+sur+suroeste+oeste+noroeste+"|"+estimacion+"|"+pos.x+"-"+pos.y+"--ID: " + id + "| Score: " + score;
 	}
 
 	int compareTo(Nodo n) {

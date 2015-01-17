@@ -3,7 +3,7 @@ package HiSeSitor;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Estrategia {
+public abstract class Estrategia {
 	public String nombre;
 	public ArrayList<Sensor> sensores;
 	public Estado estado;
@@ -79,6 +79,7 @@ public class Estrategia {
 		if (memoria == null) {
 			memoria = new Grafo();
 			memoria.InitSensorGraph(estado.mapa);
+			//memoria.plotGraph("Memoria");
 		}
 		for (Sensor s : sensores) {
 			agregaSensorMemoria(s);
@@ -88,14 +89,10 @@ public class Estrategia {
 	}
 
 	// Funcion a reimplementar
-	public double estima(Nodo n) {
-		return -1;
-	}
+	public abstract double estima(Nodo n);
 
 	// Funcion a reimplementar
-	public double calcula(Nodo n) {
-		return 1;
-	}
+	public abstract double calcula(Nodo n);
 
 	public void generaEstimacion() {
 		ArrayList<Nodo> lista = memoria.getListaNodos();

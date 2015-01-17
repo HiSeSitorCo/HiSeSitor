@@ -230,7 +230,6 @@ public class Grafo {
 		int posicion = al.indexOf(new Nodo(s, 0, new Point(x, y)));
 		if (posicion == -1)
 			return null;
-
 		return al.get(posicion);
 	}
 
@@ -509,20 +508,22 @@ public class Grafo {
 			Nodo n = nodes.get(i);
 			int x = (int) n.getPos().x;
 			int y = (int) n.getPos().y;
+
 			if (x == 0) {
-				n.oeste = Nodo.FIN;
-				n.noroeste = Nodo.FIN;
-				n.suroeste = Nodo.FIN;
+				n.oeste = Nodo.MENOS;
+				n.noroeste = Nodo.MENOS;
+				n.suroeste = Nodo.MENOS;
 			}
 			if (x == (this.x - 1)) {
-				n.este = Nodo.FIN;
-				n.noreste = Nodo.FIN;
-				n.sureste = Nodo.FIN;
+				n.este = Nodo.MENOS;
+				n.noreste = Nodo.MENOS;
+				n.sureste = Nodo.MENOS;
 			}
 			if (y == 0) {
-				n.noreste = Nodo.FIN;
-				n.noroeste = Nodo.FIN;
-				n.norte = Nodo.FIN;
+				n.noreste = Nodo.MENOS;
+				n.noroeste = Nodo.MENOS;
+				n.norte = Nodo.MENOS;
+
 			}
 			if (y == (this.y - 1)) {
 				n.sureste = Nodo.FIN;
@@ -628,9 +629,11 @@ public class Grafo {
 	}
 
 	public void creaNodoEstimacion(int time, int x, int y, Grafo m) {
+
 		int id = postonod.get(new Punto(x, y));
 		Nodo n = new Nodo(id, 0, new Point(x, y));
 		n.isEstimacion();
+
 		addNode(n, m);
 	}
 

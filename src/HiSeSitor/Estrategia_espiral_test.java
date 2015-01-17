@@ -33,4 +33,16 @@ public class Estrategia_espiral_test extends Estrategia {
 
 	}
 
+	@Override
+	public double estima(Nodo n) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double calcula(Nodo n) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
