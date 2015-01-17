@@ -340,6 +340,9 @@ public class Grafo {
 				addNode(n, sensorGraph);
 			}else{
 				Nodo tm = this.getNode(n.id);
+				if(tm.score == -1){
+					tm.copyNode(n);
+				}
 				int s = tm.diffOfInfo(n);
 				if(s == 1){
 					/*No se hace nada, puesto que nuestra memoria tiene un nodo que aporta mas info*/
@@ -368,6 +371,24 @@ public class Grafo {
 	public void borraPresa(Nodo aux) {
 		aux.presa = false;
 
+	}
+	public void InitSensorGraph (Grafo s){
+		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
+		int w = 0;
+		int edgecount = 0;
+		x = s.x;
+		y = s.y;
+		for (int i = 0; i < s.y; i++) {
+			tmp.add(new ArrayList<Nodo>());
+			for (int j = 0; j < s.x; j++) {
+				tmp.get(i).add(new Nodo(w, -1, new Point(j, i)));
+				nodtopos.put(w, new Punto(j, i));
+				postonod.put(new Punto(j, i), w);
+				w++;
+			}
+		}
+
+		plotGraph("Holis");
 	}
 
 	@SuppressWarnings("unused")
@@ -593,8 +614,16 @@ public class Grafo {
 		return n.isEstimacion();
 	}
 	
-	public void creaNodoEstimacion(int time) {
-		//TODO:
+	public void creaNodoEstimacion(int time, int x, int y, Grafo m) {
+		int id = postonod.get(new Punto(x,y));
+		Nodo n = new Nodo(id,0,new Point(x,y));
+		n.isEstimacion();
+		addNode(n, m);
+	}
+	public void creaNodoEstimacion(int time, double x, double y, Grafo m){
+		int ix = (int)x;
+		int iy = (int)y;
+		creaNodoEstimacion(time,ix,iy, m);
 	}
 }
 
