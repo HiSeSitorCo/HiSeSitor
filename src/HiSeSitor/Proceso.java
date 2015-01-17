@@ -44,11 +44,12 @@ public class Proceso {
 
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);
+//ESTO HAY QUE TOCARLO
+			mejorCapturados = dato.mejorIteracionCapturados();
+			mejorOptimizado = dato.mejorIteracionOptimizada();
+			masVisibles = dato.mejorIteracionVisibles();
 		}
 
-		mejorCapturados = dato.mejorIteracionCapturados();
-		mejorOptimizado = dato.mejorIteracionOptimizada();
-		masVisibles = dato.mejorIteracionVisibles();
 	}
 
 	
