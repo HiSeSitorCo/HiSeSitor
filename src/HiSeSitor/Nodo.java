@@ -23,6 +23,7 @@ public class Nodo {
 	boolean obstaculo = false;
 	boolean init = false;
 	boolean estimacion = false;
+	double ganancia;
 	int time;
 	Point pos;
 	int norte = -1, noreste = -1, este = -1, sureste = -1, sur = -1, suroeste = -1,
@@ -195,6 +196,7 @@ public class Nodo {
 		this.suroeste = n.suroeste;
 		this.oeste = n.oeste;
 		this.noroeste = n.noroeste;
+		this.ganancia = n.ganancia;
 
 	}
 	/**
@@ -332,6 +334,22 @@ public class Nodo {
 
 	public void setEste(int este) {
 		this.este = este;
+	}
+
+	public double getGanancia() {
+		return ganancia;
+	}
+
+	public void setGanancia(double ganancia) {
+		this.ganancia = ganancia;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 	
 	
