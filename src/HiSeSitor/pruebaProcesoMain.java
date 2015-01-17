@@ -1,5 +1,7 @@
 package HiSeSitor;
 
+import gestionDatos.Lectura;
+
 import java.util.ArrayList;
 
 public class pruebaProcesoMain {
@@ -24,6 +26,23 @@ public class pruebaProcesoMain {
 		
 		p.iteraEstrategias(es,exp);
 		
+		System.out.println("-----------------------------");
+		System.out.println("-----------------------------\n");
+		System.out.println(p.mejorCapturados.getNombreIteracion());
+		for(Lectura l : p.mejorCapturados.getValoresLecturas()){
+			System.out.println(l.getTiempo() + "," + l.getnNodos() + ","+ l.getCapturados());
+		}
+		System.out.println("-----------------------------");
+		System.out.println(p.mejorOptimizado.getNombreIteracion());
+		for(Lectura l : p.mejorOptimizado.getValoresLecturas()){
+			System.out.println(l.getTiempo() + "," + l.getnNodos() + ","+ l.getCapturados());
+		}
+		System.out.println("-----------------------------");
+		System.out.println(p.masVisibles.getNombreIteracion());
+		for(Lectura l : p.masVisibles.getValoresLecturas()){
+			System.out.println(l.getTiempo() + "," + l.getnNodos() + ","+ l.getCapturados());
+		}
+		System.out.println("-----------------------------");
 		System.out.println("finiquitaoh");
 		
 		
