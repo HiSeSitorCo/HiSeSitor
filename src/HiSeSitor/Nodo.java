@@ -23,6 +23,8 @@ public class Nodo {
 	boolean obstaculo = false;
 	boolean init = false;
 	boolean estimacion = false;
+	int descubrimiento = -1; //corresponde a time
+	
 	Point pos;
 	int norte = -1, noreste = -1, este = -1, sureste = -1, sur = -1, suroeste = -1,
 			oeste = -1, noroeste = -1;
@@ -34,7 +36,6 @@ public class Nodo {
 		this.pos = pos;
 	}
 
-	
 	
 
 	public int getId() {

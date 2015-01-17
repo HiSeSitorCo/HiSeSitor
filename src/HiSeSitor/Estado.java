@@ -16,6 +16,7 @@ public class Estado {
 	public Nodo inicio;
 	public int presas = 0;
 	public int definicionMalla = 100;
+	public int time = 0;
 
 	public Grafo memoria;
 	public Grafo mapa;
@@ -90,6 +91,7 @@ public class Estado {
 			}
 		}
 		updateSensores();
+		time++;
 	}
 
 	public boolean isCalcula(Sensor x, Estrategia s, Nodo n) {

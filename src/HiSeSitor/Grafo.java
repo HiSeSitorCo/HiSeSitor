@@ -55,9 +55,25 @@ public class Grafo {
 		nodtopos = new HashMap<>();
 		postonod = new HashMap<>();
 	}
+	
+	
+	//COMPLETAR
+	public void addNode(Nodo n, Grafo ref, int time) {
+		ArrayList<Nodo> ady = ref.getAdjacents(n);
+		g.addVertex(n);
+		nodtopos.put(n.getId(), ref.nodtopos.get(n.getId()));
+		postonod.put(ref.nodtopos.get(n.getId()), n.getId());
+		for (Nodo ad : ady) {
+			if (contains(ad) == true) {
+				Integer i = ref.g.findEdge(n, ad);
+				g.addEdge(i, new Nodo(n.id, n.score, n.getPos()), new Nodo(
+						ad.id, ad.score, ad.getPos()));
+			}
+		}
+	}
 
 	/*
-	 * Probablemente esta funci�n carezca de sentido
+	 * Probablemente esta funcin carezca de sentido
 	 */
 	public void addNode(Nodo n, Grafo ref) {
 		ArrayList<Nodo> ady = ref.getAdjacents(n);
@@ -431,7 +447,7 @@ public class Grafo {
 				}
 			}
 
-		}
+		}addNode
 		ArrayList<Nodo> nodes = new ArrayList<>();
 		nodes.addAll(g.getVertices());
 		ArrayList<Nodo> neig = new ArrayList<>();
@@ -551,6 +567,16 @@ public class Grafo {
 		if(l<0)
 			return null;
 		return al.get(l);
+	}
+
+
+	public boolean isEstimacion(Nodo n) {
+		return n.isEstimacion();
+	}
+	
+	public void creaNodoEstimacion(int time) {
+		//TODO:
+	
 	}
 }
 

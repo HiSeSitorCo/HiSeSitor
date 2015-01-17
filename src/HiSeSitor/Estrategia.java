@@ -57,11 +57,11 @@ public class Estrategia {
 	}
 
 	public void updateMemoria() {
+		update();
 		for (Sensor s : sensores) {
 			memoria.union(s.getKnowledge());
 		}
 		generaEstimacion();
-		update();
 	}
 
 	// Funcion a reimplementar
@@ -80,7 +80,7 @@ public class Estrategia {
 			ArrayList<Integer> aristas = n.getListaAristas();
 			for (int i : aristas)
 				if (i < 0)
-					memoria.creaNodoEstimacion();
+					memoria.creaNodoEstimacion(time);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class Estrategia {
 	public void agregaSensorMemoria(Sensor sensor) {
 		double total;
 		for (int pond : ponderaciones) {
-			for (Nodo n : sensor.sensorKnowledge) {
+			for (Nodo n : sensor.sensorKnowledge.getListaNodos()) {
 				Nodo nod = memoria.getNode(n.id);
 				nod.setScore((n.score * pond)+nod.score);
 			}

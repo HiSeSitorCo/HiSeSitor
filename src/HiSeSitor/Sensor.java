@@ -67,4 +67,9 @@ public class Sensor {
 		return true;
 	}
 
+	public Grafo getKnowledge() {
+		
+		return sensorKnowledge;
+	}
+
 }

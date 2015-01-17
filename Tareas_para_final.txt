@@ -1,0 +1,4 @@
++Actualizar la funcion de grafo : Union (debe actualizar los laterales poniendo prioridad a los topes sobre los NO conocimiento, y priorizar estimacion = false sobre true) 
+Por supuesto, si hya union de datos se debe actualizar el "descubrimiento" al más alto, pero en caso de no haber cambios SOBRE el más pequeo (antiguo) se debe de conservar el descubrimiento menor
++Completar la nueva versión de la funcion : "AddNode", con la componenete de time 
++Hacer funcion "creaNodoEstimacion(int time)" que cree un nodo de tipo estimacion con descubirmiento time
