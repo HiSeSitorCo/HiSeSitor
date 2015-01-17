@@ -82,8 +82,12 @@ public class Grafo {
 		for (Nodo ad : ady) {
 			if (contains(ad) == true) {
 				Integer i = ref.g.findEdge(n, ad);
+				try{
 				g.addEdge(i, new Nodo(n.id, n.score, n.getPos()), new Nodo(
 						ad.id, ad.score, ad.getPos()));
+				}catch(Exception e){
+					
+				}
 			}
 		}
 	}
@@ -179,6 +183,8 @@ public class Grafo {
 					return Color.RED;
 				else if (i.cazada)
 					return Color.GREEN;
+				else if (i.isEstimacion())
+					return Color.PINK;
 				return Color.LIGHT_GRAY;
 			}
 		};
@@ -224,9 +230,16 @@ public class Grafo {
 	}
 
 	public Nodo getNodo(int x, int y) {
+		if(x < 1 || y < 1)
+			return null;
 		ArrayList<Nodo> al = new ArrayList<>();
 		al.addAll(g.getVertices());
-		int s = postonod.get(new Punto(x, y));
+		int s = -1;
+		try{
+		s = postonod.get(new Punto(x, y));
+		}catch (NullPointerException e){
+			Logger.error("ERROR Grafo getNodo(int,int) - No se pudo acceder al punto "+x+" e "+y);
+		}
 		int posicion = al.indexOf(new Nodo(s, 0, new Point(x, y)));
 		if (posicion == -1)
 			return null;
@@ -629,10 +642,11 @@ public class Grafo {
 	}
 
 	public void creaNodoEstimacion(int time, int x, int y, Grafo m) {
-
+		if(x < 0 || y < 0)
+			return;
 		int id = postonod.get(new Punto(x, y));
 		Nodo n = new Nodo(id, 0, new Point(x, y));
-		n.isEstimacion();
+		n.setEstimacion(true);
 
 		addNode(n, m);
 	}
