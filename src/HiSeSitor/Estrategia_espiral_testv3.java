@@ -56,7 +56,7 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 			itPasado = 1;
 		}
 
-		while (espiralAux != 0) {
+		while (espiralAux > 0) {
 			Nodo bus;
 			if (j-- == 0) {
 				j = 2;
