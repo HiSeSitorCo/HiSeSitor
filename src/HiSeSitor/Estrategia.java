@@ -133,7 +133,7 @@ public class Estrategia {
 						break;
 				}
 				cont++;
-				if (i != 0){
+				if (i == 1 && memoria.getNodo(x+xAux, y+yAux) == null){
 					memoria.creaNodoEstimacion(estado.time,x+xAux,y+yAux,estado.mapa); //habla con vitcot
 				}
  

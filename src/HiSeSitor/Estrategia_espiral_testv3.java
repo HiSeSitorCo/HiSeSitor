@@ -3,17 +3,21 @@ package HiSeSitor;
 import java.awt.geom.Arc2D.Double;
 import java.util.ArrayList;
 
-public class Estrategia_espiral_testv2 extends Estrategia {
+import cern.jet.random.Exponential;
+
+public class Estrategia_espiral_testv3 extends Estrategia {
 	public int periodo;
 	public ArrayList<Nodo> visitados = new ArrayList<>();
 	private int espiral = -1;
 	private int espiralAux = 0;
 	private int pasoPasado = 0;
 	private int div = 0;
+	private int presas = 0;
 	private int itPasado = 0;
 	
+	
 	protected int tam = 1;
-	public Estrategia_espiral_testv2(ArrayList<Sensor> sen, ArrayList<Integer> v) {
+	public Estrategia_espiral_testv3(ArrayList<Sensor> sen, ArrayList<Integer> v) {
 		super(sen, v);
 		// TODO Auto-generated constructor stub
 	}
@@ -43,6 +47,14 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int y = (int) actual.pos.y;
 		espiralAux = espiral;
 		
+		if (presas != estado.presas) {
+			
+			presas = estado.presas;
+			paso = 0;
+			pasoPasado = 1;
+			it = 0;
+			itPasado = 1;
+		}
 		
 		while (espiralAux != 0) {
 			Nodo bus;
