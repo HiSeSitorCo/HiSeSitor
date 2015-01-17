@@ -24,6 +24,7 @@ public class pruebaProcesoMain {
 		ArrayList<ArrayList<Integer>> exp = new ArrayList<ArrayList<Integer>>();
 		exp.add(e1_vars);
 
+
 		p.iteraEstrategias(es, exp);
 
 		System.out.println("finiquitaoh");
