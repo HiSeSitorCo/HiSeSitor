@@ -1,5 +1,7 @@
 package HiSeSitor;
 
+import gestionDatos.Datos;
+
 public class Simulacion {
 
 	public Estado estado;
@@ -14,7 +16,7 @@ public class Simulacion {
 		time = 0;
 	}
 
-	public int correSimulacion(Estrategia estr) {
+	public int correSimulacion(Estrategia estr, Datos dato, int id) {
 		Nodo nodo = null;
 		time = 0;
 			if (true) { //OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME ANTES DE TOCARLO 
@@ -35,7 +37,7 @@ public class Simulacion {
 					time++;
 					Logger.debug("Posicion: "
 							+ estado.getActual() + "\nRestantes: "+ estado.presas);
-					estado.guardaValoresEstado();
+					estado.guardaValoresEstado(dato, id, MAX_ENEMIGOS);
 					estado.updateEstado(nodo);
 				}
 				Logger.debug("Simulacion terminada: "+nodo.toString()+" presas: "+estado.salvadas);

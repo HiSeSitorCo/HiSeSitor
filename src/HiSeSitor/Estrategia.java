@@ -84,17 +84,58 @@ public class Estrategia {
 
 	public void generaEstimacion() {
 		ArrayList<Nodo> lista = memoria.getListaNodos();
+		int x,y;
+		int xAux, yAux;
+		int cont=0;
+		
 		for (Nodo n : lista) {
+			x = (int) n.pos.x;
+			y = (int) n.pos.y;
+			
 			ArrayList<Integer> aristas = n.getListaAristas();
-			for (int i : aristas)
-				if (i < 0){
-					/**
-					 * Nodo tiene un atributo boolean que especifica si es una estimaci�n.
-					 * En dicho caso, lo crear�a un nodo estimaci�n llamando al creador
-					 * y luego setEstimacion true...
-					 */
-					memoria.creaNodoEstimacion(); //habla con vitcot
+			for (int i : aristas) {
+				
+				
+				switch(cont) {
+					case 0:
+						xAux=0;
+						yAux=-1;
+						break;
+					case 1:
+						xAux=1;
+						yAux=-1;
+						break;
+					case 2:
+						xAux=1;
+						yAux=0;
+						break;
+					case 3:
+						xAux=1;
+						yAux=1;
+						break;
+					case 4:
+						xAux=0;
+						yAux=1;
+						break;
+					case 5:
+						xAux=-1;
+						yAux=1;
+						break;
+					case 6:
+						xAux=-1;
+						yAux=0;
+						break;
+					default:
+						xAux=-1;
+						yAux=-1;
+						break;
 				}
+				cont++;
+				if (i != 0){
+					memoria.creaNodoEstimacion(estado.time,x+xAux,y+yAux); //habla con vitcot
+				}
+ 
+			}
 		}
 	}
 

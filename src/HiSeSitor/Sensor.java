@@ -14,6 +14,7 @@ public class Sensor {
 	public Sensor(Estado est) {
 		sensorKnowledge = new Grafo();
 		estado = est;
+		initSensor();
 	}
 
 	public Sensor() {
@@ -22,6 +23,8 @@ public class Sensor {
 
 	public void setEstado(Estado e) {
 		estado = e;
+		initSensor();
+		
 	}
 
 	public void updateKnowledge() {
@@ -33,7 +36,7 @@ public class Sensor {
 				n.presa = false;
 				estado.presas--;
 
-				Logger.debug("Presa atrapada: "+n.toString());
+				Logger.debug("Presa atrapada: " + n.toString());
 			}
 		}
 

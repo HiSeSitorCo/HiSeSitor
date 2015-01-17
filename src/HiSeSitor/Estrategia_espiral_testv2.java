@@ -1,5 +1,6 @@
 package HiSeSitor;
 
+import java.awt.geom.Arc2D.Double;
 import java.util.ArrayList;
 
 public class Estrategia_espiral_testv2 extends Estrategia {
@@ -8,6 +9,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	private int espiral = -1;
 	private int espiralAux = 0;
 	private int pasoPasado = 0;
+	private int div = 0;
 	
 	protected int tam = 1;
 	public Estrategia_espiral_testv2(ArrayList<Sensor> sen) {
@@ -21,6 +23,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 			new Exception("Variables no correwspondientes con la estrategua");
 		}
 		espiral = v.get(0);
+		div = v.get(1);
 		
 	}
 
@@ -49,7 +52,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 			
 				//arriba
 				case 0:
-					y+=it;
+					y-=it;
 					break;
 				//derehca
 				case 1:
@@ -61,7 +64,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 					break;
 				//izquierda
 				default:
-					y-=it;
+					y+=it;
 					break;
 			}
 			if ((bus = memoria.getNodo(x, y)) != null) {
@@ -76,6 +79,30 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	
 	@Override
 	public double estima(Nodo n) {
+		double gan = 0;
+		if ((gan = dameGananciaMedia(n)) < 0) {
+			gan = Math.abs(gan);
+			n.score = espiralAux*div/gan;
+		} else {
+			gan = Math.abs(gan);
+			n.score = espiralAux*gan/div;
+		}
+		return n.score;
+	}
+	
+	public double dameGananciaMedia(Nodo n) {
+		int ganancia = 0;
+		int num = 0;
+		for (Nodo ady : memoria.getAdjacents(n)) {
+			if (!ady.isEstimacion()) {
+				ganancia+=ady.ganancia;
+				num++;
+			}				
+		}
+		if (num!=0) {
+			return ganancia/num;
+		}
+		return 0;
 		
 	}
 
