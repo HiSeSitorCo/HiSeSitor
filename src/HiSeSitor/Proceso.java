@@ -105,13 +105,13 @@ public class Proceso {
 				if (flag == 0) 
 					preparaSimulacion(e, simulacion);
 				x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
-
+				new java.util.Scanner(System.in).nextLine();
 				preparaSimulacion(e, simulacion);
 				x2 = simulacion.correSimulacion(e, d, this.toString(AR2));
-
+				new java.util.Scanner(System.in).nextLine();
 				preparaSimulacion(e, simulacion);
 				x3 = simulacion.correSimulacion(e, d, this.toString(AR3));
-
+				new java.util.Scanner(System.in).nextLine();
 				// compruebo el maximo de los valores
 				max = maximo(x1, x2, x3);
 

@@ -9,5 +9,9 @@ public class Logger {
 			System.out.println(s);
 		}
 	}
+	public static void error (String s){
+		if(debug == true)
+			System.err.println(s);
+	}
 
 }

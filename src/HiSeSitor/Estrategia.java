@@ -95,6 +95,7 @@ public abstract class Estrategia {
 	public abstract double calcula(Nodo n);
 
 	public void generaEstimacion() {
+		
 		ArrayList<Nodo> lista = memoria.getListaNodos();
 		int x,y;
 		int xAux, yAux;
@@ -103,7 +104,7 @@ public abstract class Estrategia {
 		for (Nodo n : lista) {
 			x = (int) n.pos.x;
 			y = (int) n.pos.y;
-			
+		try{
 			ArrayList<Integer> aristas = n.getListaAristas();
 			for (int i : aristas) {
 				
@@ -148,7 +149,11 @@ public abstract class Estrategia {
 				}
  
 			}
+			}catch (Exception e){
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
 	// dependera de cada estrategia
