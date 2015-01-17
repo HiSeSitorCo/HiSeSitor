@@ -155,7 +155,7 @@ public class Estado {
 		mapa.setArbolDondeCuenta(mapa.getCazador());
 	}
 
-	public void guardaValoresEstado(Datos dato, int idIteracion, int maxEnemigos) {
+	public void guardaValoresEstado(Datos dato, String idIteracion, int maxEnemigos) {
 		int capt =  maxEnemigos - presas - salvadas;
 		dato.agregaDatos(estrategia.nombre + "," + idIteracion + "," + time + "," + estrategia.memoria.getListaNodos().size() + "," + capt);
 	}

@@ -38,8 +38,7 @@ public class Proceso {
 	 * @param es
 	 * @param v
 	 */
-	public void iteraEstrategias(ArrayList<Estrategia> es,
-			ArrayList<ArrayList<Integer>> v) {
+	public void iteraEstrategias(ArrayList<Estrategia> es, ArrayList<ArrayList<Integer>> v) {
 
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);
@@ -100,29 +99,27 @@ public class Proceso {
 				AR2.add(i, AR1.get(i) + SALTO);
 				AR3.add(i, AR1.get(i) - SALTO);
 
-				simulacion.correSimulacion(e, d, i);
-
 				// simulo para los tres arrays y guardo los valores obtenidos
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR1);
 				simulacion.InitSimulacion(); // Reiniciamos estado
-				x1 = simulacion.correSimulacion(e, d, i);
+				x1 = simulacion.correSimulacion(e, d, AR1.toString());
 
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR2);
 				simulacion.InitSimulacion();
-				x2 = simulacion.correSimulacion(e, d, i);
+				x2 = simulacion.correSimulacion(e, d, AR2.toString());
 
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR3);
 				simulacion.InitSimulacion();
-				x3 = simulacion.correSimulacion(e, d, i);
+				x3 = simulacion.correSimulacion(e, d, AR3.toString());
 
 				// compruebo el maximo de los valores
 				max = maximo(x1, x2, x3);
@@ -150,13 +147,7 @@ public class Proceso {
 
 		e = new Estrategia(sensores, AR1);
 		simulacion.InitSimulacion(); // Reiniciamos estado
-		x1 = simulacion.correSimulacion(e, d, i);
-
-		// creo que la funcion de agregadatos deberia ir en la simulacion, ya
-		// que aqui no se que datos se reciben ni nada LO DEJO A LA ELECCION DE
-		// GUILLE
-
-		
+		x1 = simulacion.correSimulacion(e, d, AR1.toString());
 	}
 
 	/**
