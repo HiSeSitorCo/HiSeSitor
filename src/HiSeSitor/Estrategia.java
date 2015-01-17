@@ -19,7 +19,12 @@ public class Estrategia {
 		this.sensores = sensores;
 		memoria = new Grafo();
 		// Asigna variables iterables (iteraciones)
-		asignaVariables(vars);
+		try {
+			asignaVariables(vars);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -31,7 +36,7 @@ public class Estrategia {
 	}
 
 	// override
-	public void asignaVariables(ArrayList<Integer> v) {
+	public void asignaVariables(ArrayList<Integer> v) throws Exception  {
 		// TODO:
 	}
 
@@ -52,15 +57,16 @@ public class Estrategia {
 	public ArrayList<Sensor> getSensores() {
 		return sensores;
 	}
-
+	
 	public void init(ArrayList<Sensor> sensores) {
 		// Depende de la estrategia inicializar unos u otros sensores
 		this.sensores = sensores;
 	}
 
 	public void updateMemoria() {
+
 		for (Sensor s : sensores) {
-			memoria.union(s.getSensorGraph());
+			agregaSensorMemoria(s);
 		}
 		generaEstimacion();
 		update();
@@ -83,11 +89,11 @@ public class Estrategia {
 			for (int i : aristas)
 				if (i < 0){
 					/**
-					 * Nodo tiene un atributo boolean que especifica si es una estimación.
-					 * En dicho caso, lo crearía un nodo estimación llamando al creador
+					 * Nodo tiene un atributo boolean que especifica si es una estimaciï¿½n.
+					 * En dicho caso, lo crearï¿½a un nodo estimaciï¿½n llamando al creador
 					 * y luego setEstimacion true...
 					 */
-					memoria.creaNodoEstimacion();
+					memoria.creaNodoEstimacion(); //habla con vitcot
 				}
 		}
 	}
@@ -95,11 +101,8 @@ public class Estrategia {
 	// dependera de cada estrategia
 	public void update() {
 		// Grafo memoria = estado.memoria;
-		for (Sensor s : sensores) {
-			for (Nodo n : s.sensorKnowledge.getListaNodos())
-				calculaEstima(n);
-			agregaSensorMemoria(s);
-		}
+		for (Nodo n : memoria.getListaNodos())
+			calculaEstima(n);
 	}
 
 	public Nodo getObjetivo() {

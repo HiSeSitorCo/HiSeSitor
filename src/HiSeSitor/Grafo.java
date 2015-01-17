@@ -55,9 +55,25 @@ public class Grafo {
 		nodtopos = new HashMap<>();
 		postonod = new HashMap<>();
 	}
+	
+	
+	//COMPLETAR
+	public void addNode(Nodo n, Grafo ref, int time) {
+		ArrayList<Nodo> ady = ref.getAdjacents(n);
+		g.addVertex(n);
+		nodtopos.put(n.getId(), ref.nodtopos.get(n.getId()));
+		postonod.put(ref.nodtopos.get(n.getId()), n.getId());
+		for (Nodo ad : ady) {
+			if (contains(ad) == true) {
+				Integer i = ref.g.findEdge(n, ad);
+				g.addEdge(i, new Nodo(n.id, n.score, n.getPos()), new Nodo(
+						ad.id, ad.score, ad.getPos()));
+			}
+		}
+	}
 
 	/*
-	 * Probablemente esta funciï¿½n carezca de sentido
+	 * Probablemente esta funcin carezca de sentido
 	 */
 	public void addNode(Nodo n, Grafo ref) {
 		ArrayList<Nodo> ady = ref.getAdjacents(n);
@@ -328,7 +344,7 @@ public class Grafo {
 				if(s == 1){
 					/*No se hace nada, puesto que nuestra memoria tiene un nodo que aporta mas info*/
 					
-				}else if(s == -1){ /*El nodo nuevo aporta más info y se copia*/
+				}else if(s == -1){ /*El nodo nuevo aporta mï¿½s info y se copia*/
 					n.setGanancia(n.getGanancia()-tm.getGanancia());
 					tm.copyNode(n);
 				}else if(s == 2){ /*Los nodos son estimaciones y los vamos a unir*/
@@ -572,9 +588,13 @@ public class Grafo {
 			return null;
 		return al.get(l);
 	}
-	
-	public boolean isEstimacion (Nodo n){
+
+	public boolean isEstimacion(Nodo n) {
 		return n.isEstimacion();
+	}
+	
+	public void creaNodoEstimacion(int time) {
+		//TODO:
 	}
 }
 

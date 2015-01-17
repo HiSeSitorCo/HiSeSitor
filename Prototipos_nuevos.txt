@@ -29,8 +29,11 @@ Prototipos nuevos:
         
         Para el descubrimiento del norte,este, etc se usan las "variables" MAS, MENOS y FIN.
         
-        CreaNodoEstimacion es llamar al setter de un nuevo nodo y establecer la flag de estimación a true.
+        CreaNodoEstimacion es llamar al setter de un nuevo nodo y establecer la flag de estimaciï¿½n a true.
         isEstimacion no es otra cosa que el getter.
+        
+        URGENTE: Necesario completar la funcion de addNode con el parametro time, necesitamos
+        almacenar el orden de descubrimiento
         
     +Sensor
         //Operar con su grafo

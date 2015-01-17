@@ -17,6 +17,7 @@ public class Estado {
 	public int presas = 0;
 	public int salvadas = 0;
 	public int definicionMalla = 100;
+	public int time = 0;
 
 	public Grafo memoria;
 	public Grafo mapa;
@@ -54,7 +55,7 @@ public class Estado {
 
 	public void addAleatOponent() {
 		if (hiddenNodes.size() < 1){
-			Logger.debug("INFO - No se añaden mas presas porque no hay nodos ocultos");
+			Logger.debug("INFO - No se aï¿½aden mas presas porque no hay nodos ocultos");
 			return;
 		}
 		int rng = random.nextInt(hiddenNodes.size());
@@ -66,7 +67,7 @@ public class Estado {
 	}
 
 	public Nodo busca() {
-		estrategia.update(); // recalcular subestructuras
+		estrategia.updateMemoria(); // recalcular subestructuras
 		Nodo objetivo = estrategia.getObjetivo(); // coger el nodo con mayor
 													// puntuaciÃ³n
 		if (objetivo == null)
@@ -98,6 +99,7 @@ public class Estado {
 			}
 		}
 		updateSensores();
+		time++;
 	}
 
 	public boolean isCalcula(Sensor x, Estrategia s, Nodo n) {

@@ -22,6 +22,7 @@ public class Nodo {
 	boolean cazada = false;
 	boolean obstaculo = false;
 	boolean init = false;
+	int descubrimiento = -1; //corresponde a time
 	boolean estimacion = false;
 	double ganancia;
 	int time;
@@ -126,9 +127,9 @@ public class Nodo {
 	 * @param n
 	 * @return 
 	 * 		   Devuelve 2 si ambos nodos son estimaciones y compensa unirlos.
-	 *         Devuelve 1, si el nodo que ejecuta el método aporta más información
+	 *         Devuelve 1, si el nodo que ejecuta el mï¿½todo aporta mï¿½s informaciï¿½n
 	 *         Devuelve 0, si los nodos son iguales.
-	 *         Devuelve -1, si el nodo que ejecuta el método aporta menos información
+	 *         Devuelve -1, si el nodo que ejecuta el mï¿½todo aporta menos informaciï¿½n
 	 *         Devuelve -2 en caso de error
 	 */
 	public int diffOfInfo(Nodo n){
@@ -177,7 +178,7 @@ public class Nodo {
 		this.noroeste *= n.noroeste;
 	}
 	/**
-	 * Convierte al nodo que ejecuta el método en una copia calcada de n
+	 * Convierte al nodo que ejecuta el mï¿½todo en una copia calcada de n
 	 * @param n
 	 */
 	public void copyNode (Nodo n){
@@ -200,7 +201,7 @@ public class Nodo {
 
 	}
 	/**
-	 * Devuelve la lista de aristas que definen la información que tiene un nodo de su entorno
+	 * Devuelve la lista de aristas que definen la informaciï¿½n que tiene un nodo de su entorno
 	 * @return
 	 */
 	public ArrayList<Integer> getListaAristas(){

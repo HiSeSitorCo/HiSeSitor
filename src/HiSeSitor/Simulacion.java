@@ -17,7 +17,7 @@ public class Simulacion {
 	public int correSimulacion(Estrategia estr) {
 		Nodo nodo = null;
 		time = 0;
-				if (estado == null) {
+			if (true) { //OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME ANTES DE TOCARLO 
 				estado = new Estado(estr);
 				for (Sensor x : estr.getSensores())
 					x.setEstado(estado);
@@ -31,14 +31,14 @@ public class Simulacion {
 			Logger.debug("Comenzando. Quedan:" + estado.presas
 					+ " presas libres");
 			try{
-			while ((nodo = estado.busca()) != null && estado.presas > 0) {
-				time++;
-				Logger.debug("Posicion: "
-						+ estado.getActual() + "\nRestantes: "+ estado.presas);
-				estado.guardaValoresEstado();
-				estado.updateEstado(nodo);
-			}
-			Logger.debug("Simulación terminada: "+nodo.toString()+" presas: "+estado.salvadas);
+				while ((nodo = estado.busca()) != null && estado.presas > 0) {
+					time++;
+					Logger.debug("Posicion: "
+							+ estado.getActual() + "\nRestantes: "+ estado.presas);
+					estado.guardaValoresEstado();
+					estado.updateEstado(nodo);
+				}
+				Logger.debug("Simulacion terminada: "+nodo.toString()+" presas: "+estado.salvadas);
 			}catch (NullPointerException e){
 				System.err.println(e.getMessage());
 			}
