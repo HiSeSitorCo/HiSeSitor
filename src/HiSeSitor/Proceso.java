@@ -5,6 +5,7 @@ import gestionDatos.DatosIteracion;
 
 import java.util.ArrayList;
 
+
 public class Proceso {
 
 	public static boolean enableGUI;
@@ -38,7 +39,8 @@ public class Proceso {
 	 * @param es
 	 * @param v
 	 */
-	public void iteraEstrategias(ArrayList<Estrategia> es, ArrayList<ArrayList<Integer>> v) {
+	public void iteraEstrategias(ArrayList<Estrategia> es,
+			ArrayList<ArrayList<Integer>> v) {
 
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);
@@ -59,14 +61,14 @@ public class Proceso {
 	 */
 	public void itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
 
-		//creo las variables necesarias
+		// creo las variables necesarias
 		ArrayList<Integer> AR1 = new ArrayList<Integer>();
 		ArrayList<Integer> AR2 = new ArrayList<Integer>();
 		ArrayList<Integer> AR3 = new ArrayList<Integer>();
 		int SALTO = this.SALTO;
 		int i = 0, x1, x2, x3, max = 0, anterior = 0;
 
-		//relleno los arrays a -1 que indica que ese valor no se usa
+		// relleno los arrays a -1 que indica que ese valor no se usa
 		for (i = 0; i < vars.size(); i++) {
 			AR1.add(i, -1);
 			AR2.add(i, -1);
@@ -94,20 +96,23 @@ public class Proceso {
 				// simulo para los tres arrays y guardo los valores obtenidos
 				sensores.clear();
 				sensores.add(new Sensor());
+
 				e = new Estrategia(sensores, AR1);
-				simulacion.InitSimulacion(); //Reiniciamos estado
+				simulacion.InitSimulacion(); // Reiniciamos estado
 				x1 = simulacion.correSimulacion(e);
 
 				sensores.clear();
 				sensores.add(new Sensor());
+
 				e = new Estrategia(sensores, AR2);
 				simulacion.InitSimulacion();
 				x2 = simulacion.correSimulacion(e);
 
 				sensores.clear();
 				sensores.add(new Sensor());
+
 				e = new Estrategia(sensores, AR3);
-				simulacion.InitSimulacion(); 
+				simulacion.InitSimulacion();
 				x3 = simulacion.correSimulacion(e);
 
 				// compruebo el maximo de los valores
@@ -128,10 +133,14 @@ public class Proceso {
 				SALTO--;
 			}
 		}
-		
+
 		// por ultimo corro una ultima simulacion con el array mas optimo para
 		// guardar sus valores en Datos
+		sensores.clear();
+		sensores.add(new Sensor());
+
 		e = new Estrategia(sensores, AR1);
+		simulacion.InitSimulacion(); // Reiniciamos estado
 		x1 = simulacion.correSimulacion(e);
 
 		// creo que la funcion de agregadatos deberia ir en la simulacion, ya
@@ -142,7 +151,8 @@ public class Proceso {
 	}
 
 	/**
-	 * funcion interna para calcular el maximo entre tres elementos
+	 * funcion interna para calcular el maximo entre tres elementos y devuelve 0
+	 * en caso de que sean los tres iguales
 	 * 
 	 * @param x1
 	 * @param x2
