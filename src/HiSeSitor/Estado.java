@@ -27,7 +27,6 @@ public class Estado {
 	public Estado(Estrategia estr) {
 		initGraph();
 		this.estrategia = estr;
-		initHiddenNodes();
 	}
 
 	// __GUILLE
@@ -41,7 +40,7 @@ public class Estado {
 				if (s.isVisto(n)) {
 
 					visto = true;
-					break;
+					//break;
 				}
 			}
 			if (!visto) {
@@ -82,6 +81,7 @@ public class Estado {
 	}
 
 	public void initEstado() {
+		initHiddenNodes();
 		updateSensores();
 		inicio = getActual();
 	}

@@ -57,6 +57,19 @@ public abstract class Estrategia {
 		return sensores;
 	}
 	
+	public void reset() {
+		for (Sensor s: getSensores()) {
+			s.reset();
+		}
+		memoria = null;
+		estado = null;
+		reset_ext();
+	}
+	
+	public void reset_ext() {
+		//TODO:
+	}
+	
 	public void init(ArrayList<Sensor> sensores) {
 		// Depende de la estrategia inicializar unos u otros sensores
 		this.sensores = sensores;
@@ -66,7 +79,7 @@ public abstract class Estrategia {
 		if (memoria == null) {
 			memoria = new Grafo();
 			memoria.InitSensorGraph(estado.mapa);
-			memoria.plotGraph("Memoria");
+			//memoria.plotGraph("Memoria");
 		}
 		for (Sensor s : sensores) {
 			agregaSensorMemoria(s);

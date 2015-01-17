@@ -55,9 +55,8 @@ public class Grafo {
 		nodtopos = new HashMap<>();
 		postonod = new HashMap<>();
 	}
-	
-	
-	//COMPLETAR
+
+	// COMPLETAR
 	public void addNode(Nodo n, Grafo ref, int time) {
 		ArrayList<Nodo> ady = ref.getAdjacents(n);
 		g.addVertex(n);
@@ -134,7 +133,7 @@ public class Grafo {
 				l.add(abiertos.get(0));
 				abiertos.add(new Nodos(tmp.get(i), it, l));
 			}
-			
+
 			abiertos.remove(0);
 		}
 		for (int i = 0; i < abiertos.size(); i++) {
@@ -223,14 +222,14 @@ public class Grafo {
 		frame.setVisible(true);
 
 	}
-	public Nodo getNodo (int x, int y){
+
+	public Nodo getNodo(int x, int y) {
 		ArrayList<Nodo> al = new ArrayList<>();
 		al.addAll(g.getVertices());
-		int s = postonod.get(new Punto(x,y));
-		int posicion = al.indexOf(new Nodo(s,0,new Point(x,y)));
-		if(posicion == -1)
+		int s = postonod.get(new Punto(x, y));
+		int posicion = al.indexOf(new Nodo(s, 0, new Point(x, y)));
+		if (posicion == -1)
 			return null;
-		
 		return al.get(posicion);
 	}
 
@@ -246,13 +245,14 @@ public class Grafo {
 			if (auxN.id == n.id) {
 				if (n.obstaculo == true)
 					continue;
-				Logger.debug("INFO - Presa creada: "+n.toString());
+				Logger.debug("INFO - Presa creada: " + n.toString());
 				n.presa = true;
 				return;
 			}
 		}
-		
-		System.out.println("ERROR - La presa no ha sido creada: "+auxN.toString());
+
+		System.out.println("ERROR - La presa no ha sido creada: "
+				+ auxN.toString());
 
 	}
 
@@ -262,8 +262,9 @@ public class Grafo {
 			return getShortestPath(actual, objetivo).get(0);
 		else {
 			return getShortestPath(actual, objetivo).get(1);
-		
-}	}
+
+		}
+	}
 
 	public Nodo setCazador(Nodo nodo) {
 		ArrayList<Nodo> aux = getListaNodos();
@@ -342,22 +343,28 @@ public class Grafo {
 		for (Nodo n : sglist) {
 			if (contains(n) == false) {
 				addNode(n, sensorGraph);
-			}else{
+			} else {
 				Nodo tm = this.getNode(n.id);
-				if(tm.score == -1){
+				if (tm.score == -1) {
 					tm.copyNode(n);
 				}
 				int s = tm.diffOfInfo(n);
-				if(s == 1){
-					/*No se hace nada, puesto que nuestra memoria tiene un nodo que aporta mas info*/
-					
-				}else if(s == -1){ /*El nodo nuevo aporta m�s info y se copia*/
-					n.setGanancia(n.getGanancia()-tm.getGanancia());
+				if (s == 1) {
+					/*
+					 * No se hace nada, puesto que nuestra memoria tiene un nodo
+					 * que aporta mas info
+					 */
+
+				} else if (s == -1) { /* El nodo nuevo aporta m�s info y se copia */
+					n.setGanancia(n.getGanancia() - tm.getGanancia());
 					tm.copyNode(n);
-				}else if(s == 2){ /*Los nodos son estimaciones y los vamos a unir*/
-					tm.joinNode(n);					
-				}else{
-					//Nada
+				} else if (s == 2) { /*
+									 * Los nodos son estimaciones y los vamos a
+									 * unir
+									 */
+					tm.joinNode(n);
+				} else {
+					// Nada
 				}
 			}
 		}
@@ -376,7 +383,8 @@ public class Grafo {
 		aux.presa = false;
 
 	}
-	public void InitSensorGraph (Grafo s){
+
+	public void InitSensorGraph(Grafo s) {
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		int w = 0;
 		int edgecount = 0;
@@ -392,7 +400,7 @@ public class Grafo {
 			}
 		}
 
-		//plotGraph("Holis");
+		// plotGraph("Holis");
 	}
 
 	@SuppressWarnings("unused")
@@ -500,47 +508,49 @@ public class Grafo {
 			Nodo n = nodes.get(i);
 			int x = (int) n.getPos().x;
 			int y = (int) n.getPos().y;
-			if(x == 0){
+
+			if (x == 0) {
 				n.oeste = Nodo.MENOS;
 				n.noroeste = Nodo.MENOS;
 				n.suroeste = Nodo.MENOS;
 			}
-			if(x == (this.x-1)){
+			if (x == (this.x - 1)) {
 				n.este = Nodo.MENOS;
 				n.noreste = Nodo.MENOS;
 				n.sureste = Nodo.MENOS;
 			}
-			if(y == 0){
+			if (y == 0) {
 				n.noreste = Nodo.MENOS;
 				n.noroeste = Nodo.MENOS;
 				n.norte = Nodo.MENOS;
+
 			}
-			if(y == (this.y-1)){
+			if (y == (this.y - 1)) {
 				n.sureste = Nodo.FIN;
 				n.suroeste = Nodo.FIN;
 				n.sur = Nodo.FIN;
 			}
 			neig.clear();
 			neig.addAll(g.getNeighbors(n));
-			for(int j = 0; j < neig.size(); j++){
+			for (int j = 0; j < neig.size(); j++) {
 				Nodo nei = neig.get(j);
 				int ny = (int) nei.getPos().y;
 				int nx = (int) nei.getPos().x;
-				if(x > nx && y == ny)
+				if (x > nx && y == ny)
 					n.oeste = Nodo.MAS;
-				if(x < nx && y == ny)
+				if (x < nx && y == ny)
 					n.este = Nodo.MAS;
-				if(x == nx && y > ny)
+				if (x == nx && y > ny)
 					n.norte = Nodo.MAS;
-				if(x == nx && y < ny)
+				if (x == nx && y < ny)
 					n.sur = Nodo.MAS;
-				if(x<nx && y < ny)
+				if (x < nx && y < ny)
 					n.sureste = Nodo.MAS;
-				if(x<nx && y > ny)
+				if (x < nx && y > ny)
 					n.noreste = Nodo.MAS;
-				if(x>nx && y < ny)
+				if (x > nx && y < ny)
 					n.suroeste = Nodo.MAS;
-				if(x>nx && y > ny)
+				if (x > nx && y > ny)
 					n.noroeste = Nodo.MAS;
 			}
 
@@ -580,7 +590,7 @@ public class Grafo {
 		int i = 0;
 		ArrayList<Integer> lista = dst.getListaAristas();
 		for (int ar : src.getListaAristas()) {
-			if (lista.get(i) < ar){
+			if (lista.get(i) < ar) {
 				lista.remove(i);
 				lista.add(i, ar);
 			}
@@ -608,8 +618,8 @@ public class Grafo {
 	public Nodo getNode(int id) {
 		ArrayList<Nodo> al = new ArrayList<>();
 		al.addAll(g.getVertices());
-		int l = al.indexOf(new Nodo(id,0,null));
-		if(l<0)
+		int l = al.indexOf(new Nodo(id, 0, null));
+		if (l < 0)
 			return null;
 		return al.get(l);
 	}
@@ -617,17 +627,20 @@ public class Grafo {
 	public boolean isEstimacion(Nodo n) {
 		return n.isEstimacion();
 	}
-	
+
 	public void creaNodoEstimacion(int time, int x, int y, Grafo m) {
-		int id = postonod.get(new Punto(x,y));
-		Nodo n = new Nodo(id,0,new Point(x,y));
-		n.setEstimacion(true);
+
+		int id = postonod.get(new Punto(x, y));
+		Nodo n = new Nodo(id, 0, new Point(x, y));
+		n.isEstimacion();
+
 		addNode(n, m);
 	}
-	public void creaNodoEstimacion(int time, double x, double y, Grafo m){
-		int ix = (int)x;
-		int iy = (int)y;
-		creaNodoEstimacion(time,ix,iy, m);
+
+	public void creaNodoEstimacion(int time, double x, double y, Grafo m) {
+		int ix = (int) x;
+		int iy = (int) y;
+		creaNodoEstimacion(time, ix, iy, m);
 	}
 }
 

@@ -26,8 +26,8 @@ public class Simulacion {
 
 				estr.setEstado(estado);
 				//estado.initGraph();
-				addAleatOponents(MAX_ENEMIGOS);
 				estado.initEstado();
+				addAleatOponents(MAX_ENEMIGOS);
 			}
 
 			Logger.debug("Comenzando. Quedan:" + estado.presas
