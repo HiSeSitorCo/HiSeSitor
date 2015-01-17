@@ -207,6 +207,12 @@ public class Grafo {
 		frame.setVisible(true);
 
 	}
+	public Nodo getNodo (int x, int y){
+		ArrayList<Nodo> al = new ArrayList<>();
+		al.addAll(g.getVertices());
+		int s = postonod.get(new Punto(x,y));
+		return al.get(al.indexOf(new Nodo(s,0,new Point(x,y))));
+	}
 
 	public ArrayList<Nodo> getListaNodos() {
 		ArrayList<Nodo> aux = new ArrayList<>();
