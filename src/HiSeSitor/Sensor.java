@@ -11,6 +11,11 @@ public class Sensor {
 		return sensorKnowledge.contains(n);
 	}
 
+	public void initSensor(){
+		sensorKnowledge.InitSensorGraph(estado.mapa);
+		
+	}
+	
 	public Sensor(Estado est) {
 		sensorKnowledge = new Grafo();
 		estado = est;
