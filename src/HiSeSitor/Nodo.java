@@ -34,6 +34,12 @@ public class Nodo {
 		this.score = score;
 		this.pos = pos;
 	}
+	
+	public Nodo creaNodoEstimacion(int id, double score, Point pos) {
+		Nodo n = new Nodo(id,score,pos);
+		n.setEstimacion(true);
+		return n;
+	}
 
 	
 	public void setTiempoEstimacion(int time){
