@@ -79,7 +79,7 @@ public class Sensor {
 	private boolean checkNode(Nodo check, Nodo actual) {
 		// dummie
 
-		if (estado.mapa.getDistancia(check, actual) > 2) {
+		if (estado.mapa.getDistancia(check, actual) > 1) {
 			return false;
 		}
 		return true;

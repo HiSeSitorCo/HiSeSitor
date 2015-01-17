@@ -44,7 +44,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		espiralAux = espiral;
 		
 		
-		while (espiralAux != 0) {
+		while (espiralAux > 0) {
 			Nodo bus;
 			if (j-- == 0) {
 				j=2;
@@ -72,7 +72,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 			if ((bus = memoria.getNodo(x, y)) != null) {
 				paso++;
 				calculaEstima(bus);
-			}
+				espiralAux--;
+			} 
 		
 		}
 
