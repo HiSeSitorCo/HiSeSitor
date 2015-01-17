@@ -132,7 +132,7 @@ public class Estrategia {
 				}
 				cont++;
 				if (i != 0){
-					memoria.creaNodoEstimacion(estado.time,x+xAux,y+yAux); //habla con vitcot
+					memoria.creaNodoEstimacion(estado.time,x+xAux,y+yAux,estado.mapa); //habla con vitcot
 				}
  
 			}
