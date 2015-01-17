@@ -15,7 +15,7 @@ public class Main {
 		sen.add(dummie);
 		Estrategia dummiest = new Estrategia_espiral_test(sen);
 		Simulacion sim = new Simulacion(5);
-		sim.correSimulacion(dummiest);
+		//sim.correSimulacion(dummiest);
 		System.out.println("********************************FIN SIM");
 	}
 
