@@ -236,13 +236,13 @@ public class Grafo {
 			if (auxN.id == n.id) {
 				if (n.obstaculo == true)
 					continue;
-				System.out.println(n.toString());
+				Logger.debug("INFO - Presa creada: "+n.toString());
 				n.presa = true;
-				break;
+				return;
 			}
 		}
-		System.out.println("PRESA CREADA");
-		auxN.presa = true;
+		
+		System.out.println("ERROR - La presa no ha sido creada: "+auxN.toString());
 
 	}
 
@@ -332,6 +332,18 @@ public class Grafo {
 		for (Nodo n : sglist) {
 			if (contains(n) == false) {
 				addNode(n, sensorGraph);
+			}else{
+				Nodo tm = this.getNode(n.id);
+				int s = tm.diffOfInfo(n);
+				if(s == 1){
+					/*No se hace nada, puesto que nuestra memoria tiene un nodo que aporta mas info*/
+				}else if(s == -1){ /*El nodo nuevo aporta m�s info y se copia*/
+					tm.copyNode(n);
+				}else if(s == 2){ /*Los nodos son estimaciones y los vamos a unir*/
+					tm.joinNode(n);					
+				}else{
+					//Nada
+				}
 			}
 		}
 	}
@@ -447,7 +459,7 @@ public class Grafo {
 				}
 			}
 
-		}addNode
+		}
 		ArrayList<Nodo> nodes = new ArrayList<>();
 		nodes.addAll(g.getVertices());
 		ArrayList<Nodo> neig = new ArrayList<>();
@@ -569,14 +581,12 @@ public class Grafo {
 		return al.get(l);
 	}
 
-
 	public boolean isEstimacion(Nodo n) {
 		return n.isEstimacion();
 	}
 	
 	public void creaNodoEstimacion(int time) {
 		//TODO:
-	
 	}
 }
 

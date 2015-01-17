@@ -25,6 +25,7 @@ public class Nodo {
 	boolean estimacion = false;
 	int descubrimiento = -1; //corresponde a time
 	
+	int time;
 	Point pos;
 	int norte = -1, noreste = -1, este = -1, sureste = -1, sur = -1, suroeste = -1,
 			oeste = -1, noroeste = -1;
@@ -37,6 +38,13 @@ public class Nodo {
 	}
 
 	
+	public void setTiempoEstimacion(int time){
+		this.time = time;
+	}
+	
+	public int getTiempoEstimacion(){
+		return this.time;
+	}
 
 	public int getId() {
 		return id;
@@ -108,7 +116,87 @@ public class Nodo {
 
 		return sameSame;
 	}
-	
+	/**
+	 * 
+	 * @param n
+	 * @return 
+	 * 		   Devuelve 2 si ambos nodos son estimaciones y compensa unirlos.
+	 *         Devuelve 1, si el nodo que ejecuta el m�todo aporta m�s informaci�n
+	 *         Devuelve 0, si los nodos son iguales.
+	 *         Devuelve -1, si el nodo que ejecuta el m�todo aporta menos informaci�n
+	 *         Devuelve -2 en caso de error
+	 */
+	public int diffOfInfo(Nodo n){
+		if(n.id != this.id) /*Si el ID es distinto, casque*/
+			return -2;
+		if(n.isEstimacion() && this.isEstimacion()!=true){ /*Si el nodo es uno calculado, da mas informacion que una estimacion*/
+			return 1;
+		}
+		if(n.isEstimacion()==false && this.isEstimacion()){
+			return -1;
+		}
+		if(n.estimacion == this.estimacion){
+			if(n.estimacion == false){
+				if(n.time<this.time)
+					return -1;
+				else
+					return 1;
+			}if(n.estimacion == true){
+				return 2;
+			}	
+			
+		}
+		return 0;
+	}
+	/**
+	 * Une el conocimiento de n con el conocimiento de this.
+	 * @param n
+	 */
+	public void joinNode (Nodo n){
+		if(!this.estimacion || !n.estimacion){
+			return;
+		}
+		if(n.score > this.score){
+			this.score = n.score;
+		}
+		if(n.time > this.time){
+			this.time = n.time;
+		}
+		this.norte *= n.norte;
+		this.noreste *= n.noreste;
+		this.este *= this.este;
+		this.sureste *= n.sureste;
+		this.sur *= n.sur;
+		this.suroeste *= n.suroeste;
+		this.oeste *= n.oeste;
+		this.noroeste *= n.noroeste;
+	}
+	/**
+	 * Convierte al nodo que ejecuta el m�todo en una copia calcada de n
+	 * @param n
+	 */
+	public void copyNode (Nodo n){
+		this.id = n.id;
+		this.score = n.score;
+		this.cazador = n.cazador;
+		this.presa = n.presa;
+		this.obstaculo = n.obstaculo;
+		this.init = n.init;
+		this.estimacion = n.estimacion;
+		this.pos = n.pos;
+		this.norte = n.norte;
+		this.noreste = n.noreste;
+		this.este = n.este;
+		this.sureste = n.sureste;
+		this.suroeste = n.suroeste;
+		this.oeste = n.oeste;
+		this.noroeste = n.noroeste;
+
+	}
+	/**
+	 * Devuelve la lista de aristas que definen la informaci�n que tiene un nodo de su entorno
+	 * @return
+	 */
 	public ArrayList<Integer> getListaAristas(){
 		ArrayList<Integer> res = new ArrayList<>();
 		res.add(norte);
@@ -120,6 +208,20 @@ public class Nodo {
 		res.add(oeste);
 		res.add(noroeste);
 		return res;
+	}
+	/**
+	 * Configura la informacion que tiene un nodo de su entorno
+	 * @param s
+	 */
+	public void setListaAristas(ArrayList<Integer> s){
+		norte = s.get(0);
+		noreste = s.get(1);
+		este = s.get(2);
+		sureste = s.get(3);
+		sur = s.get(4);
+		suroeste = s.get(5);
+		oeste = s.get(6);
+		noroeste = s.get(7);
 	}
 	public boolean isEstimacion() {
 		return estimacion;

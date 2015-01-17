@@ -13,7 +13,7 @@ public class PruebaMain {
 
 		String cadena5 = "estrategia2,iteracion1,1,1,1";
 		String cadena6 = "estrategia2,iteracion1,3,3,3";
-		String cadena7 = "estrategia2,iteracion2,1,1,1";
+		String cadena7 = "estrategia2,iteracion1,1,1,1";
 
 		String cadena8 = "estrategia1,iteracion1,6,6,6";
 		String cadena9 = "estrategia2,iteracion2,4,4,4";
@@ -30,9 +30,9 @@ public class PruebaMain {
 
 		d.procesaDatos();
 
-		d.mejorIteracion("estrategia1");
+		d.mejorIteracionCapturados("estrategia1");
 		System.out.println();
-		d.mejorIteracion("estrategia2");
+		d.mejorIteracionCapturados("estrategia2");
 
 		System.out.println("finiquitao");
 	}

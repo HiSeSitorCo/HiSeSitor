@@ -33,10 +33,10 @@ public class DatosEstrategia {
 		return -1;
 	}
 
-	public DatosIteracion mejorIteracion() {
+	public DatosIteracion masCapturadas() {
 
 		DatosIteracion d = new DatosIteracion("auxiliar");
-		Lectura l = new Lectura(99, 0, 0);
+		Lectura l = new Lectura(999999, 0, 0);
 		d.getValoresLecturas().add(l);
 
 		for (int i = 0; i < this.getValoresIteraciones().size(); i++) {
@@ -101,4 +101,93 @@ public class DatosEstrategia {
 		return d;
 	}
 
+	public DatosIteracion masEficiente() {
+
+		DatosIteracion d = new DatosIteracion("auxiliar");
+		Lectura l = new Lectura(999999, 0, 0);
+		d.getValoresLecturas().add(l);
+
+		for (int i = 0; i < this.getValoresIteraciones().size(); i++) {
+
+			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getCapturados() / d.getValoresLecturas(
+					d.getValoresLecturas().size() - 1).getTiempo()) < (this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados() / this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados())) {
+
+				d = this.getValoresIteraciones(i);
+			}
+
+			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getCapturados() / d.getValoresLecturas(
+					d.getValoresLecturas().size() - 1).getTiempo()) == (this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados() / this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getCapturados())) {
+
+				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+						.getTiempo() > this
+						.getValoresIteraciones(i)
+						.getValoresLecturas(
+								this.getValoresIteraciones(i)
+										.getValoresLecturas().size() - 1)
+						.getTiempo()) {
+
+					d = this.getValoresIteraciones(i);
+				}
+			}
+		}
+		return d;
+	}
+
+	public DatosIteracion masVisibles() {
+
+		DatosIteracion d = new DatosIteracion("auxiliar");
+		Lectura l = new Lectura(999999, 0, 0);
+		d.getValoresLecturas().add(l);
+
+		for (int i = 0; i < this.getValoresIteraciones().size(); i++) {
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getnNodos() < this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getnNodos()) {
+
+				d = this.getValoresIteraciones(i);
+			}
+
+			if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+					.getnNodos() == this
+					.getValoresIteraciones(i)
+					.getValoresLecturas(
+							this.getValoresIteraciones(i).getValoresLecturas()
+									.size() - 1).getnNodos()) {
+
+				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+						.getCapturados() > this
+						.getValoresIteraciones(i)
+						.getValoresLecturas(
+								this.getValoresIteraciones(i)
+										.getValoresLecturas().size() - 1)
+						.getCapturados()) {
+
+					d = this.getValoresIteraciones(i);
+				}
+			}
+		}
+		return d;
+	}
 }

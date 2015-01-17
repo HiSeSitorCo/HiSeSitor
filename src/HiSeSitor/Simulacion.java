@@ -1,25 +1,23 @@
 package HiSeSitor;
 
-import java.util.Scanner;
-
 public class Simulacion {
 
 	public Estado estado;
 	public int MAX_ENEMIGOS;
+	public int time;
 
 	public Simulacion(int maxEnemigos) {
 		this.MAX_ENEMIGOS = maxEnemigos;
 	}
+	public void InitSimulacion(){
+		estado = null;
+		time = 0;
+	}
 
-	public void correSimulacion(Estrategia estr) {
+	public int correSimulacion(Estrategia estr) {
 		Nodo nodo = null;
-
-		/*for (int enemigos = 1; enemigos < MAX_ENEMIGOS; enemigos++) {
-
-			System.out.println("*** SIMULACION CON " + enemigos
-					+ " ENEMIGOS ***");
-*/
-			if (estado == null) {
+		time = 0;
+				if (estado == null) {
 				estado = new Estado(estr);
 				for (Sensor x : estr.getSensores())
 					x.setEstado(estado);
@@ -30,26 +28,26 @@ public class Simulacion {
 				estado.initEstado();
 			}
 
-			System.out.println("QUEDAN " + estado.presas
-					+ " PRESAS LIBRES TODAVIA");
+			Logger.debug("Comenzando. Quedan:" + estado.presas
+					+ " presas libres");
 			try{
 			while ((nodo = estado.busca()) != null && estado.presas > 0) {
-				System.out.println("ESTAS EN LA POSICION: "
-						+ estado.getActual() + "\tQUEDAN " + estado.presas
-						+ " PRESAS LIBRES TODAVIA");
+				time++;
+				Logger.debug("Posicion: "
+						+ estado.getActual() + "\nRestantes: "+ estado.presas);
 				estado.guardaValoresEstado();
 				estado.updateEstado(nodo);
 			}
-			System.out.println("Simulación terminada: "+nodo.toString()+" presas: "+estado.presas);
+			Logger.debug("Simulación terminada: "+nodo.toString()+" presas: "+estado.salvadas);
 			}catch (NullPointerException e){
 				System.err.println(e.getMessage());
 			}
-		//}
+			return estado.salvadas;
 
 	}
 
 	public void addAleatOponents(int n) {
-		for (int i = 0; i < n; i++)
+		for (int i = 1; i <= n; i++)
 			estado.addAleatOponent();
 	}
 

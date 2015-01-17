@@ -15,6 +15,7 @@ public class Estado {
 	public Estrategia estrategia;
 	public Nodo inicio;
 	public int presas = 0;
+	public int salvadas = 0;
 	public int definicionMalla = 100;
 	public int time = 0;
 
@@ -32,17 +33,19 @@ public class Estado {
 	private void initHiddenNodes() {
 		boolean visto = false;
 		for (Nodo n : mapa.getListaNodos()) {
+			if(n.score < 0)
+				continue;
 			for (Sensor s : estrategia.getSensores()) {
 				if (s.isVisto(n)) {
-					
+
 					visto = true;
 					break;
 				}
 			}
 			if (!visto) {
-				if(n.cazador == true)
+				if (n.cazador == true)
 					continue;
-				System.out.println("No visto: "+n.toString());
+				Logger.debug("No visto: " + n.toString());
 				hiddenNodes.add(n);
 			}
 			visto = false;
@@ -51,9 +54,12 @@ public class Estado {
 	}
 
 	public void addAleatOponent() {
-		if (hiddenNodes.size() < 1)
+		if (hiddenNodes.size() < 1){
+			Logger.debug("INFO - No se añaden mas presas porque no hay nodos ocultos");
 			return;
-		int rng = random.nextInt(hiddenNodes.size()-1);
+		}
+		int rng = random.nextInt(hiddenNodes.size());
+		Logger.debug("INFO - Rand: "+rng);
 		Nodo auxN = hiddenNodes.get(rng);
 		mapa.creaPresa(auxN);
 		presas++;
@@ -87,7 +93,9 @@ public class Estado {
 			if (mapa.getDistancia(aux, inicio) <= dist) {
 				presas--;
 				mapa.borraPresa(aux);
-				System.out.println("PRESA SALVADA");
+				Logger.debug("Presa salvada: "+aux.toString());
+				this.presas--;
+				this.salvadas++;
 			}
 		}
 		updateSensores();
@@ -124,10 +132,10 @@ public class Estado {
 			while ((linea = br.readLine()) != null) {
 				lineaTamano = linea.split(",");
 				tamanoMapa[i] = Integer.parseInt(lineaTamano[0]);
-				tamanoMapa[i+1] = Integer.parseInt(lineaTamano[1]);
-				tamanoMapa[i+2] = Integer.parseInt(lineaTamano[2]);
-				tamanoMapa[i+3] = Integer.parseInt(lineaTamano[3]);
-				i+=4;
+				tamanoMapa[i + 1] = Integer.parseInt(lineaTamano[1]);
+				tamanoMapa[i + 2] = Integer.parseInt(lineaTamano[2]);
+				tamanoMapa[i + 3] = Integer.parseInt(lineaTamano[3]);
+				i += 4;
 			}
 
 		} catch (Exception e) {
@@ -139,6 +147,7 @@ public class Estado {
 	public void initGraph() {
 		this.mapa = new Grafo();
 		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
+		if(Proceso.enableGUI)
 		this.mapa.plotGraph("Grafo Inicial");
 		mapa.setCazador();
 		mapa.setArbolDondeCuenta(mapa.getCazador());
