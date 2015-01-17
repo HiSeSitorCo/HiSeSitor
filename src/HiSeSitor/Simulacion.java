@@ -38,7 +38,7 @@ public class Simulacion {
 					estado.guardaValoresEstado();
 					estado.updateEstado(nodo);
 				}
-				Logger.debug("Simulaci�n terminada: "+nodo.toString()+" presas: "+estado.salvadas);
+				Logger.debug("Simulacion terminada: "+nodo.toString()+" presas: "+estado.salvadas);
 			}catch (NullPointerException e){
 				System.err.println(e.getMessage());
 			}

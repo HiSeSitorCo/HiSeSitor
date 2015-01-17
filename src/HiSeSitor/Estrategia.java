@@ -93,7 +93,7 @@ public class Estrategia {
 					 * En dicho caso, lo crear�a un nodo estimaci�n llamando al creador
 					 * y luego setEstimacion true...
 					 */
-					memoria.creaNodoEstimacion();
+					memoria.creaNodoEstimacion(); //habla con vitcot
 				}
 		}
 	}
