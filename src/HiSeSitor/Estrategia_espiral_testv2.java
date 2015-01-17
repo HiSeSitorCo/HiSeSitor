@@ -34,8 +34,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
 
-		double x = actual.pos.x;
-		double y = actual.pos.y;
+		int x = (int) actual.pos.x;
+		int y = (int) actual.pos.y;
 		espiralAux = espiral;
 		
 		
@@ -64,7 +64,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 					y-=it;
 					break;
 			}
-			if ((bus = memoria.getNodoXY(x, y)) != null) {
+			if ((bus = memoria.getNodo(x, y)) != null) {
 				paso++;
 				calculaEstima(bus);
 			}

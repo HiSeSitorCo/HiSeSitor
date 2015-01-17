@@ -134,7 +134,7 @@ public class Grafo {
 				l.add(abiertos.get(0));
 				abiertos.add(new Nodos(tmp.get(i), it, l));
 			}
-
+			
 			abiertos.remove(0);
 		}
 		for (int i = 0; i < abiertos.size(); i++) {
@@ -222,6 +222,12 @@ public class Grafo {
 		frame.pack();
 		frame.setVisible(true);
 
+	}
+	public Nodo getNodo (int x, int y){
+		ArrayList<Nodo> al = new ArrayList<>();
+		al.addAll(g.getVertices());
+		int s = postonod.get(new Punto(x,y));
+		return al.get(al.indexOf(new Nodo(s,0,new Point(x,y))));
 	}
 
 	public ArrayList<Nodo> getListaNodos() {
@@ -337,7 +343,9 @@ public class Grafo {
 				int s = tm.diffOfInfo(n);
 				if(s == 1){
 					/*No se hace nada, puesto que nuestra memoria tiene un nodo que aporta mas info*/
+					
 				}else if(s == -1){ /*El nodo nuevo aporta m�s info y se copia*/
+					n.setGanancia(n.getGanancia()-tm.getGanancia());
 					tm.copyNode(n);
 				}else if(s == 2){ /*Los nodos son estimaciones y los vamos a unir*/
 					tm.joinNode(n);					

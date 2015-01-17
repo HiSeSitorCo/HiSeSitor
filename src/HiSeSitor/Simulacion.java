@@ -17,7 +17,7 @@ public class Simulacion {
 	public int correSimulacion(Estrategia estr) {
 		Nodo nodo = null;
 		time = 0;
-				if (estado == null) {
+			if (true) { //OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME ANTES DE TOCARLO 
 				estado = new Estado(estr);
 				for (Sensor x : estr.getSensores())
 					x.setEstado(estado);

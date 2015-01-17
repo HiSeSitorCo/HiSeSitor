@@ -22,9 +22,9 @@ public class Nodo {
 	boolean cazada = false;
 	boolean obstaculo = false;
 	boolean init = false;
-	boolean estimacion = false;
 	int descubrimiento = -1; //corresponde a time
-	
+	boolean estimacion = false;
+	double ganancia;
 	int time;
 	Point pos;
 	int norte = -1, noreste = -1, este = -1, sureste = -1, sur = -1, suroeste = -1,
@@ -35,6 +35,12 @@ public class Nodo {
 		this.id = id;
 		this.score = score;
 		this.pos = pos;
+	}
+	
+	public Nodo creaNodoEstimacion(int id, double score, Point pos) {
+		Nodo n = new Nodo(id,score,pos);
+		n.setEstimacion(true);
+		return n;
 	}
 
 	
@@ -191,6 +197,7 @@ public class Nodo {
 		this.suroeste = n.suroeste;
 		this.oeste = n.oeste;
 		this.noroeste = n.noroeste;
+		this.ganancia = n.ganancia;
 
 	}
 	/**
@@ -328,6 +335,22 @@ public class Nodo {
 
 	public void setEste(int este) {
 		this.este = este;
+	}
+
+	public double getGanancia() {
+		return ganancia;
+	}
+
+	public void setGanancia(double ganancia) {
+		this.ganancia = ganancia;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 	
 	
