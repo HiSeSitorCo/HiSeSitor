@@ -1,5 +1,7 @@
 package HiSeSitor;
 
+import gestionDatos.Datos;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -153,7 +155,9 @@ public class Estado {
 		mapa.setArbolDondeCuenta(mapa.getCazador());
 	}
 
-	public void guardaValoresEstado() {
+	public void guardaValoresEstado(Datos dato, int idIteracion, int maxEnemigos) {
+		int capt =  maxEnemigos - presas - salvadas;
+		dato.agregaDatos(estrategia.nombre + "," + idIteracion + "," + time + "," + estrategia.memoria.getListaNodos().size() + "," + capt);
 	}
 
 	public ArrayList<Nodo> getAdyacentes(Nodo n) {

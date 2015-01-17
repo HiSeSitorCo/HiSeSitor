@@ -5,7 +5,6 @@ import gestionDatos.DatosIteracion;
 
 import java.util.ArrayList;
 
-
 public class Proceso {
 
 	public static boolean enableGUI;
@@ -59,6 +58,14 @@ public class Proceso {
 	 * @param vars
 	 * @param d
 	 */
+	/**
+	 * itera lo voy explicando entre el codigo. recibe una estrategia y el array
+	 * de variables de la misma
+	 * 
+	 * @param e
+	 * @param vars
+	 * @param d
+	 */
 	public void itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
 
 		// creo las variables necesarias
@@ -78,7 +85,7 @@ public class Proceso {
 		// para cada elemento del array...
 		for (i = 0; i < vars.size(); i++) {
 
-			// ...elimino el -1 y anado el valor del array bueno...
+			// ...elimino el -1 y añado el valor del array bueno...
 			AR1.remove(i);
 			AR1.add(i, vars.get(i));
 
@@ -93,32 +100,34 @@ public class Proceso {
 				AR2.add(i, AR1.get(i) + SALTO);
 				AR3.add(i, AR1.get(i) - SALTO);
 
+				simulacion.correSimulacion(e, d, i);
+
 				// simulo para los tres arrays y guardo los valores obtenidos
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR1);
 				simulacion.InitSimulacion(); // Reiniciamos estado
-				x1 = simulacion.correSimulacion(e);
+				x1 = simulacion.correSimulacion(e, d, i);
 
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR2);
 				simulacion.InitSimulacion();
-				x2 = simulacion.correSimulacion(e);
+				x2 = simulacion.correSimulacion(e, d, i);
 
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR3);
 				simulacion.InitSimulacion();
-				x3 = simulacion.correSimulacion(e);
+				x3 = simulacion.correSimulacion(e, d, i);
 
 				// compruebo el maximo de los valores
 				max = maximo(x1, x2, x3);
 
-				// si la desviacion es tan peque�a que implica que todos los
+				// si la desviacion es tan pequeña que implica que todos los
 				// valores sean iguales, salimos
 				if (max == 0)
 					break;
@@ -141,7 +150,7 @@ public class Proceso {
 
 		e = new Estrategia(sensores, AR1);
 		simulacion.InitSimulacion(); // Reiniciamos estado
-		x1 = simulacion.correSimulacion(e);
+		x1 = simulacion.correSimulacion(e, d, i);
 
 		// creo que la funcion de agregadatos deberia ir en la simulacion, ya
 		// que aqui no se que datos se reciben ni nada LO DEJO A LA ELECCION DE
