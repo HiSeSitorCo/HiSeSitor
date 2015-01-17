@@ -19,7 +19,12 @@ public class Estrategia {
 		this.sensores = sensores;
 		memoria = new Grafo();
 		// Asigna variables iterables (iteraciones)
-		asignaVariables(vars);
+		try {
+			asignaVariables(vars);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -31,7 +36,7 @@ public class Estrategia {
 	}
 
 	// override
-	public void asignaVariables(ArrayList<Integer> v) {
+	public void asignaVariables(ArrayList<Integer> v) throws Exception  {
 		// TODO:
 	}
 
@@ -59,11 +64,12 @@ public class Estrategia {
 	}
 
 	public void updateMemoria() {
-		update();
+
 		for (Sensor s : sensores) {
-			memoria.union(s.getSensorGraph());
+			agregaSensorMemoria(s);
 		}
 		generaEstimacion();
+		update();
 	}
 
 	// Funcion a reimplementar
@@ -95,11 +101,8 @@ public class Estrategia {
 	// dependera de cada estrategia
 	public void update() {
 		// Grafo memoria = estado.memoria;
-		for (Sensor s : sensores) {
-			for (Nodo n : s.sensorKnowledge.getListaNodos())
-				calculaEstima(n);
-			agregaSensorMemoria(s);
-		}
+		for (Nodo n : memoria.getListaNodos())
+			calculaEstima(n);
 	}
 
 	public Nodo getObjetivo() {

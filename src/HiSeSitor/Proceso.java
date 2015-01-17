@@ -76,7 +76,7 @@ public class Proceso {
 		// para cada elemento del array...
 		for (i = 0; i < vars.size(); i++) {
 
-			// ...elimino el -1 y añado el valor del array bueno...
+			// ...elimino el -1 y anado el valor del array bueno...
 			AR1.remove(i);
 			AR1.add(i, vars.get(i));
 
@@ -113,7 +113,7 @@ public class Proceso {
 				// compruebo el maximo de los valores
 				max = maximo(x1, x2, x3);
 
-				// si la desviacion es tan pequeña que implica que todos los
+				// si la desviacion es tan pequeï¿½a que implica que todos los
 				// valores sean iguales, salimos
 				if (max == 0)
 					break;

@@ -55,7 +55,7 @@ public class Estado {
 
 	public void addAleatOponent() {
 		if (hiddenNodes.size() < 1){
-			Logger.debug("INFO - No se añaden mas presas porque no hay nodos ocultos");
+			Logger.debug("INFO - No se aï¿½aden mas presas porque no hay nodos ocultos");
 			return;
 		}
 		int rng = random.nextInt(hiddenNodes.size());
@@ -67,7 +67,7 @@ public class Estado {
 	}
 
 	public Nodo busca() {
-		estrategia.update(); // recalcular subestructuras
+		estrategia.updateMemoria(); // recalcular subestructuras
 		Nodo objetivo = estrategia.getObjetivo(); // coger el nodo con mayor
 													// puntuaciÃ³n
 		if (objetivo == null)

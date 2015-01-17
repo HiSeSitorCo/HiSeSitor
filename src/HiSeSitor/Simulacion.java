@@ -31,14 +31,14 @@ public class Simulacion {
 			Logger.debug("Comenzando. Quedan:" + estado.presas
 					+ " presas libres");
 			try{
-			while ((nodo = estado.busca()) != null && estado.presas > 0) {
-				time++;
-				Logger.debug("Posicion: "
-						+ estado.getActual() + "\nRestantes: "+ estado.presas);
-				estado.guardaValoresEstado();
-				estado.updateEstado(nodo);
-			}
-			Logger.debug("Simulación terminada: "+nodo.toString()+" presas: "+estado.salvadas);
+				while ((nodo = estado.busca()) != null && estado.presas > 0) {
+					time++;
+					Logger.debug("Posicion: "
+							+ estado.getActual() + "\nRestantes: "+ estado.presas);
+					estado.guardaValoresEstado();
+					estado.updateEstado(nodo);
+				}
+				Logger.debug("Simulaciï¿½n terminada: "+nodo.toString()+" presas: "+estado.salvadas);
 			}catch (NullPointerException e){
 				System.err.println(e.getMessage());
 			}
