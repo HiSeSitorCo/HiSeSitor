@@ -85,7 +85,7 @@ public class Proceso {
 		// para cada elemento del array...
 		for (i = 0; i < vars.size(); i++) {
 
-			// ...elimino el -1 y añado el valor del array bueno...
+			// ...elimino el -1 y aÃ±ado el valor del array bueno...
 			AR1.remove(i);
 			AR1.add(i, vars.get(i));
 
@@ -100,34 +100,32 @@ public class Proceso {
 				AR2.add(i, AR1.get(i) + SALTO);
 				AR3.add(i, AR1.get(i) - SALTO);
 
-				simulacion.correSimulacion(e, d, i);
-
 				// simulo para los tres arrays y guardo los valores obtenidos
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR1);
 				simulacion.InitSimulacion(); // Reiniciamos estado
-				x1 = simulacion.correSimulacion(e, d, i);
+				x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
 
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR2);
 				simulacion.InitSimulacion();
-				x2 = simulacion.correSimulacion(e, d, i);
+				x2 = simulacion.correSimulacion(e, d, this.toString(AR2));
 
 				sensores.clear();
 				sensores.add(new Sensor());
 
 				e = new Estrategia(sensores, AR3);
 				simulacion.InitSimulacion();
-				x3 = simulacion.correSimulacion(e, d, i);
+				x3 = simulacion.correSimulacion(e, d, this.toString(AR3));
 
 				// compruebo el maximo de los valores
 				max = maximo(x1, x2, x3);
 
-				// si la desviacion es tan pequeña que implica que todos los
+				// si la desviacion es tan pequeÃ±a que implica que todos los
 				// valores sean iguales, salimos
 				if (max == 0)
 					break;
@@ -150,13 +148,7 @@ public class Proceso {
 
 		e = new Estrategia(sensores, AR1);
 		simulacion.InitSimulacion(); // Reiniciamos estado
-		x1 = simulacion.correSimulacion(e, d, i);
-
-		// creo que la funcion de agregadatos deberia ir en la simulacion, ya
-		// que aqui no se que datos se reciben ni nada LO DEJO A LA ELECCION DE
-		// GUILLE
-
-		
+		x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
 	}
 
 	/**
@@ -191,4 +183,10 @@ public class Proceso {
 		return 0;
 	}
 
+	public String toString(ArrayList<Integer> array) {
+
+		String cadena = array.toString();
+		cadena = cadena.replace(",", ".");
+		return cadena;
+	}
 }

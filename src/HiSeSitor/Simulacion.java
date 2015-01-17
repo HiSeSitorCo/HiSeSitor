@@ -16,7 +16,7 @@ public class Simulacion {
 		time = 0;
 	}
 
-	public int correSimulacion(Estrategia estr, Datos dato, int id) {
+	public int correSimulacion(Estrategia estr, Datos dato, String id) {
 		Nodo nodo = null;
 		time = 0;
 			if (true) { //OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME ANTES DE TOCARLO 
@@ -26,7 +26,7 @@ public class Simulacion {
 
 				estr.setEstado(estado);
 				//estado.initGraph();
-				addAleatOponents(10);
+				addAleatOponents(MAX_ENEMIGOS);
 				estado.initEstado();
 			}
 
