@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Proceso {
 
+	public static boolean enableGUI;
 	public int SALTO;
 	public ArrayList<Sensor> sensores = new ArrayList<Sensor>();
 	public Simulacion simulacion;
@@ -25,6 +26,8 @@ public class Proceso {
 		sensores = s;
 		simulacion = sim;
 		SALTO = 4;
+		Logger.debug = true;
+		enableGUI = true;
 	}
 
 	/**
@@ -89,13 +92,22 @@ public class Proceso {
 				AR3.add(i, AR1.get(i) - SALTO);
 
 				// simulo para los tres arrays y guardo los valores obtenidos
+				sensores.clear();
+				sensores.add(new Sensor());
 				e = new Estrategia(sensores, AR1);
+				simulacion.InitSimulacion(); //Reiniciamos estado
 				x1 = simulacion.correSimulacion(e);
 
+				sensores.clear();
+				sensores.add(new Sensor());
 				e = new Estrategia(sensores, AR2);
+				simulacion.InitSimulacion();
 				x2 = simulacion.correSimulacion(e);
 
+				sensores.clear();
+				sensores.add(new Sensor());
 				e = new Estrategia(sensores, AR3);
+				simulacion.InitSimulacion(); 
 				x3 = simulacion.correSimulacion(e);
 
 				// compruebo el maximo de los valores

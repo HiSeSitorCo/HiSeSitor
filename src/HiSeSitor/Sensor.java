@@ -33,7 +33,7 @@ public class Sensor {
 				n.presa = false;
 				estado.presas--;
 
-				System.out.println("** PRESA ATRAPADA");
+				Logger.debug("Presa atrapada: "+n.toString());
 			}
 		}
 
@@ -53,6 +53,15 @@ public class Sensor {
 		}
 		return sensor;
 
+	}
+	
+
+	public Grafo getSensorKnowledge() {
+		return sensorKnowledge;
+	}
+
+	public void setSensorKnowledge(Grafo sensorKnowledge) {
+		this.sensorKnowledge = sensorKnowledge;
 	}
 
 	/**

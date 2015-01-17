@@ -9,6 +9,10 @@ public class Simulacion {
 	public Simulacion(int maxEnemigos) {
 		this.MAX_ENEMIGOS = maxEnemigos;
 	}
+	public void InitSimulacion(){
+		estado = null;
+		time = 0;
+	}
 
 	public int correSimulacion(Estrategia estr) {
 		Nodo nodo = null;
@@ -24,28 +28,26 @@ public class Simulacion {
 				estado.initEstado();
 			}
 
-			System.out.println("QUEDAN " + estado.presas
-					+ " PRESAS LIBRES TODAVIA");
+			Logger.debug("Comenzando. Quedan:" + estado.presas
+					+ " presas libres");
 			try{
 			while ((nodo = estado.busca()) != null && estado.presas > 0) {
 				time++;
-				System.out.println("ESTAS EN LA POSICION: "
-						+ estado.getActual() + "\tQUEDAN " + estado.presas
-						+ " PRESAS LIBRES TODAVIA");
+				Logger.debug("Posicion: "
+						+ estado.getActual() + "\nRestantes: "+ estado.presas);
 				estado.guardaValoresEstado();
 				estado.updateEstado(nodo);
 			}
-			System.out.println("Simulación terminada: "+nodo.toString()+" presas: "+estado.presas);
+			Logger.debug("Simulación terminada: "+nodo.toString()+" presas: "+estado.salvadas);
 			}catch (NullPointerException e){
 				System.err.println(e.getMessage());
 			}
-		//}
-			return estado.presas;
+			return estado.salvadas;
 
 	}
 
 	public void addAleatOponents(int n) {
-		for (int i = 0; i < n; i++)
+		for (int i = 1; i <= n; i++)
 			estado.addAleatOponent();
 	}
 

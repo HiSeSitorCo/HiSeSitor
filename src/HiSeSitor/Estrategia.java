@@ -1,6 +1,7 @@
 package HiSeSitor;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Estrategia {
 	public String nombre;
@@ -16,7 +17,7 @@ public class Estrategia {
 			return;
 		}
 		this.sensores = sensores;
-
+		memoria = new Grafo();
 		// Asigna variables iterables (iteraciones)
 		asignaVariables(vars);
 
@@ -59,7 +60,7 @@ public class Estrategia {
 
 	public void updateMemoria() {
 		for (Sensor s : sensores) {
-			memoria.union(s.getKnowledge());
+			memoria.union(s.getSensorGraph());
 		}
 		generaEstimacion();
 		update();
@@ -80,8 +81,14 @@ public class Estrategia {
 		for (Nodo n : lista) {
 			ArrayList<Integer> aristas = n.getListaAristas();
 			for (int i : aristas)
-				if (i < 0)
+				if (i < 0){
+					/**
+					 * Nodo tiene un atributo boolean que especifica si es una estimación.
+					 * En dicho caso, lo crearía un nodo estimación llamando al creador
+					 * y luego setEstimacion true...
+					 */
 					memoria.creaNodoEstimacion();
+				}
 		}
 	}
 
@@ -106,13 +113,17 @@ public class Estrategia {
 				dest = n;
 			}
 		}
+		if(dest == null){//No deberia hacerse esto, pero asi evitamos algun que otro pete
+			Random r = new Random();
+			dest = nodos.get(r.nextInt(nodos.size()));
+		}
 		return dest;
 	}
 
 	public void agregaSensorMemoria(Sensor sensor) {
 		double total;
 		for (int pond : ponderaciones) {
-			for (Nodo n : sensor.sensorKnowledge) {
+			for (Nodo n : sensor.getSensorGraph().getListaNodos()) {
 				Nodo nod = memoria.getNode(n.id);
 				nod.setScore((n.score * pond)+nod.score);
 			}

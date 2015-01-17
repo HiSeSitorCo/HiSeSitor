@@ -146,6 +146,10 @@ public class Nodo {
 		}
 		return 0;
 	}
+	/**
+	 * Une el conocimiento de n con el conocimiento de this.
+	 * @param n
+	 */
 	public void joinNode (Nodo n){
 		if(!this.estimacion || !n.estimacion){
 			return;
@@ -156,39 +160,19 @@ public class Nodo {
 		if(n.time > this.time){
 			this.time = n.time;
 		}
-		if(this.norte*n.norte < 0)
-			this.norte = 1;
-		else
-			this.norte = 0;
-		if(this.noreste*n.noreste < 0)
-			this.noreste = 1;
-		else
-			this.noreste = 0;
-		if(this.este*n.este < 0)
-			this.este = 1;
-		else
-			this.este = 0;
-		if(this.sureste*n.sureste < 0)
-			this.sureste = 1;
-		else
-			this.sureste = 0;
-		if(this.sur*n.sur < 0)
-			this.sur = 1;
-		else
-			this.sur = 0;
-		if(this.suroeste*n.suroeste < 0)
-			this.suroeste = 1;
-		else
-			this.suroeste = 0;
-		if(this.oeste*n.oeste < 0)
-			this.oeste = 1;
-		else
-			this.oeste = 0;
-		if(this.noroeste*n.noroeste < 0)
-			this.noroeste = 1;
-		else
-			this.noroeste = 0;
+		this.norte *= n.norte;
+		this.noreste *= n.noreste;
+		this.este *= this.este;
+		this.sureste *= n.sureste;
+		this.sur *= n.sur;
+		this.suroeste *= n.suroeste;
+		this.oeste *= n.oeste;
+		this.noroeste *= n.noroeste;
 	}
+	/**
+	 * Convierte al nodo que ejecuta el método en una copia calcada de n
+	 * @param n
+	 */
 	public void copyNode (Nodo n){
 		this.id = n.id;
 		this.score = n.score;
@@ -207,6 +191,10 @@ public class Nodo {
 		this.noroeste = n.noroeste;
 
 	}
+	/**
+	 * Devuelve la lista de aristas que definen la información que tiene un nodo de su entorno
+	 * @return
+	 */
 	public ArrayList<Integer> getListaAristas(){
 		ArrayList<Integer> res = new ArrayList<>();
 		res.add(norte);
@@ -219,6 +207,10 @@ public class Nodo {
 		res.add(noroeste);
 		return res;
 	}
+	/**
+	 * Configura la informacion que tiene un nodo de su entorno
+	 * @param s
+	 */
 	public void setListaAristas(ArrayList<Integer> s){
 		norte = s.get(0);
 		noreste = s.get(1);

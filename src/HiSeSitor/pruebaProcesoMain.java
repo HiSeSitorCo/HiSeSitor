@@ -12,12 +12,16 @@ public class pruebaProcesoMain {
 		Simulacion sim = new Simulacion(0);
 		Proceso p = new Proceso(sen, sim);
 		
-		ArrayList<Estrategia> es = new ArrayList<Estrategia>(5);
+		ArrayList<Estrategia> es = new ArrayList<Estrategia>();
 		
-		ArrayList<Integer> vars = new ArrayList<Integer>();
-		vars.add(1);vars.add(2);vars.add(3);vars.add(4);
+		ArrayList<ArrayList<Integer>> variables = new ArrayList<>();
+		es.add(new Estrategia_espiral_test(sen));
+		ArrayList<Integer> e1_vars = new ArrayList<>();
+		e1_vars.add(2);
+		e1_vars.add(3);
+		variables.add(e1_vars);
 		
-		p.iteraEstrategias(es, vars);
+		p.iteraEstrategias(es, variables);
 		
 		System.out.println("finiquitaoh");
 		

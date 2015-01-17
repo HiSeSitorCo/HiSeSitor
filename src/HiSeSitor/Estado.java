@@ -15,6 +15,7 @@ public class Estado {
 	public Estrategia estrategia;
 	public Nodo inicio;
 	public int presas = 0;
+	public int salvadas = 0;
 	public int definicionMalla = 100;
 
 	public Grafo memoria;
@@ -31,6 +32,8 @@ public class Estado {
 	private void initHiddenNodes() {
 		boolean visto = false;
 		for (Nodo n : mapa.getListaNodos()) {
+			if(n.score < 0)
+				continue;
 			for (Sensor s : estrategia.getSensores()) {
 				if (s.isVisto(n)) {
 
@@ -41,7 +44,7 @@ public class Estado {
 			if (!visto) {
 				if (n.cazador == true)
 					continue;
-				System.out.println("No visto: " + n.toString());
+				Logger.debug("No visto: " + n.toString());
 				hiddenNodes.add(n);
 			}
 			visto = false;
@@ -50,9 +53,12 @@ public class Estado {
 	}
 
 	public void addAleatOponent() {
-		if (hiddenNodes.size() < 1)
+		if (hiddenNodes.size() < 1){
+			Logger.debug("INFO - No se añaden mas presas porque no hay nodos ocultos");
 			return;
-		int rng = random.nextInt(hiddenNodes.size() - 1);
+		}
+		int rng = random.nextInt(hiddenNodes.size());
+		Logger.debug("INFO - Rand: "+rng);
 		Nodo auxN = hiddenNodes.get(rng);
 		mapa.creaPresa(auxN);
 		presas++;
@@ -86,7 +92,9 @@ public class Estado {
 			if (mapa.getDistancia(aux, inicio) <= dist) {
 				presas--;
 				mapa.borraPresa(aux);
-				System.out.println("PRESA SALVADA");
+				Logger.debug("Presa salvada: "+aux.toString());
+				this.presas--;
+				this.salvadas++;
 			}
 		}
 		updateSensores();
@@ -137,6 +145,7 @@ public class Estado {
 	public void initGraph() {
 		this.mapa = new Grafo();
 		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
+		if(Proceso.enableGUI)
 		this.mapa.plotGraph("Grafo Inicial");
 		mapa.setCazador();
 		mapa.setArbolDondeCuenta(mapa.getCazador());

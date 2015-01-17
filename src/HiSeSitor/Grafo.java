@@ -220,13 +220,13 @@ public class Grafo {
 			if (auxN.id == n.id) {
 				if (n.obstaculo == true)
 					continue;
-				System.out.println(n.toString());
+				Logger.debug("INFO - Presa creada: "+n.toString());
 				n.presa = true;
-				break;
+				return;
 			}
 		}
-		System.out.println("PRESA CREADA");
-		auxN.presa = true;
+		
+		System.out.println("ERROR - La presa no ha sido creada: "+auxN.toString());
 
 	}
 
@@ -563,6 +563,10 @@ public class Grafo {
 		if(l<0)
 			return null;
 		return al.get(l);
+	}
+	
+	public boolean isEstimacion (Nodo n){
+		return n.isEstimacion();
 	}
 }
 
