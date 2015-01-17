@@ -57,7 +57,7 @@ public class Estrategia {
 	public ArrayList<Sensor> getSensores() {
 		return sensores;
 	}
-
+	
 	public void init(ArrayList<Sensor> sensores) {
 		// Depende de la estrategia inicializar unos u otros sensores
 		this.sensores = sensores;

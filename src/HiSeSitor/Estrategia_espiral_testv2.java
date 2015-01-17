@@ -18,9 +18,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	@Override
 	public void asignaVariables(ArrayList<Integer> v) throws Exception {
 		if (v.size() != tam) {
-			new Exception("Variables no correwspond
-		double x = actual.pos.x;ientes con la estrategua");
-			
+			new Exception("Variables no correwspondientes con la estrategua");
 		}
 		espiral = v.get(0);
 		
@@ -78,7 +76,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	
 	@Override
 	public double estima(Nodo n) {
-		return -1;
+		
 	}
 
 	@Override
