@@ -12,5 +12,6 @@ Por supuesto, si hya union de datos se debe actualizar el "descubrimiento" al m√
 +Estimacion esta apunto
 +hablar con victor de crea nodo estimacion
 +SIMULAR
++Tarea de PSEUDORANDOM
 +implementar alguna estrategia mas
 +implementar alg√∫n sensor mas
