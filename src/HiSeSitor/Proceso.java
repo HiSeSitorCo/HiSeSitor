@@ -156,7 +156,7 @@ public class Proceso {
 		// que aqui no se que datos se reciben ni nada LO DEJO A LA ELECCION DE
 		// GUILLE
 
-		d.agregaDatos(/* se meten los datos de la simulacion mas optima */"");
+		
 	}
 
 	/**

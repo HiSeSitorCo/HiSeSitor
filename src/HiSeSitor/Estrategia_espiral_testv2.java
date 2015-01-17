@@ -12,8 +12,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	private int div = 0;
 	
 	protected int tam = 1;
-	public Estrategia_espiral_testv2(ArrayList<Sensor> sen) {
-		super(sen);
+	public Estrategia_espiral_testv2(ArrayList<Sensor> sen, ArrayList<Integer> v) {
+		super(sen, v);
 		// TODO Auto-generated constructor stub
 	}
 	
