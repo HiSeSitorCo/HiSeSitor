@@ -17,7 +17,6 @@ public class Estrategia {
 			return;
 		}
 		this.sensores = sensores;
-		memoria = new Grafo();
 		// Asigna variables iterables (iteraciones)
 		try {
 			asignaVariables(vars);
@@ -64,7 +63,10 @@ public class Estrategia {
 	}
 
 	public void updateMemoria() {
-
+		if (memoria == null) {
+			memoria = new Grafo();
+			memoria.InitSensorGraph(estado.mapa);
+		}
 		for (Sensor s : sensores) {
 			agregaSensorMemoria(s);
 		}
@@ -165,13 +167,7 @@ public class Estrategia {
 	}
 
 	public void agregaSensorMemoria(Sensor sensor) {
-		double total;
-		for (int pond : ponderaciones) {
-			for (Nodo n : sensor.getSensorGraph().getListaNodos()) {
-				Nodo nod = memoria.getNode(n.id);
-				nod.setScore((n.score * pond)+nod.score);
-			}
-		}
+		memoria.union(sensor.getSensorGraph());
 	}
 
 	public double calculaEstima(Nodo n) {
