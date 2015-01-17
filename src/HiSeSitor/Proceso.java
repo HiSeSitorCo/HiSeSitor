@@ -50,14 +50,14 @@ public class Proceso {
 		masVisibles = dato.mejorIteracionVisibles();
 	}
 
-	/**
-	 * itera lo voy explicando entre el codigo. recibe una estrategia y el array
-	 * de variables de la misma
-	 * 
-	 * @param e
-	 * @param vars
-	 * @param d
-	 */
+	
+	
+	public void preparaSimulacion(Estrategia estr, Simulacion s) {
+		s.InitSimulacion();
+		estr.reset();
+	}
+	
+	
 	/**
 	 * itera lo voy explicando entre el codigo. recibe una estrategia y el array
 	 * de variables de la misma
@@ -101,25 +101,13 @@ public class Proceso {
 				AR3.add(i, AR1.get(i) - SALTO);
 
 				// simulo para los tres arrays y guardo los valores obtenidos
-				sensores.clear();
-				sensores.add(new Sensor());
-
-				e = new Estrategia(sensores, AR1);
-				simulacion.InitSimulacion(); // Reiniciamos estado
+				//preparaSimulacion(e, simulacion);
 				x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
 
-				sensores.clear();
-				sensores.add(new Sensor());
-
-				e = new Estrategia(sensores, AR2);
-				simulacion.InitSimulacion();
+				preparaSimulacion(e, simulacion);
 				x2 = simulacion.correSimulacion(e, d, this.toString(AR2));
 
-				sensores.clear();
-				sensores.add(new Sensor());
-
-				e = new Estrategia(sensores, AR3);
-				simulacion.InitSimulacion();
+				preparaSimulacion(e, simulacion);
 				x3 = simulacion.correSimulacion(e, d, this.toString(AR3));
 
 				// compruebo el maximo de los valores
@@ -143,11 +131,7 @@ public class Proceso {
 
 		// por ultimo corro una ultima simulacion con el array mas optimo para
 		// guardar sus valores en Datos
-		sensores.clear();
-		sensores.add(new Sensor());
-
-		e = new Estrategia(sensores, AR1);
-		simulacion.InitSimulacion(); // Reiniciamos estado
+		preparaSimulacion(e, simulacion);
 		x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
 	}
 

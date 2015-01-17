@@ -57,6 +57,19 @@ public class Estrategia {
 		return sensores;
 	}
 	
+	public void reset() {
+		for (Sensor s: getSensores()) {
+			s.reset();
+		}
+		memoria = null;
+		estado = null;
+		reset_ext();
+	}
+	
+	public void reset_ext() {
+		//TODO:
+	}
+	
 	public void init(ArrayList<Sensor> sensores) {
 		// Depende de la estrategia inicializar unos u otros sensores
 		this.sensores = sensores;

@@ -107,6 +107,17 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		return 0;
 		
 	}
+	
+	@Override
+	public void reset_ext() {
+
+		visitados = new ArrayList<>();
+		espiral = -1;
+		espiralAux = 0;
+		pasoPasado = 0;
+		div = 0;
+		itPasado = 0;
+	};
 
 	@Override
 	public double calcula(Nodo n) {

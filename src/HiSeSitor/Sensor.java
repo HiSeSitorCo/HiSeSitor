@@ -8,7 +8,8 @@ public class Sensor {
 	public Estado estado;
 
 	public boolean isVisto(Nodo n) {
-		return sensorKnowledge.contains(n);
+		return checkNode(n, estado.getActual());
+		//return sensorKnowledge.contains(n);
 	}
 
 	public void initSensor(){
@@ -87,6 +88,12 @@ public class Sensor {
 	public Grafo getKnowledge() {
 		
 		return sensorKnowledge;
+	}
+
+	public void reset() {
+		sensorKnowledge = new Grafo();
+		initSensor();
+		
 	}
 
 }
