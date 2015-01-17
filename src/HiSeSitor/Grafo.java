@@ -388,7 +388,7 @@ public class Grafo {
 			}
 		}
 
-		plotGraph("Holis");
+		//plotGraph("Holis");
 	}
 
 	@SuppressWarnings("unused")

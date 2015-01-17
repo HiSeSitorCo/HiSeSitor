@@ -27,7 +27,7 @@ public class Proceso {
 		simulacion = sim;
 		SALTO = 4;
 		Logger.debug = true;
-		enableGUI = true;
+		enableGUI = false;
 	}
 
 	/**
