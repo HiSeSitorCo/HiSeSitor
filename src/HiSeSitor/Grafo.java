@@ -404,6 +404,9 @@ public class Grafo {
 
 	public void InitSensorGraph(Grafo s) {
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
+		g = new SparseMultigraph<>();
+		 nodtopos = new HashMap<>();
+		 postonod = new HashMap<>();
 		int w = 0;
 		int edgecount = 0;
 		x = s.x;
