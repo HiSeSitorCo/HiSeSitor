@@ -160,7 +160,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	@Override
 	public double calcula(Nodo n) {
 		if (estado.getActual() == n) n.score = -10;
-		n.score = espiralAux;
+		n.score += espiralAux;
 		
 		return n.score;
 	}
