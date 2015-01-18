@@ -18,6 +18,8 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 
+	private int id = 0;
+	
 	public int flag = 1;
 	/**
 	 * el salto lo podemos manejar desde aqui
@@ -108,10 +110,12 @@ public class Proceso {
 				}
 			}
 		} else { 
-			ret1 = simulacion.correSimulacion(e, d, this.toString(vars));
+			id++;
+			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
 			while (top--!=0) {
 				funcionDecisionParametros(num, inc, vars);
-				ret2 = simulacion.correSimulacion(e, d, this.toString(vars));
+				id++;
+				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
 				if (ret1 > ret2) {
 					inc = fraccion*inc;
 					it = 0;
