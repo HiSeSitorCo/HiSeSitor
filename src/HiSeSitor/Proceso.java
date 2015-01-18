@@ -47,7 +47,7 @@ public class Proceso {
 		simulacion = sim;
 		SALTO = 4;
 		Logger.debug = false;
-		enableGUI = false;
+		enableGUI = true;
 		startGUI();
 
 		progressBar = new JProgressBar();

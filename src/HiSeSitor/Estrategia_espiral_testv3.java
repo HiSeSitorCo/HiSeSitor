@@ -14,6 +14,8 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 	private int div;
 	private int presas = 0;
 	private int itPasado = 0;
+	private int jGlob = 2;
+	
 
 	protected int tam = 1;
 
@@ -36,7 +38,7 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 	@Override
 	public void update() {
 		int i = espiral;
-		int j = 2;
+		int j = jGlob;
 		int paso = pasoPasado; 
 		int cont = 0;
 		pasoPasado=(pasoPasado+1)%4;
@@ -49,9 +51,10 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 		int x = (int) actual.pos.x;
 		int y = (int) actual.pos.y;
 		int notNull = 0;
+		int first = 1;
 		espiralAux = espiral;
 		
-		int MAX = memoria.getListaNodos().size();
+		int MAX = memoria.getListaNodos().size()/2;
 
 		if (presas != estado.presas) {
 
@@ -117,6 +120,11 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 
 				paso=(paso+1)%4;
 				notNull = 0;
+			}
+			if (first == 1) {
+				first =0;
+				itPasado = it;
+				jGlob = j;
 			}
 			cont++;
 		
