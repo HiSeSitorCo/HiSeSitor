@@ -28,8 +28,6 @@ public class PruebaMain {
 		d.agregaDatos(cadena8);
 		d.agregaDatos(cadena9);
 
-		d.procesaDatos();
-
 		d.mejorIteracionCapturados("estrategia1");
 		System.out.println();
 		d.mejorIteracionCapturados("estrategia2");

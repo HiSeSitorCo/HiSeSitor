@@ -1,9 +1,6 @@
 package HiSeSitor;
 
-import java.awt.geom.Arc2D.Double;
 import java.util.ArrayList;
-
-import cern.jet.random.Exponential;
 
 public class Estrategia_espiral_testv3 extends Estrategia {
 	public int periodo;

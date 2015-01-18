@@ -5,8 +5,6 @@ import gestionDatos.DatosIteracion;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -25,7 +23,7 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
-	public int MAX_TOP = 37;
+	public int MAX_TOP = 2;
 	public static String progressMsg;
 	public static int maxProgress;
 	public static int progress;
@@ -208,6 +206,7 @@ public class Proceso {
 			    f.setSize(400, 100);
 			    f.setResizable(false);
 			    f.setVisible(true);
+			    f.setLocationRelativeTo(null);
 			    
 			}
 		};
@@ -216,5 +215,9 @@ public class Proceso {
 	
 	public void imprimeResultados(String nombre){
 		dato.procesaDatos(nombre, this.datositeraciones);
+	}
+	
+	public void muestraVentana(){
+		dato.muestraVentana();
 	}
 }
