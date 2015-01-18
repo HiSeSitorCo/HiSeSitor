@@ -111,34 +111,34 @@ public class DatosEstrategia {
 
 			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
 					.getCapturados()
-					/ d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-							.getTiempo() + 1) < (this
+					/ (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+							.getTiempo() + 1)) < (this
 					.getValoresIteraciones(i)
 					.getValoresLecturas(
 							this.getValoresIteraciones(i).getValoresLecturas()
 									.size() - 1).getCapturados()
-					/ this.getValoresIteraciones(i)
+					/ (this.getValoresIteraciones(i)
 							.getValoresLecturas(
 									this.getValoresIteraciones(i)
 											.getValoresLecturas().size() - 1)
-							.getTiempo() + 1)) {
+							.getTiempo() + 1))) {
 
 				d = this.getValoresIteraciones(i);
 			}
 
 			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
 					.getCapturados()
-					/ d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-							.getTiempo() + 1) == (this
+					/ (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+							.getTiempo() + 1)) == (this
 					.getValoresIteraciones(i)
 					.getValoresLecturas(
 							this.getValoresIteraciones(i).getValoresLecturas()
 									.size() - 1).getCapturados()
-					/ this.getValoresIteraciones(i)
+					/ (this.getValoresIteraciones(i)
 							.getValoresLecturas(
 									this.getValoresIteraciones(i)
 											.getValoresLecturas().size() - 1)
-							.getTiempo() + 1)) {
+							.getTiempo() + 1))) {
 
 				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
 						.getTiempo() > this
