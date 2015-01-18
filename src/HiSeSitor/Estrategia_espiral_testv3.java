@@ -40,7 +40,8 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 		int paso = pasoPasado; 
 		int cont = 0;
 		pasoPasado=(pasoPasado+1)%4;
-		int it = itPasado;
+		int it = itPasado-1;
+		if(it < 0) it = 0;
 		itPasado++;
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
@@ -170,9 +171,9 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 
 	@Override
 	public double calcula(Nodo n) {
+		n.score = espiralAux;
 		if (estado.getActual() == n)
 			n.score = -10;
-		n.score = espiralAux;
 
 		return n.score;
 	}
