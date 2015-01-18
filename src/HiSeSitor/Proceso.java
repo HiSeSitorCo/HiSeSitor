@@ -3,7 +3,15 @@ package HiSeSitor;
 import gestionDatos.Datos;
 import gestionDatos.DatosIteracion;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.border.Border;
 
 public class Proceso {
 
@@ -19,6 +27,11 @@ public class Proceso {
 	private int fraccion = -10/11;
 	public int itera;
 	public int MAX_TOP = 37;
+	public static String progressMsg;
+	public static int maxProgress;
+	public static int progress;
+	static JLabel jl;
+	public static JProgressBar progressBar;
 
 	private int id = 0;
 	
@@ -35,6 +48,9 @@ public class Proceso {
 		SALTO = 4;
 		Logger.debug = false;
 		enableGUI = false;
+		startGUI();
+		progressBar = new JProgressBar();
+		progressMsg = "Processing...";
 	}
 
 	/**
@@ -47,15 +63,18 @@ public class Proceso {
 	 */
 	public void iteraEstrategias(ArrayList<Estrategia> es,
 			ArrayList<ArrayList<Integer>> v) {
-
+		progress = 0;
+		progressBar.setValue(progress);
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);
 //ESTO HAY QUE TOCARLO
 			mejorCapturados = dato.mejorIteracionCapturados();
 			mejorOptimizado = dato.mejorIteracionOptimizada();
 			masVisibles = dato.mejorIteracionVisibles();
+			progress = maxProgress;
+			progressBar.setValue(progress);
 		}
-
+		
 	}
 
 	
@@ -120,6 +139,9 @@ public class Proceso {
 		} else { 
 			int iteraLocal = itera + 1;
 			int calc = (int) Math.pow(38, vars.size());
+			maxProgress = calc;
+			progress++;
+			progressBar.setValue(progress);
 			System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 			id++;
 			if (flagSim != 0) {
@@ -132,6 +154,8 @@ public class Proceso {
 			while (top--!=0) {
 				funcionDecisionParametros(num, inc, vars);
 				id++;
+				progress++;
+				progressBar.setValue(progress);
 				System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 				preparaSimulacion(e,simulacion,vars);
 				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
@@ -161,5 +185,32 @@ public class Proceso {
 		String cadena = array.toString();
 		cadena = cadena.replace(",", ".");
 		return cadena;
+	}
+	
+	public void startGUI (){
+		Thread t = new Thread(){
+			@Override
+			public void run (){
+				JFrame f = new JFrame("Hisesitor");
+				f.setVisible(true);
+				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Container content = f.getContentPane();
+			    progressBar = new JProgressBar();
+			    progressBar.setMaximum(maxProgress);
+			    progressBar.setStringPainted(true);
+			    Border border = BorderFactory.createTitledBorder(progressMsg);
+			    progressBar.setBorder(border);
+			    content.add(progressBar, BorderLayout.NORTH);
+			    jl = new JLabel();
+			    content.add(jl, BorderLayout.CENTER);
+ 			    JLabel jlb = new JLabel("This may take long time");
+			    content.add(jlb, BorderLayout.SOUTH);
+			    f.setSize(400, 100);
+			    f.setResizable(false);
+			    f.setVisible(true);
+			    
+			}
+		};
+		t.start();
 	}
 }
