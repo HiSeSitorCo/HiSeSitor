@@ -67,7 +67,8 @@ public class Proceso {
 		progress = 0;
 		progressBar.setValue(progress);
 		for (int i = 0; i < es.size(); i++) {
-			itera(es.get(i), v.get(i), dato);			
+			itera(es.get(i), v.get(i), dato);		
+			itera = 0;
 			progress = maxProgress;
 			progressBar.setValue(progress);
 		}
