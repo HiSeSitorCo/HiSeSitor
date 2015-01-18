@@ -18,6 +18,7 @@ public class Nodo {
 	int id; /* Identificador unico para cada nodo */
 	double score; /* Puntuacion definida por la estrategia y/o heuristica */
 	boolean cazador = false;
+	boolean salvada = false;
 	boolean presa = false;
 	boolean cazada = false;
 	boolean obstaculo = false;
@@ -351,6 +352,25 @@ public class Nodo {
 
 	public void setTime(int time) {
 		this.time = time;
+	}
+	public String imprimePresa (){
+		return this.id+"|"+this.pos.x+" "+this.pos.y;
+	}
+
+	public boolean isSalvada() {
+		return salvada;
+	}
+
+	public void setSalvada(boolean salvada) {
+		this.salvada = salvada;
+	}
+
+	public int getDescubrimiento() {
+		return descubrimiento;
+	}
+
+	public void setDescubrimiento(int descubrimiento) {
+		this.descubrimiento = descubrimiento;
 	}
 	
 	

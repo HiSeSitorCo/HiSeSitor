@@ -36,18 +36,21 @@ public class Simulacion {
 		try {
 			while ((nodo = estado.busca()) != null && estado.presas > 0) {
 				time++;
+				System.out.println("Presotas: "+estado.presas);
 				Logger.debug("Posicion: " + estado.getActual()
 						+ "\nRestantes: " + estado.presas);
 				estado.guardaValoresEstado(dato, id, MAX_ENEMIGOS);
 				estado.updateEstado(nodo);
 				
 			}
+			System.out.println("Presotas: "+estado.presas);
 			Logger.debug("Simulacion terminada: " + nodo.toString()
-					+ " presas: " + estado.salvadas);
+					+ " Presas capturadas: " +(MAX_ENEMIGOS - estado.salvadas)+"\n"
+							+ "Presas salvadas: "+estado.salvadas);
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-		return estado.salvadas;
+		return (MAX_ENEMIGOS - estado.salvadas);
 
 	}
 

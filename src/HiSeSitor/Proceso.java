@@ -47,7 +47,7 @@ public class Proceso {
 		simulacion = sim;
 		SALTO = 4;
 		Logger.debug = false;
-		enableGUI = true;
+		enableGUI = false;
 		startGUI();
 		progressBar = new JProgressBar();
 		progressMsg = "Processing...";
@@ -232,7 +232,7 @@ public class Proceso {
 		int bounds = x * y;
 		randGet = 0;
 		randPos = new ArrayList<>();
-		Random rd = new Random(bounds);
+		Random rd = new Random(System.currentTimeMillis());
 		for(int i = 0; i < bounds*2; i++){
 			randPos.add(rd.nextInt(bounds));
 			System.out.println("Generado: "+randPos.get(i));
