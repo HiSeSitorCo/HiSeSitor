@@ -11,6 +11,10 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	private int pasoPasado = 0;
 	private int div;
 	private int itPasado = 1;
+	private int jGlob = 2;
+	public int transito=1;
+	public int transitado=0;
+	public int freeze = -1;
 	
 	protected int tam = 1;
 	public Estrategia_espiral_testv2(ArrayList<Sensor> sen, ArrayList<Integer> v) {
@@ -32,10 +36,10 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	@Override
 	public void update() {
 		int i = espiral;
-		int j = 2;
+		int j = jGlob;
 		int paso = pasoPasado; 
 		int cont = 0;
-		pasoPasado=(pasoPasado+1)%4;
+		int mem = -1;
 		int it = itPasado;
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
@@ -45,16 +49,66 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int notNull = 0;
 		int first = 1;
 		espiralAux = espiral;
+		//bluce de transito
 		
-		int MAX = memoria.getListaNodos().size();
+		
+		//He concluido mi camino
+		if (transito <= 1) {
+			transitado = 1;
+			pasoPasado=(pasoPasado+1)%4;
+			paso= pasoPasado;
+			
+			
+		} else {//Continuo caminando
+			freeze = 1;
+			
+		}
+		
+		/*if (transito-1<1) {
+
+			transito = it;
+		
+			transitado=0;
+			if (it > 1) {
+				if (transitado == -1)
+					transitado = 0;
+				else
+					transitado++;
+			}
+			
+		} else {
+			if (transitado == -1)
+				transitado = 0;
+			else
+				transitado++;
+			
+		}*/
+		
+		int MAX = memoria.getListaNodos().size()/2;
 		
 		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
-			if (j-- <= 0) {
-				j=1;
-				it++;
-			}			
-			int itAux = it;
+			int itAux;
+			if (freeze != 1) {
+				if (j-- <= 0) {
+					j=1;
+					it++;
+				}		
+				mem = it;
+				
+				itAux = it;
+			} else {
+				
+				itAux = itPasado-1;
+				freeze = 0;
+				transito--;
+			}
+			/*if (first == 1) {
+				itAux-=transitado;
+				if (transitado > 0) {
+					j++;
+				}
+			}*/
 			switch(paso) {
 			
 				//arriba
@@ -65,7 +119,10 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							calculaEstima(bus);
 							espiralAux--;
 							notNull=1;
-						} 
+							cont++;
+						} else {
+							y++;
+							break;}
 					}
 					break;
 				//abajo
@@ -76,7 +133,9 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							calculaEstima(bus);
 							espiralAux--;
 							notNull=1;
-						} 
+							cont++;
+						} else {y--;
+						break;}
 					}
 					break;
 				//derehca
@@ -86,7 +145,9 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							calculaEstima(bus);
 							espiralAux--;
 							notNull=1;
-						} 
+							cont++;
+						} else {x--;
+						break;}
 					}
 					break;
 				//izquierda
@@ -96,7 +157,9 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							calculaEstima(bus);
 							espiralAux--;
 							notNull=1;
-						} 
+							cont++;
+						} else {x++;
+						break;}
 					}
 					break;
 			}
@@ -106,10 +169,18 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 				notNull = 0;
 			}
 			if (first == 1) {
+				//if (transitado > 0) j--;
+				
 				first =0;
 				itPasado = it;
+				jGlob = j;
+				transito = it;
+				/*transito--;
+				if (it == transitado+1) {
+					pasoPasado=(pasoPasado+1)%4;
+					transitado = -1;
+				}*/
 			}
-			cont++;
 		
 		}
 		
