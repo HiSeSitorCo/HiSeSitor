@@ -15,6 +15,8 @@ public class Proceso {
 	public DatosIteracion mejorCapturados = new DatosIteracion("masCapturados");
 	public DatosIteracion mejorOptimizado = new DatosIteracion("masOptimizados");
 	public DatosIteracion masVisibles = new DatosIteracion("masOptimizados");
+	private int incMax = 50;
+	private int fraccion = -10/11;
 
 	public int flag = 1;
 	/**
@@ -44,11 +46,12 @@ public class Proceso {
 
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);
+//ESTO HAY QUE TOCARLO
+			mejorCapturados = dato.mejorIteracionCapturados();
+			mejorOptimizado = dato.mejorIteracionOptimizada();
+			masVisibles = dato.mejorIteracionVisibles();
 		}
 
-		mejorCapturados = dato.mejorIteracionCapturados();
-		mejorOptimizado = dato.mejorIteracionOptimizada();
-		masVisibles = dato.mejorIteracionVisibles();
 	}
 
 	
@@ -67,107 +70,64 @@ public class Proceso {
 	 * @param vars
 	 * @param d
 	 */
-	public void itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
+	public int itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
+		return iteraAux(vars.size(), e, vars, d);
+	}
+	
 
-		// creo las variables necesarias
-		ArrayList<Integer> AR1 = new ArrayList<Integer>();
-		ArrayList<Integer> AR2 = new ArrayList<Integer>();
-		ArrayList<Integer> AR3 = new ArrayList<Integer>();
-		int SALTO = this.SALTO;
-		int i = 0, x1, x2, x3, max = 0, anterior = 0;
-
-		// relleno los arrays a -1 que indica que ese valor no se usa
-		for (i = 0; i < vars.size(); i++) {
-			AR1.add(i, -1);
-			AR2.add(i, -1);
-			AR3.add(i, -1);
-		}
-
-		// para cada elemento del array...
-		for (i = 0; i < vars.size(); i++) {
-
-			// ...elimino el -1 y aÃ±ado el valor del array bueno...
-			AR1.remove(i);
-			AR1.add(i, vars.get(i));
-
-			// ...y mientras el salto sea mayor que cero...
-			while (SALTO > 0) {
-
-				// elimino los valores de la posicion i de los arrays auxiliares
-				// e inserto el valor del array auxiliar1 +- el incremento
-				AR2.remove(i);
-				AR3.remove(i);
-
-				AR2.add(i, AR1.get(i) + SALTO);
-				AR3.add(i, AR1.get(i) - SALTO);
-
-				// simulo para los tres arrays y guardo los valores obtenidos
-				if (flag == 0) 
-					preparaSimulacion(e, simulacion);
-				x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
-				
-				preparaSimulacion(e, simulacion);
-				x2 = simulacion.correSimulacion(e, d, this.toString(AR2));
-				
-				preparaSimulacion(e, simulacion);
-				x3 = simulacion.correSimulacion(e, d, this.toString(AR3));
-				
-				// compruebo el maximo de los valores
-				max = maximo(x1, x2, x3);
-
-				// si la desviacion es tan pequeÃ±a que implica que todos los
-				// valores sean iguales, salimos
-				if (max == 0)
-					break;
-
-				// si el maximo valor obtenido es mejor que el anterior maximo,
-				// lo sobreescribimos en el array
-				if (anterior < max) {
-					AR1.remove(i);
-					AR1.add(i, max);
+	public int funcionDecisionParametros(int index, int inc, ArrayList<Integer> vars) {
+		int p = vars.get(index);
+		vars.remove(index);
+		vars.add(index, p+inc);
+		return p+inc;
+	}
+	
+	public int iteraAux(int num, Estrategia e, ArrayList<Integer> vars, Datos d ) {
+		int inc = incMax;
+		int ret1;
+		int ret2;
+		int it=0;
+		int top = 37;
+		if (num > 0) {
+			ret1 = iteraAux(num-1, e, vars, d);
+			while (top--!=0) {
+				funcionDecisionParametros(num, inc, vars);
+				ret2 = iteraAux(num-1, e, vars, d);
+				if (ret1 > ret2) {
+					inc = fraccion*inc;
+					it = 0;
+				} else if (ret1 < ret2) {
+					ret1 = ret2;
+					it = 0;
+				} else {
+					it++;
 				}
-				// decrementamos el salto
-				SALTO--;
-				flag = 0;
+				
+				if (it == 3) {
+					return ret1;
+				}
+			}
+		} else { 
+			ret1 = simulacion.correSimulacion(e, d, this.toString(vars));
+			while (top--!=0) {
+				funcionDecisionParametros(num, inc, vars);
+				ret2 = simulacion.correSimulacion(e, d, this.toString(vars));
+				if (ret1 > ret2) {
+					inc = fraccion*inc;
+					it = 0;
+				} else if (ret1 < ret2) {
+					ret1 = ret2;
+					it = 0;
+				} else {
+					it++;
+				}
+				
+				if (it == 3) {
+					return ret1;
+				}
 			}
 		}
-
-		// por ultimo corro una ultima simulacion con el array mas optimo para
-		// guardar sus valores en Datos
-		preparaSimulacion(e, simulacion);
-		x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
-	}
-
-	/**
-	 * funcion interna para calcular el maximo entre tres elementos y devuelve 0
-	 * en caso de que sean los tres iguales
-	 * 
-	 * @param x1
-	 * @param x2
-	 * @param x3
-	 * @return
-	 */
-	private int maximo(int x1, int x2, int x3) {
-
-		if (x1 > x2)
-			if (x1 >= x3)
-				return x1;
-			else
-				return x3;
-		if (x1 < x2)
-			if (x2 >= x3)
-				return x2;
-			else
-				return x3;
-		if (x1 == x2)
-			if (x1 > x3)
-				return x1;
-			else if (x1 < x3)
-				return x3;
-			else if (x1 == x3)
-				return 0;
-
-		return 0;
+		return ret1;
 	}
 
 	public String toString(ArrayList<Integer> array) {

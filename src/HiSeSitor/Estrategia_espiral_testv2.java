@@ -15,6 +15,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	protected int tam = 1;
 	public Estrategia_espiral_testv2(ArrayList<Sensor> sen, ArrayList<Integer> v) {
 		super(sen, v);
+		nombre = "Espiral v2";
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -33,7 +34,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int i = espiral;
 		int j = 2;
 		int paso = pasoPasado; 
-		pasoPasado++;
+		int cont = 0;
+		pasoPasado=(pasoPasado+1)%4;
 		int it = itPasado;
 		itPasado++;
 		Nodo actual = estado.getActual();
@@ -43,8 +45,9 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int y = (int) actual.pos.y;
 		espiralAux = espiral;
 		
+		int MAX = memoria.getListaNodos().size();
 		
-		while (espiralAux > 0) {
+		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
 			if (j-- == 0) {
 				j=2;
@@ -70,10 +73,11 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 					break;
 			}
 			if ((bus = memoria.getNodo(x, y)) != null) {
-				paso++;
+				paso=(paso+1)%4;
 				calculaEstima(bus);
 				espiralAux--;
 			} 
+			cont++;
 		
 		}
 

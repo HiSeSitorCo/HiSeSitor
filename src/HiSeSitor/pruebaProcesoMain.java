@@ -18,12 +18,16 @@ public class pruebaProcesoMain {
 		ArrayList<Integer> vars = new ArrayList<Integer>();
 
 		ArrayList<Integer> e1_vars = new ArrayList<>();
+		ArrayList<Integer> e2_vars = new ArrayList<>();
 		e1_vars.add(2);
-		e1_vars.add(3);
+		e1_vars.add(2);
+		e2_vars.add(2);
+		e2_vars.add(2);
 		es.add(new Estrategia_espiral_testv2(sen, e1_vars));
-		//es.add(new Estrategia_espiral_testv3(sen, e1_vars));
+		es.add(new Estrategia_espiral_testv3(sen, e2_vars));
 		ArrayList<ArrayList<Integer>> exp = new ArrayList<ArrayList<Integer>>();
 		exp.add(e1_vars);
+		exp.add(e2_vars);
 
 
 		p.iteraEstrategias(es, exp);
