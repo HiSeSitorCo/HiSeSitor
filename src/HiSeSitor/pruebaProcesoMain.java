@@ -20,6 +20,7 @@ public class pruebaProcesoMain {
 		ArrayList<Integer> e1_vars = new ArrayList<>();
 		ArrayList<Integer> e2_vars = new ArrayList<>();
 		ArrayList<Integer> e3_vars = new ArrayList<>();
+		ArrayList<Integer> e4_vars = new ArrayList<>();
 		e1_vars.add(9);
 		e1_vars.add(2);
 		e2_vars.add(9);

@@ -25,7 +25,7 @@ public class Estrategia_FarAway extends Estrategia {
 	@Override
 	public void asignaVariables(ArrayList<Integer> v) throws Exception {
 		if (v.size() != tam) {
-			new Exception("Variables no correwspondientes con la estrategua");
+			new Exception("Variables no correspondientes a la estrategia");
 		}
 		div = v.get(0);
 
