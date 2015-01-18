@@ -37,20 +37,21 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 	public void update() {
 		int i = espiral;
 		int j = 2;
-		int paso = pasoPasado;
+		int paso = pasoPasado; 
+		int cont = 0;
 		pasoPasado=(pasoPasado+1)%4;
 		int it = itPasado;
-		int cont = 0;
 		itPasado++;
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
 
 		int x = (int) actual.pos.x;
 		int y = (int) actual.pos.y;
+		int notNull = 0;
 		espiralAux = espiral;
-
-		int MAX = memoria.getListaNodos().size();
 		
+		int MAX = memoria.getListaNodos().size();
+
 		if (presas != estado.presas) {
 
 			presas = estado.presas;
@@ -59,40 +60,72 @@ public class Estrategia_espiral_testv3 extends Estrategia {
 			it = 0;
 			itPasado = 1;
 		}
-
 		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
-			if (j-- == 0) {
-				j = 2;
+			if (j-- <= 0) {
+				j=1;
 				it++;
+			}			
+			int itAux = it;
+			switch(paso) {
+			
+				//arriba
+				case 0:
+					while (itAux--!=0) {
+						
+						if ((bus = memoria.getNodo(x, --y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
+					break;
+				//abajo
+				case 2:
+					while (itAux--!=0) {
+						
+						if ((bus = memoria.getNodo(x, ++y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
+					break;
+				//derehca
+				case 1:
+					while (itAux--!=0) {
+						if ((bus = memoria.getNodo(++x, y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
+					break;
+				//izquierda
+				default:
+					while (itAux--!=0) {
+						if ((bus = memoria.getNodo(--x, y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
+					break;
 			}
-			switch (paso) {
+			if (notNull!=0) {
 
-			// arriba
-			case 0:
-				y -= it;
-				break;
-			// derehca
-			case 1:
-				x += it;
-				break;
-			// abajo
-			case 2:
-				x -= it;
-				break;
-			// izquierda
-			default:
-				y += it;
-				break;
-			}
-			if ((bus = memoria.getNodo(x, y)) != null) {
 				paso=(paso+1)%4;
-				calculaEstima(bus);
-				espiralAux--;
+				notNull = 0;
 			}
 			cont++;
+		
+		}
+		
+		for (Nodo n: visitados) {
+			n.score = -10;
 		}
 
+		
 	}
 
 	@Override
