@@ -5,9 +5,8 @@ import gestionDatos.DatosIteracion;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -32,7 +31,8 @@ public class Proceso {
 	static JLabel jl;
 	public static JProgressBar progressBar;
 	public ArrayList<DatosIteracion> datositeraciones = new ArrayList<DatosIteracion>();
-
+	public static ArrayList<Integer> randPos;
+	public static int randGet;
 	private int id = 0;
 	
 	public int flagSim = 0;
@@ -47,9 +47,8 @@ public class Proceso {
 		simulacion = sim;
 		SALTO = 4;
 		Logger.debug = false;
-		enableGUI = false;
+		enableGUI = true;
 		startGUI();
-
 		progressBar = new JProgressBar();
 		progressMsg = "Processing...";
 	}
@@ -216,5 +215,23 @@ public class Proceso {
 	
 	public void imprimeResultados(String nombre){
 		dato.procesaDatos(nombre, this.datositeraciones);
+	}
+	public static int getPseudoRand(){
+		int f = randPos.get(randGet);
+		randGet++;
+		return f;
+	}
+	public static void restartPseudoRand(){
+		randGet = 0;
+	}
+	public static void initPseudoRand (int x, int y){
+		int bounds = x * y;
+		randGet = 0;
+		randPos = new ArrayList<>();
+		Random rd = new Random(bounds);
+		for(int i = 0; i < bounds*2; i++){
+			randPos.add(rd.nextInt(bounds));
+			System.out.println("Generado: "+randPos.get(i));
+		}
 	}
 }

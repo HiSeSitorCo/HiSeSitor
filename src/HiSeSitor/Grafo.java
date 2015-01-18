@@ -304,12 +304,13 @@ public class Grafo {
 	}
 
 	public Nodo setCazador() {
-		Random random = new Random();
 		ArrayList<Nodo> list = getListaNodos();
-
-		int tam = list.size();
-		int rng = random.nextInt(tam);
-		Nodo nodo = list.get(55);
+		int rng = 999999999;
+		while(rng >= list.size())
+			rng = Proceso.getPseudoRand();
+		
+		Nodo nodo = list.get(rng);
+		
 		if (nodo.isObstaculo())
 			nodo = setCazador();
 		return setCazador(nodo);

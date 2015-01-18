@@ -59,9 +59,15 @@ public class Estado {
 			Logger.debug("INFO - No se añaden mas presas porque no hay nodos ocultos");
 			return;
 		}
-		int rng = random.nextInt(hiddenNodes.size());
+		Nodo auxN = null;
+		int rng = 0;
+		while(auxN == null){
+		rng = Proceso.getPseudoRand();
+		if(rng >= hiddenNodes.size())
+			continue;
+	    auxN = hiddenNodes.get(rng);
+		}
 		Logger.debug("INFO - Rand: "+rng);
-		Nodo auxN = hiddenNodes.get(rng);
 		mapa.creaPresa(auxN);
 		presas++;
 		hiddenNodes.remove(rng);
@@ -151,6 +157,11 @@ public class Estado {
 		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
 		if(Proceso.enableGUI)
 		this.mapa.plotGraph("Grafo Inicial");
+		if(Proceso.randPos == null){
+			Proceso.initPseudoRand(mapa.x, mapa.y);
+		}else{
+			Proceso.restartPseudoRand();
+		}
 		mapa.setCazador();
 		mapa.setArbolDondeCuenta(mapa.getCazador());
 	}
