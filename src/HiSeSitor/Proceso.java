@@ -29,7 +29,7 @@ public class Proceso {
 		sensores = s;
 		simulacion = sim;
 		SALTO = 4;
-		Logger.debug = true;
+		Logger.debug = false;
 		enableGUI = false;
 	}
 

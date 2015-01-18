@@ -19,9 +19,9 @@ public class pruebaProcesoMain {
 
 		ArrayList<Integer> e1_vars = new ArrayList<>();
 		ArrayList<Integer> e2_vars = new ArrayList<>();
+		e1_vars.add(9);
 		e1_vars.add(2);
-		e1_vars.add(2);
-		e2_vars.add(2);
+		e2_vars.add(9);
 		e2_vars.add(2);
 		es.add(new Estrategia_espiral_testv2(sen, e1_vars));
 		es.add(new Estrategia_espiral_testv3(sen, e2_vars));
