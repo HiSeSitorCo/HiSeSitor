@@ -4,19 +4,14 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
 public class Datos {
 
 	private ArrayList<DatosEstrategia> valoresEstrategias;
-	
-	public static String progressMsg;
-	public static int maxProgress;
-	public static int progress;
-	static JLabel jl;
-	public static JProgressBar progressBar;
-	
 
 	public Datos() {
 		this.valoresEstrategias = new ArrayList<DatosEstrategia>();
@@ -396,4 +391,67 @@ public class Datos {
 		}
 		return d;
 	}
+		public void muestraVentana() {
+		
+				JFrame frame = new JFrame("Resultados");
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        
+				
+				frame.getContentPane().setLayout((new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS)));
+				
+				
+				ArrayList<DatosEstrategia> arrayC = new ArrayList<DatosEstrategia>();
+				ArrayList<DatosEstrategia> arrayCT = new ArrayList<DatosEstrategia>();
+				ArrayList<DatosEstrategia> arrayN = new ArrayList<DatosEstrategia>();
+		
+				for (DatosEstrategia e : this.getValoresEstrategias()) {
+					DatosEstrategia d1 = new DatosEstrategia(e.getNombreEstrategia());
+					DatosEstrategia d2 = new DatosEstrategia(e.getNombreEstrategia());
+					DatosEstrategia d3 = new DatosEstrategia(e.getNombreEstrategia());
+					d1.getValoresIteraciones().add(
+							this.mejorIteracionCapturados(e.getValoresIteraciones()));
+					d2.getValoresIteraciones().add(
+							this.mejorIteracionOptimizada(e.getValoresIteraciones()));
+					d3.getValoresIteraciones().add(
+							this.mejorIteracionVisibles(e.getValoresIteraciones()));
+					arrayC.add(d1);
+					arrayCT.add(d2);
+					arrayN.add(d3);
+				}
+			    
+				frame.getContentPane().add(new JLabel("\n\n\n"));
+				
+				for (DatosEstrategia d : arrayC) {
+					JLabel texto = new JLabel();
+					texto.setText("\t\tLa iteracion de la estrategia "
+							+ d.getNombreEstrategia()
+							+ " que más enemigos ha capturado ha sido con la configuracion "
+							+ d.getValoresIteraciones(0).getNombreIteracion());
+					frame.getContentPane().add(texto);
+				}
+				frame.getContentPane().add(new JLabel("\n\n\n"));
+				for (DatosEstrategia d : arrayCT) {
+					JLabel texto = new JLabel();
+					texto.setText("\t\tLa iteracion de la estrategia "
+							+ d.getNombreEstrategia()
+							+ " más optima (capturados/tiempo) ha sido con la configuracion "
+							+ d.getValoresIteraciones(0).getNombreIteracion());
+					frame.getContentPane().add(texto);
+				}
+				frame.getContentPane().add(new JLabel("\n\n\n"));
+				for (DatosEstrategia d : arrayN) {
+					JLabel texto = new JLabel();
+					texto.setText("\t\tLa iteracion de la estrategia "
+							+ d.getNombreEstrategia()
+							+ " que más nodos ha visto ha sido con la configuracion "
+							+ d.getValoresIteraciones(0).getNombreIteracion());
+					frame.getContentPane().add(texto);;
+				}frame.getContentPane().add(new JLabel("\n\n\n"));
+		
+			    //frame.pack();
+				frame.setSize(700, 200);
+			    frame.setVisible(true);
+				frame.setResizable(true);
+				frame.setLocationRelativeTo(null);
+			}
 }
