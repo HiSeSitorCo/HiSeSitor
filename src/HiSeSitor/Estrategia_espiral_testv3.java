@@ -8,10 +8,10 @@ import cern.jet.random.Exponential;
 public class Estrategia_espiral_testv3 extends Estrategia {
 	public int periodo;
 	public ArrayList<Nodo> visitados = new ArrayList<>();
-	private int espiral = -1;
+	private int espiral;
 	private int espiralAux = 0;
 	private int pasoPasado = 0;
-	private int div = 0;
+	private int div;
 	private int presas = 0;
 	private int itPasado = 0;
 

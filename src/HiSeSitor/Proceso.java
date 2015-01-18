@@ -20,7 +20,7 @@ public class Proceso {
 
 	private int id = 0;
 	
-	public int flag = 1;
+	public int flagSim = 0;
 	/**
 	 * el salto lo podemos manejar desde aqui
 	 * 
@@ -31,8 +31,8 @@ public class Proceso {
 		sensores = s;
 		simulacion = sim;
 		SALTO = 4;
-		Logger.debug = true;
-		enableGUI = true;
+		Logger.debug = false;
+		enableGUI = false;
 	}
 
 	/**
@@ -58,9 +58,15 @@ public class Proceso {
 
 	
 	
-	public void preparaSimulacion(Estrategia estr, Simulacion s) {
+	public void preparaSimulacion(Estrategia estr, Simulacion s, ArrayList<Integer> var) {
 		s.InitSimulacion();
 		estr.reset();
+		try {
+			estr.asignaVariables(var);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -110,11 +116,19 @@ public class Proceso {
 				}
 			}
 		} else { 
+			System.out.println("top " + top + ", " + e.nombre);
 			id++;
+			if (flagSim != 0) {
+				preparaSimulacion(e,simulacion,vars);
+				flagSim = 1;
+			}
+			
 			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
 			while (top--!=0) {
 				funcionDecisionParametros(num, inc, vars);
 				id++;
+				System.out.println("top " + top + ", " + e.nombre);
+				preparaSimulacion(e,simulacion,vars);
 				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
 				if (ret1 > ret2) {
 					inc = fraccion*inc;

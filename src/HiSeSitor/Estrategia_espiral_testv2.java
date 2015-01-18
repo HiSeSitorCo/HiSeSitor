@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class Estrategia_espiral_testv2 extends Estrategia {
 	public int periodo;
 	public ArrayList<Nodo> visitados = new ArrayList<>();
-	private int espiral = -1;
+	private int espiral;
 	private int espiralAux = 0;
 	private int pasoPasado = 0;
-	private int div = 0;
+	private int div;
 	private int itPasado = 0;
 	
 	protected int tam = 1;
