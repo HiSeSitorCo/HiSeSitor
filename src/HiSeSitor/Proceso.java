@@ -17,6 +17,8 @@ public class Proceso {
 	public DatosIteracion masVisibles = new DatosIteracion("masOptimizados");
 	private int incMax = 50;
 	private int fraccion = -10/11;
+	public int itera;
+	public int MAX_TOP = 37;
 
 	private int id = 0;
 	
@@ -95,7 +97,7 @@ public class Proceso {
 		int ret1;
 		int ret2;
 		int it=0;
-		int top = 37;
+		int top = MAX_TOP;
 		if (num > 0) {
 			ret1 = iteraAux(num-1, e, vars, d);
 			while (top--!=0) {
@@ -116,7 +118,9 @@ public class Proceso {
 				}
 			}
 		} else { 
-			System.out.println("top " + top + ", " + e.nombre);
+			int iteraLocal = itera + 1;
+			int calc = (int) Math.pow(38, vars.size());
+			System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 			id++;
 			if (flagSim != 0) {
 				preparaSimulacion(e,simulacion,vars);
@@ -124,12 +128,14 @@ public class Proceso {
 			}
 			
 			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
+			iteraLocal++;
 			while (top--!=0) {
 				funcionDecisionParametros(num, inc, vars);
 				id++;
-				System.out.println("top " + top + ", " + e.nombre);
+				System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 				preparaSimulacion(e,simulacion,vars);
 				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
+				iteraLocal++;
 				if (ret1 > ret2) {
 					inc = fraccion*inc;
 					it = 0;
@@ -140,11 +146,13 @@ public class Proceso {
 					it++;
 				}
 				
-				if (it == 3) {
+				if (it == 2) {
+					itera+=MAX_TOP;
 					return ret1;
 				}
 			}
 		}
+		itera+=MAX_TOP;
 		return ret1;
 	}
 

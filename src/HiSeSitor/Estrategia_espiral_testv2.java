@@ -10,7 +10,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	private int espiralAux = 0;
 	private int pasoPasado = 0;
 	private int div;
-	private int itPasado = 0;
+	private int itPasado = 1;
 	
 	protected int tam = 1;
 	public Estrategia_espiral_testv2(ArrayList<Sensor> sen, ArrayList<Integer> v) {
@@ -43,46 +43,79 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 
 		int x = (int) actual.pos.x;
 		int y = (int) actual.pos.y;
+		int notNull = 0;
 		espiralAux = espiral;
 		
 		int MAX = memoria.getListaNodos().size();
 		
 		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
-			if (j-- == 0) {
-				j=2;
+			if (j-- <= 0) {
+				j=1;
 				it++;
-			}
+			}			
+			int itAux = it;
 			switch(paso) {
 			
 				//arriba
 				case 0:
-					y-=it;
-					break;
-				//derehca
-				case 1:
-					x+=it;
+					while (itAux--!=0) {
+						
+						if ((bus = memoria.getNodo(x, --y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
 					break;
 				//abajo
 				case 2:
-					x-=it;
+					while (itAux--!=0) {
+						
+						if ((bus = memoria.getNodo(x, ++y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
+					break;
+				//derehca
+				case 1:
+					while (itAux--!=0) {
+						if ((bus = memoria.getNodo(++x, y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
 					break;
 				//izquierda
 				default:
-					y+=it;
+					while (itAux--!=0) {
+						if ((bus = memoria.getNodo(--x, y)) != null) {
+							calculaEstima(bus);
+							espiralAux--;
+							notNull=1;
+						} 
+					}
 					break;
 			}
-			if ((bus = memoria.getNodo(x, y)) != null) {
+			if (notNull!=0) {
+
 				paso=(paso+1)%4;
-				calculaEstima(bus);
-				espiralAux--;
-			} 
+				notNull = 0;
+			}
 			cont++;
 		
+		}
+		
+		for (Nodo n: visitados) {
+			n.score = -10;
 		}
 
 		
 	}
+	
 	
 	@Override
 	public double estima(Nodo n) {

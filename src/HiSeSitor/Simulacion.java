@@ -11,7 +11,8 @@ public class Simulacion {
 	public Simulacion(int maxEnemigos) {
 		this.MAX_ENEMIGOS = maxEnemigos;
 	}
-	public void InitSimulacion(){
+
+	public void InitSimulacion() {
 		estado = null;
 		time = 0;
 	}
@@ -19,32 +20,34 @@ public class Simulacion {
 	public int correSimulacion(Estrategia estr, Datos dato, String id) {
 		Nodo nodo = null;
 		time = 0;
-			if (true) { //OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME ANTES DE TOCARLO 
-				estado = new Estado(estr);
-				for (Sensor x : estr.getSensores())
-					x.setEstado(estado);
+		if (true) { // OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME
+					// ANTES DE TOCARLO
+			estado = new Estado(estr);
+			for (Sensor x : estr.getSensores())
+				x.setEstado(estado);
 
-				estr.setEstado(estado);
-				//estado.initGraph();
-				estado.initEstado();
-				addAleatOponents(MAX_ENEMIGOS);
-			}
+			estr.setEstado(estado);
+			// estado.initGraph();
+			estado.initEstado();
+			addAleatOponents(MAX_ENEMIGOS);
+		}
 
-			Logger.debug("Comenzando. Quedan:" + estado.presas
-					+ " presas libres");
-			try{
-				while ((nodo = estado.busca()) != null && estado.presas > 0) {
-					time++;
-					Logger.debug("Posicion: "
-							+ estado.getActual() + "\nRestantes: "+ estado.presas);
-					estado.guardaValoresEstado(dato, id, MAX_ENEMIGOS);
-					estado.updateEstado(nodo);
-				}
-				Logger.debug("Simulacion terminada: "+nodo.toString()+" presas: "+estado.salvadas);
-			}catch (NullPointerException e){
-				System.err.println(e.getMessage());
+		Logger.debug("Comenzando. Quedan:" + estado.presas + " presas libres");
+		try {
+			while ((nodo = estado.busca()) != null && estado.presas > 0) {
+				time++;
+				Logger.debug("Posicion: " + estado.getActual()
+						+ "\nRestantes: " + estado.presas);
+				estado.guardaValoresEstado(dato, id, MAX_ENEMIGOS);
+				estado.updateEstado(nodo);
+				
 			}
-			return estado.salvadas;
+			Logger.debug("Simulacion terminada: " + nodo.toString()
+					+ " presas: " + estado.salvadas);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+		return estado.salvadas;
 
 	}
 
