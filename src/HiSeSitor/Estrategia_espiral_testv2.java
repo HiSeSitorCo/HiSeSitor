@@ -36,15 +36,14 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int paso = pasoPasado; 
 		int cont = 0;
 		pasoPasado=(pasoPasado+1)%4;
-		int it = itPasado-1;
-		if (it < 0) it =0;
-		itPasado++;
+		int it = itPasado;
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
 
 		int x = (int) actual.pos.x;
 		int y = (int) actual.pos.y;
 		int notNull = 0;
+		int first = 1;
 		espiralAux = espiral;
 		
 		int MAX = memoria.getListaNodos().size();
@@ -105,6 +104,10 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 
 				paso=(paso+1)%4;
 				notNull = 0;
+			}
+			if (first == 1) {
+				first =0;
+				itPasado = it;
 			}
 			cont++;
 		
