@@ -15,6 +15,8 @@ public class Proceso {
 	public DatosIteracion mejorCapturados = new DatosIteracion("masCapturados");
 	public DatosIteracion mejorOptimizado = new DatosIteracion("masOptimizados");
 	public DatosIteracion masVisibles = new DatosIteracion("masOptimizados");
+	private int incMax = 50;
+	private int fraccion = -10/11;
 
 	public int flag = 1;
 	/**
@@ -68,53 +70,64 @@ public class Proceso {
 	 * @param vars
 	 * @param d
 	 */
-	public void itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
-		
+	public int itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
+		return iteraAux(vars.size(), e, vars, d);
 	}
 	
 
-	public void funcionDecisionParametros() {
-		
+	public int funcionDecisionParametros(int index, int inc, ArrayList<Integer> vars) {
+		int p = vars.get(index);
+		vars.remove(index);
+		vars.add(index, p+inc);
+		return p+inc;
 	}
 	
-	public void iteraAux(int num, Estrategia e, ArrayList<Integer> vars, Datos d ) {
+	public int iteraAux(int num, Estrategia e, ArrayList<Integer> vars, Datos d ) {
+		int inc = incMax;
+		int ret1;
+		int ret2;
+		int it=0;
+		int top = 37;
 		if (num > 0) {
-			funcionDecisionParametros();
-		} else {
-			
+			ret1 = iteraAux(num-1, e, vars, d);
+			while (top--!=0) {
+				funcionDecisionParametros(num, inc, vars);
+				ret2 = iteraAux(num-1, e, vars, d);
+				if (ret1 > ret2) {
+					inc = fraccion*inc;
+					it = 0;
+				} else if (ret1 < ret2) {
+					ret1 = ret2;
+					it = 0;
+				} else {
+					it++;
+				}
+				
+				if (it == 3) {
+					return ret1;
+				}
+			}
+		} else { 
+			ret1 = simulacion.correSimulacion(e, d, this.toString(vars));
+			while (top--!=0) {
+				funcionDecisionParametros(num, inc, vars);
+				ret2 = simulacion.correSimulacion(e, d, this.toString(vars));
+				if (ret1 > ret2) {
+					inc = fraccion*inc;
+					it = 0;
+				} else if (ret1 < ret2) {
+					ret1 = ret2;
+					it = 0;
+				} else {
+					it++;
+				}
+				
+				if (it == 3) {
+					return ret1;
+				}
+			}
 		}
-	}
-
-	/**
-	 * funcion interna para calcular el maximo entre tres elementos y devuelve 0
-	 * en caso de que sean los tres iguales
-	 * 
-	 * @param x1
-	 * @param x2
-	 * @param x3
-	 * @return
-	 */
-	private int maximo(int x1, int x2, int x3) {
-
-		if (x1 > x2)
-			if (x1 >= x3)
-				return x1;
-			else
-				return x3;
-		if (x1 < x2)
-			if (x2 >= x3)
-				return x2;
-			else
-				return x3;
-		if (x1 == x2)
-			if (x1 > x3)
-				return x1;
-			else if (x1 < x3)
-				return x3;
-			else if (x1 == x3)
-				return 0;
-
-		return 0;
+		return ret1;
 	}
 
 	public String toString(ArrayList<Integer> array) {

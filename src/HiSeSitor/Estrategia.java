@@ -35,7 +35,7 @@ public abstract class Estrategia {
 	}
 
 	// override
-	public void asignaVariables(ArrayList<Integer> v) throws Exception  {
+	public void asignaVariables(ArrayList<Integer> v) throws Exception {
 		// TODO:
 	}
 
@@ -56,20 +56,20 @@ public abstract class Estrategia {
 	public ArrayList<Sensor> getSensores() {
 		return sensores;
 	}
-	
+
 	public void reset() {
-		for (Sensor s: getSensores()) {
+		for (Sensor s : getSensores()) {
 			s.reset();
 		}
 		memoria = null;
 		estado = null;
 		reset_ext();
 	}
-	
+
 	public void reset_ext() {
-		//TODO:
+		// TODO:
 	}
-	
+
 	public void init(ArrayList<Sensor> sensores) {
 		// Depende de la estrategia inicializar unos u otros sensores
 		this.sensores = sensores;
@@ -79,7 +79,7 @@ public abstract class Estrategia {
 		if (memoria == null) {
 			memoria = new Grafo();
 			memoria.InitSensorGraph(estado.mapa);
-			//memoria.plotGraph("Memoria");
+			// memoria.plotGraph("Memoria");
 		}
 		for (Sensor s : sensores) {
 			agregaSensorMemoria(s);
@@ -95,65 +95,67 @@ public abstract class Estrategia {
 	public abstract double calcula(Nodo n);
 
 	public void generaEstimacion() {
-		
+
 		ArrayList<Nodo> lista = memoria.getListaNodos();
-		int x,y;
+		int x, y;
 		int xAux, yAux;
-		int cont=0;
-		
+		int cont = 0;
+
 		for (Nodo n : lista) {
 			x = (int) n.pos.x;
 			y = (int) n.pos.y;
-		try{
-			ArrayList<Integer> aristas = n.getListaAristas();
-			for (int i : aristas) {
-				
-				
-				switch(cont) {
+
+			cont = 0;
+			try {
+				ArrayList<Integer> aristas = n.getListaAristas();
+				for (int i : aristas) {
+
+					switch (cont) {
 					case 0:
-						xAux=0;
-						yAux=-1;
+						xAux = 0;
+						yAux = -1;
 						break;
 					case 1:
-						xAux=1;
-						yAux=-1;
+						xAux = 1;
+						yAux = -1;
 						break;
 					case 2:
-						xAux=1;
-						yAux=0;
+						xAux = 1;
+						yAux = 0;
 						break;
 					case 3:
-						xAux=1;
-						yAux=1;
+						xAux = 1;
+						yAux = 1;
 						break;
 					case 4:
-						xAux=0;
-						yAux=1;
+						xAux = 0;
+						yAux = 1;
 						break;
 					case 5:
-						xAux=-1;
-						yAux=1;
+						xAux = -1;
+						yAux = 1;
 						break;
 					case 6:
-						xAux=-1;
-						yAux=0;
+						xAux = -1;
+						yAux = 0;
 						break;
 					default:
-						xAux=-1;
-						yAux=-1;
+						xAux = -1;
+						yAux = -1;
 						break;
+					}
+					cont++;
+					if (i == 1 && memoria.getNodo(x + xAux, y + yAux) == null) {
+						memoria.creaNodoEstimacion(estado.time, x + xAux, y
+								+ yAux, estado.mapa); // habla con vitcot
+					}
+
 				}
-				cont++;
-				if (i == 1 && memoria.getNodo(x+xAux, y+yAux) == null){
-					memoria.creaNodoEstimacion(estado.time,x+xAux,y+yAux,estado.mapa); //habla con vitcot
-				}
- 
-			}
-			}catch (Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	// dependera de cada estrategia
@@ -174,7 +176,8 @@ public abstract class Estrategia {
 				dest = n;
 			}
 		}
-		if(dest == null){//No deberia hacerse esto, pero asi evitamos algun que otro pete
+		if (dest == null) {// No deberia hacerse esto, pero asi evitamos algun
+							// que otro pete
 			Random r = new Random();
 			dest = nodos.get(r.nextInt(nodos.size()));
 		}
