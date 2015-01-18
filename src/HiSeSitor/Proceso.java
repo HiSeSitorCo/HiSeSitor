@@ -145,7 +145,7 @@ public class Proceso {
 		} else { 
 			int iteraLocal = itera + 1;
 			maxProgress = calc;
-			progress++;
+			progress=itera;
 			progressBar.setValue(progress);
 			System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 			id++;
@@ -159,7 +159,7 @@ public class Proceso {
 			while (top--!=0) {
 				funcionDecisionParametros(num, inc, vars);
 				id++;
-				progress++;
+				progress=itera;
 				progressBar.setValue(progress);
 				System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 				preparaSimulacion(e,simulacion,vars);
