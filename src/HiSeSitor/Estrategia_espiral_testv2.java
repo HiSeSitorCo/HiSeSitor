@@ -33,6 +33,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int i = espiral;
 		int j = 2;
 		int paso = pasoPasado; 
+		int cont = 0;
 		pasoPasado++;
 		int it = itPasado;
 		itPasado++;
@@ -43,8 +44,9 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int y = (int) actual.pos.y;
 		espiralAux = espiral;
 		
+		int MAX = memoria.getListaNodos().size();
 		
-		while (espiralAux > 0) {
+		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
 			if (j-- == 0) {
 				j=2;
@@ -74,6 +76,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 				calculaEstima(bus);
 				espiralAux--;
 			} 
+			cont++;
 		
 		}
 

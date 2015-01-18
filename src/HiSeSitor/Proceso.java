@@ -69,74 +69,20 @@ public class Proceso {
 	 * @param d
 	 */
 	public void itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
+		
+	}
+	
 
-		// creo las variables necesarias
-		ArrayList<Integer> AR1 = new ArrayList<Integer>();
-		ArrayList<Integer> AR2 = new ArrayList<Integer>();
-		ArrayList<Integer> AR3 = new ArrayList<Integer>();
-		int SALTO = this.SALTO;
-		int i = 0, x1, x2, x3, max = 0, anterior = 0;
-
-		// relleno los arrays a -1 que indica que ese valor no se usa
-		for (i = 0; i < vars.size(); i++) {
-			AR1.add(i, -1);
-			AR2.add(i, -1);
-			AR3.add(i, -1);
+	public void funcionDecisionParametros() {
+		
+	}
+	
+	public void iteraAux(int num, Estrategia e, ArrayList<Integer> vars, Datos d ) {
+		if (num > 0) {
+			funcionDecisionParametros();
+		} else {
+			
 		}
-
-		// para cada elemento del array...
-		for (i = 0; i < vars.size(); i++) {
-
-			// ...elimino el -1 y aÃ±ado el valor del array bueno...
-			AR1.remove(i);
-			AR1.add(i, vars.get(i));
-
-			// ...y mientras el salto sea mayor que cero...
-			while (SALTO > 0) {
-
-				// elimino los valores de la posicion i de los arrays auxiliares
-				// e inserto el valor del array auxiliar1 +- el incremento
-				AR2.remove(i);
-				AR3.remove(i);
-
-				AR2.add(i, AR1.get(i) + SALTO);
-				AR3.add(i, AR1.get(i) - SALTO);
-
-				// simulo para los tres arrays y guardo los valores obtenidos
-				if (flag == 0) 
-					preparaSimulacion(e, simulacion);
-				x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
-				
-				preparaSimulacion(e, simulacion);
-				x2 = simulacion.correSimulacion(e, d, this.toString(AR2));
-				
-				preparaSimulacion(e, simulacion);
-				x3 = simulacion.correSimulacion(e, d, this.toString(AR3));
-				
-				// compruebo el maximo de los valores
-				max = maximo(x1, x2, x3);
-
-				// si la desviacion es tan pequeÃ±a que implica que todos los
-				// valores sean iguales, salimos
-				if (max == 0)
-					break;
-
-				// si el maximo valor obtenido es mejor que el anterior maximo,
-				// lo sobreescribimos en el array
-				if (anterior < max) {
-					AR1.remove(i);
-					AR1.add(i, max);
-				}
-				// decrementamos el salto
-				SALTO--;
-				flag = 0;
-			}
-		}
-
-		// por ultimo corro una ultima simulacion con el array mas optimo para
-		// guardar sus valores en Datos
-		preparaSimulacion(e, simulacion);
-		x1 = simulacion.correSimulacion(e, d, this.toString(AR1));
 	}
 
 	/**
