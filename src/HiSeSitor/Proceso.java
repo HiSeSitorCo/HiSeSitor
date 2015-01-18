@@ -5,6 +5,8 @@ import gestionDatos.DatosIteracion;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -20,9 +22,6 @@ public class Proceso {
 	public ArrayList<Sensor> sensores = new ArrayList<Sensor>();
 	public Simulacion simulacion;
 	public static Datos dato = new Datos();
-	public DatosIteracion mejorCapturados = new DatosIteracion("masCapturados");
-	public DatosIteracion mejorOptimizado = new DatosIteracion("masOptimizados");
-	public DatosIteracion masVisibles = new DatosIteracion("masOptimizados");
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
@@ -32,6 +31,7 @@ public class Proceso {
 	public static int progress;
 	static JLabel jl;
 	public static JProgressBar progressBar;
+	public ArrayList<DatosIteracion> datositeraciones = new ArrayList<DatosIteracion>();
 
 	private int id = 0;
 	
@@ -49,6 +49,7 @@ public class Proceso {
 		Logger.debug = false;
 		enableGUI = false;
 		startGUI();
+
 		progressBar = new JProgressBar();
 		progressMsg = "Processing...";
 	}
@@ -66,15 +67,13 @@ public class Proceso {
 		progress = 0;
 		progressBar.setValue(progress);
 		for (int i = 0; i < es.size(); i++) {
-			itera(es.get(i), v.get(i), dato);
-//ESTO HAY QUE TOCARLO
-			mejorCapturados = dato.mejorIteracionCapturados();
-			mejorOptimizado = dato.mejorIteracionOptimizada();
-			masVisibles = dato.mejorIteracionVisibles();
+			itera(es.get(i), v.get(i), dato);			
 			progress = maxProgress;
 			progressBar.setValue(progress);
 		}
-		
+		datositeraciones.add(dato.mejorIteracionCapturados());
+		datositeraciones.add(dato.mejorIteracionOptimizada());
+		datositeraciones.add(dato.mejorIteracionVisibles());
 	}
 
 	
@@ -212,5 +211,9 @@ public class Proceso {
 			}
 		};
 		t.start();
+	}
+	
+	public void imprimeResultados(String nombre){
+		dato.procesaDatos(nombre, this.datositeraciones);
 	}
 }

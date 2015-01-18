@@ -4,9 +4,19 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+
 public class Datos {
 
 	private ArrayList<DatosEstrategia> valoresEstrategias;
+	
+	public static String progressMsg;
+	public static int maxProgress;
+	public static int progress;
+	static JLabel jl;
+	public static JProgressBar progressBar;
+	
 
 	public Datos() {
 		this.valoresEstrategias = new ArrayList<DatosEstrategia>();
@@ -81,32 +91,23 @@ public class Datos {
 
 	}
 
-	public void procesaDatos() {
+	public void procesaDatos(String nombre, ArrayList<DatosIteracion> datos) {
 
 		FileWriter fichero = null;
 		PrintWriter pw = null;
 
 		try {
-			fichero = new FileWriter("datosProcesados.txt");
+			fichero = new FileWriter(nombre);
 			pw = new PrintWriter(fichero);
 
-			/**
-			 * proceso de escritura - pw.println("Linea " + i);
-			 **/
+			for (DatosIteracion d : datos) {
 
-			for (int i = 0; i < this.getValoresEstrategias().size(); i++) {
+				pw.println("nombre iteracion: " + d.getNombreIteracion());
 
-				pw.println(this.getValoresEstrategias(i).getNombreEstrategia()
-						+ ","
-						+ this.getValoresEstrategias(i).masCapturadas()
-								.getNombreIteracion());
-
-				for (Lectura l : this.getValoresEstrategias(i).masCapturadas()
-						.getValoresLecturas()) {
+				for (Lectura l : d.getValoresLecturas()) {
 					pw.println(l.getTiempo() + "," + l.getnNodos() + ","
 							+ l.getCapturados());
 				}
-
 				pw.println("-----------------------------");
 
 			}
@@ -276,31 +277,33 @@ public class Datos {
 		for (int i = 0; i < datos.size(); i++) {
 
 			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados() / d.getValoresLecturas(
-					d.getValoresLecturas().size() - 1).getTiempo()) < (datos
+					.getCapturados()
+					/ d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+							.getTiempo() + 1) < (datos
 					.get(i)
 					.getValoresLecturas(
 							datos.get(i).getValoresLecturas().size() - 1)
-					.getCapturados() / datos
-					.get(i)
-					.getValoresLecturas(
-							datos.get(i).getValoresLecturas().size() - 1)
-					.getCapturados())) {
+					.getCapturados()
+					/ datos.get(i)
+							.getValoresLecturas(
+									datos.get(i).getValoresLecturas().size() - 1)
+							.getTiempo() + 1)) {
 
 				d = datos.get(i);
 			}
 
 			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados() / d.getValoresLecturas(
-					d.getValoresLecturas().size() - 1).getTiempo()) == (datos
+					.getCapturados()
+					/ d.getValoresLecturas(d.getValoresLecturas().size() - 1)
+							.getTiempo() + 1) == (datos
 					.get(i)
 					.getValoresLecturas(
 							datos.get(i).getValoresLecturas().size() - 1)
-					.getCapturados() / datos
-					.get(i)
-					.getValoresLecturas(
-							datos.get(i).getValoresLecturas().size() - 1)
-					.getCapturados())) {
+					.getCapturados()
+					/ datos.get(i)
+							.getValoresLecturas(
+									datos.get(i).getValoresLecturas().size() - 1)
+							.getTiempo() + 1)) {
 
 				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
 						.getTiempo() > datos

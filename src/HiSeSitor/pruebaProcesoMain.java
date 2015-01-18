@@ -31,28 +31,10 @@ public class pruebaProcesoMain {
 
 
 		p.iteraEstrategias(es, exp);
-
+		
+		System.out.println("ahora imprimo en fichero");
+		p.imprimeResultados("fichSalida.txt");
 		System.out.println("finiquitaoh");
-		System.out.println("-----------------------------");
-		System.out.println("-----------------------------\n");
-		System.out.println(p.mejorCapturados.getNombreIteracion());
-		for (Lectura l : p.mejorCapturados.getValoresLecturas()) {
-			System.out.println(l.getTiempo() + "," + l.getnNodos() + ","
-					+ l.getCapturados());
-		}
-		System.out.println("-----------------------------");
-		System.out.println(p.mejorOptimizado.getNombreIteracion());
-		for (Lectura l : p.mejorOptimizado.getValoresLecturas()) {
-			System.out.println(l.getTiempo() + "," + l.getnNodos() + ","
-					+ l.getCapturados());
-		}
-		System.out.println("-----------------------------");
-		System.out.println(p.masVisibles.getNombreIteracion());
-		for (Lectura l : p.masVisibles.getValoresLecturas()) {
-			System.out.println(l.getTiempo() + "," + l.getnNodos() + ","
-					+ l.getCapturados());
-		}
-		System.out.println("-----------------------------");
 
 	}
 
