@@ -1,5 +1,11 @@
 package gestionDatos;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Panel;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -7,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 public class Datos {
@@ -272,33 +279,31 @@ public class Datos {
 		for (int i = 0; i < datos.size(); i++) {
 
 			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados()
-					/ d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-							.getTiempo() + 1) < (datos
+					.getCapturados() / (d.getValoresLecturas(
+					d.getValoresLecturas().size() - 1).getTiempo() + 1)) < (datos
 					.get(i)
 					.getValoresLecturas(
 							datos.get(i).getValoresLecturas().size() - 1)
-					.getCapturados()
-					/ datos.get(i)
-							.getValoresLecturas(
-									datos.get(i).getValoresLecturas().size() - 1)
-							.getTiempo() + 1)) {
+					.getCapturados() / (datos
+					.get(i)
+					.getValoresLecturas(
+							datos.get(i).getValoresLecturas().size() - 1)
+					.getTiempo() + 1))) {
 
 				d = datos.get(i);
 			}
 
 			if ((d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-					.getCapturados()
-					/ d.getValoresLecturas(d.getValoresLecturas().size() - 1)
-							.getTiempo() + 1) == (datos
+					.getCapturados() / (d.getValoresLecturas(
+					d.getValoresLecturas().size() - 1).getTiempo() + 1)) == (datos
 					.get(i)
 					.getValoresLecturas(
 							datos.get(i).getValoresLecturas().size() - 1)
-					.getCapturados()
-					/ datos.get(i)
-							.getValoresLecturas(
-									datos.get(i).getValoresLecturas().size() - 1)
-							.getTiempo() + 1)) {
+					.getCapturados() / (datos
+					.get(i)
+					.getValoresLecturas(
+							datos.get(i).getValoresLecturas().size() - 1)
+					.getTiempo() + 1))) {
 
 				if (d.getValoresLecturas(d.getValoresLecturas().size() - 1)
 						.getTiempo() > datos
@@ -391,67 +396,77 @@ public class Datos {
 		}
 		return d;
 	}
-		public void muestraVentana() {
+
+	public void muestraVentana() {
+
+		JFrame frame = new JFrame("Resultados");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.getContentPane().setLayout((new BorderLayout()));
+		Container c = new Container();
+		c.setLayout(new BoxLayout(c,BoxLayout.Y_AXIS));
+
+		ArrayList<DatosEstrategia> arrayC = new ArrayList<DatosEstrategia>();
+		ArrayList<DatosEstrategia> arrayCT = new ArrayList<DatosEstrategia>();
+		ArrayList<DatosEstrategia> arrayN = new ArrayList<DatosEstrategia>();
+
+		for (DatosEstrategia e : this.getValoresEstrategias()) {
+			DatosEstrategia d1 = new DatosEstrategia(e.getNombreEstrategia());
+			DatosEstrategia d2 = new DatosEstrategia(e.getNombreEstrategia());
+			DatosEstrategia d3 = new DatosEstrategia(e.getNombreEstrategia());
+			d1.getValoresIteraciones().add(
+					this.mejorIteracionCapturados(e.getValoresIteraciones()));
+			d2.getValoresIteraciones().add(
+					this.mejorIteracionOptimizada(e.getValoresIteraciones()));
+			d3.getValoresIteraciones().add(
+					this.mejorIteracionVisibles(e.getValoresIteraciones()));
+			arrayC.add(d1);
+			arrayCT.add(d2);
+			arrayN.add(d3);
+		}
+
+		c.add(new JLabel("\n\n\n"));
+
+		for (DatosEstrategia d : arrayC) {
+			JLabel texto = new JLabel();
+			texto.setText("\t\tLa iteracion de la estrategia "
+					+ d.getNombreEstrategia()
+					+ " que más enemigos ha capturado ha sido con la configuracion "
+					+ d.getValoresIteraciones(0).getNombreIteracion());
+			c.add(texto);
+		}
+		frame.getContentPane().add(new JLabel("\n\n\n"));
+		for (DatosEstrategia d : arrayCT) {
+			JLabel texto = new JLabel();
+			texto.setText("\t\tLa iteracion de la estrategia "
+					+ d.getNombreEstrategia()
+					+ " más optima (capturados/tiempo) ha sido con la configuracion "
+					+ d.getValoresIteraciones(0).getNombreIteracion());
+			c.add(texto);
+		}
+		frame.getContentPane().add(new JLabel("\n\n\n"));
+		for (DatosEstrategia d : arrayN) {
+			JLabel texto = new JLabel();
+			texto.setText("\t\tLa iteracion de la estrategia "
+					+ d.getNombreEstrategia()
+					+ " que más nodos ha visto ha sido con la configuracion "
+					+ d.getValoresIteraciones(0).getNombreIteracion());
+			c.add(texto);
+			;
+		}
+		c.add(new JLabel("\n\n\n"));
+
+		Panel p = new Panel();
+		p.setSize(new Dimension(50,50));
 		
-				JFrame frame = new JFrame("Resultados");
-		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        
-				
-				frame.getContentPane().setLayout((new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS)));
-				
-				
-				ArrayList<DatosEstrategia> arrayC = new ArrayList<DatosEstrategia>();
-				ArrayList<DatosEstrategia> arrayCT = new ArrayList<DatosEstrategia>();
-				ArrayList<DatosEstrategia> arrayN = new ArrayList<DatosEstrategia>();
+		frame.getContentPane().add(p, BorderLayout.EAST);
 		
-				for (DatosEstrategia e : this.getValoresEstrategias()) {
-					DatosEstrategia d1 = new DatosEstrategia(e.getNombreEstrategia());
-					DatosEstrategia d2 = new DatosEstrategia(e.getNombreEstrategia());
-					DatosEstrategia d3 = new DatosEstrategia(e.getNombreEstrategia());
-					d1.getValoresIteraciones().add(
-							this.mejorIteracionCapturados(e.getValoresIteraciones()));
-					d2.getValoresIteraciones().add(
-							this.mejorIteracionOptimizada(e.getValoresIteraciones()));
-					d3.getValoresIteraciones().add(
-							this.mejorIteracionVisibles(e.getValoresIteraciones()));
-					arrayC.add(d1);
-					arrayCT.add(d2);
-					arrayN.add(d3);
-				}
-			    
-				frame.getContentPane().add(new JLabel("\n\n\n"));
-				
-				for (DatosEstrategia d : arrayC) {
-					JLabel texto = new JLabel();
-					texto.setText("\t\tLa iteracion de la estrategia "
-							+ d.getNombreEstrategia()
-							+ " que más enemigos ha capturado ha sido con la configuracion "
-							+ d.getValoresIteraciones(0).getNombreIteracion());
-					frame.getContentPane().add(texto);
-				}
-				frame.getContentPane().add(new JLabel("\n\n\n"));
-				for (DatosEstrategia d : arrayCT) {
-					JLabel texto = new JLabel();
-					texto.setText("\t\tLa iteracion de la estrategia "
-							+ d.getNombreEstrategia()
-							+ " más optima (capturados/tiempo) ha sido con la configuracion "
-							+ d.getValoresIteraciones(0).getNombreIteracion());
-					frame.getContentPane().add(texto);
-				}
-				frame.getContentPane().add(new JLabel("\n\n\n"));
-				for (DatosEstrategia d : arrayN) {
-					JLabel texto = new JLabel();
-					texto.setText("\t\tLa iteracion de la estrategia "
-							+ d.getNombreEstrategia()
-							+ " que más nodos ha visto ha sido con la configuracion "
-							+ d.getValoresIteraciones(0).getNombreIteracion());
-					frame.getContentPane().add(texto);;
-				}frame.getContentPane().add(new JLabel("\n\n\n"));
+		frame.getContentPane().add(c, BorderLayout.CENTER);
 		
-			    //frame.pack();
-				frame.setSize(700, 200);
-			    frame.setVisible(true);
-				frame.setResizable(true);
-				frame.setLocationRelativeTo(null);
-			}
+		// frame.pack();
+		frame.setSize(900, 500);
+		frame.setVisible(true);
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+	}
 }
