@@ -25,7 +25,7 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
-	public int MAX_TOP = 37;
+	public int MAX_TOP = 7;
 	public static String progressMsg;
 	public static int maxProgress;
 	public static int progress;
@@ -138,7 +138,7 @@ public class Proceso {
 			}
 		} else { 
 			int iteraLocal = itera + 1;
-			int calc = (int) Math.pow(38, vars.size());
+			int calc = (int) Math.pow(MAX_TOP, vars.size());
 			maxProgress = calc;
 			progress++;
 			progressBar.setValue(progress);

@@ -36,7 +36,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int paso = pasoPasado; 
 		int cont = 0;
 		pasoPasado=(pasoPasado+1)%4;
-		int it = itPasado;
+		int it = itPasado-1;
+		if (it < 0) it =0;
 		itPasado++;
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
