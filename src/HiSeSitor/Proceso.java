@@ -24,7 +24,7 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
-	public int MAX_TOP = 2;
+	public int MAX_TOP = 8;
 	public static String progressMsg;
 	public static int maxProgress;
 	public static int progress;
@@ -34,6 +34,8 @@ public class Proceso {
 	public static ArrayList<Integer> randPos;
 	public static int randGet;
 	private int id = 0;
+	public int max_time = 137;
+	int calc;
 	
 	public int flagSim = 0;
 	/**
@@ -64,7 +66,12 @@ public class Proceso {
 	public void iteraEstrategias(ArrayList<Estrategia> es,
 			ArrayList<ArrayList<Integer>> v) {
 		progress = 0;
+		int dat = 0;
 		progressBar.setValue(progress);
+		for(ArrayList<Integer> a : v) {
+			dat= Math.max(dat, a.size());
+		}
+		calc = (int) Math.pow(MAX_TOP*es.size(), dat);
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);		
 			itera = 0;
@@ -137,7 +144,6 @@ public class Proceso {
 			}
 		} else { 
 			int iteraLocal = itera + 1;
-			int calc = (int) Math.pow(MAX_TOP, vars.size());
 			maxProgress = calc;
 			progress++;
 			progressBar.setValue(progress);
@@ -148,7 +154,7 @@ public class Proceso {
 				flagSim = 1;
 			}
 			
-			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
+			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars), max_time);
 			iteraLocal++;
 			while (top--!=0) {
 				funcionDecisionParametros(num, inc, vars);
@@ -157,7 +163,7 @@ public class Proceso {
 				progressBar.setValue(progress);
 				System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 				preparaSimulacion(e,simulacion,vars);
-				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars));
+				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars), max_time);
 				iteraLocal++;
 				if (ret1 > ret2) {
 					inc = fraccion*inc;

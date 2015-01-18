@@ -172,12 +172,12 @@ public abstract class Estrategia {
 		Nodo dest = null;
 		for (Nodo n : nodos) {
 			if (max < memoria.getNode(n.id).score) {
-				max = (int)memoria.getNode(n.id).score;
+				max = (int) memoria.getNode(n.id).score;
 				dest = n;
 			}
 		}
 		if (dest == null) {// No deberia hacerse esto, pero asi evitamos algun
-							// que otro pete
+			// que otro pete
 			Random r = new Random();
 			dest = nodos.get(r.nextInt(nodos.size()));
 		}

@@ -17,7 +17,7 @@ public class Simulacion {
 		time = 0;
 	}
 
-	public int correSimulacion(Estrategia estr, Datos dato, String id) {
+	public int correSimulacion(Estrategia estr, Datos dato, String id, int max_time) {
 		Nodo nodo = null;
 		time = 0;
 		if (true) { // OJO CUIDAO EL TRUE LO HE POUESTO YO _ GUILLE CONSULTARME
@@ -34,7 +34,7 @@ public class Simulacion {
 
 		Logger.debug("Comenzando. Quedan:" + estado.presas + " presas libres");
 		try {
-			while ((nodo = estado.busca()) != null && estado.presas > 0) {
+			while ((nodo = estado.busca()) != null && estado.presas > 0 && max_time-->0) {
 				time++;
 				Logger.debug("Posicion: " + estado.getActual()
 						+ "\nRestantes: " + estado.presas);
