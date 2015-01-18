@@ -43,7 +43,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int it = itPasado;
 		Nodo actual = estado.getActual();
 		visitados.add(actual);
-
+		int fin = 0;
 		int x = (int) actual.pos.x;
 		int y = (int) actual.pos.y;
 		int notNull = 0;
@@ -53,11 +53,11 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		
 		
 		//He concluido mi camino
-		if (transito <= 1) {
+		if (transito <= 1 || fin == 1) {
 			transitado = 1;
 			pasoPasado=(pasoPasado+1)%4;
 			paso= pasoPasado;
-			
+			fin =0;
 			
 		} else {//Continuo caminando
 			freeze = 1;
@@ -83,23 +83,43 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 				transitado++;
 			
 		}*/
-		
+		System.out.println("HOLA SOY LA PUTA J Y VALGO: " + j + " LUEGO LA PUTA JGLOB VALE: " + jGlob + "  Y ES LA FURCIA SUPERMA EN EL PUTO PUNTO (" + x + "," +y+")");
 		int MAX = memoria.getListaNodos().size()/2;
-		
 		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
 			int itAux;
-			if (freeze != 1) {
+			if (fin == 1) {
+				transitado = 1;
+				if (j > 0)
+					jGlob = j-1;
+				else
+					jGlob = 1;
+				fin =0;
+				if (j == 1) {
+					itPasado = it;
+				} else {
+					itPasado = it+1;
+					
+				}
+			}
+			if (freeze != 1 ) {
+				
 				if (j-- <= 0) {
 					j=1;
 					it++;
 				}		
 				mem = it;
-				
 				itAux = it;
 			} else {
 				
-				itAux = itPasado-1;
+				itAux = itPasado-transitado;
+				if (transitado == itPasado && transitado > 1) {
+					
+					pasoPasado=(pasoPasado+1)%4;
+					paso = pasoPasado;
+					fin = 1;
+				}
+				transitado++;
 				freeze = 0;
 				transito--;
 			}
@@ -168,11 +188,13 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 				paso=(paso+1)%4;
 				notNull = 0;
 			}
-			if (first == 1) {
+			if (first == 1 ) {
 				//if (transitado > 0) j--;
-				
+			
 				first =0;
-				itPasado = it;
+				if (itAux < 1)
+					itPasado = it;
+				
 				jGlob = j;
 				transito = it;
 				/*transito--;

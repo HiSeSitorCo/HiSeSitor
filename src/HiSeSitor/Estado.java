@@ -56,7 +56,7 @@ public class Estado {
 
 	public void addAleatOponent() {
 		if (hiddenNodes.size() < 1){
-			Logger.debug("INFO - No se añaden mas presas porque no hay nodos ocultos");
+			Logger.debug("INFO - No se aï¿½aden mas presas porque no hay nodos ocultos");
 			return;
 		}
 		Nodo auxN = null;
@@ -99,7 +99,6 @@ public class Estado {
 		int dist = mapa.getDistancia(actual, inicio);
 		for (Nodo aux : presasList) {
 			if (mapa.getDistancia(aux, inicio) <= dist) {
-				presas--;
 				mapa.borraPresa(aux);
 				Logger.debug("Presa salvada: "+aux.toString());
 				this.presas--;
@@ -109,6 +108,8 @@ public class Estado {
 		updateSensores();
 		time++;
 	}
+	
+	
 
 	public boolean isCalcula(Sensor x, Estrategia s, Nodo n) {
 		return x.isVisto(n);

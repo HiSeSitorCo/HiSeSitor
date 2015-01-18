@@ -79,7 +79,7 @@ public abstract class Estrategia {
 		if (memoria == null) {
 			memoria = new Grafo();
 			memoria.InitSensorGraph(estado.mapa);
-			//memoria.plotGraph("Memoria");
+			memoria.plotGraph("Memoria");
 		}
 		for (Sensor s : sensores) {
 			agregaSensorMemoria(s);
@@ -171,13 +171,13 @@ public abstract class Estrategia {
 		int max = 0;
 		Nodo dest = null;
 		for (Nodo n : nodos) {
-			if (max < n.score) {
-				max = (int) n.score;
+			if (max < memoria.getNode(n.id).score) {
+				max = (int) memoria.getNode(n.id).score;
 				dest = n;
 			}
 		}
 		if (dest == null) {// No deberia hacerse esto, pero asi evitamos algun
-							// que otro pete
+			// que otro pete
 			Random r = new Random();
 			dest = nodos.get(r.nextInt(nodos.size()));
 		}

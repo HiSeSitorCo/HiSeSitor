@@ -309,7 +309,9 @@ public class Grafo {
 		while(rng >= list.size())
 			rng = Proceso.getPseudoRand();
 		
-		Nodo nodo = list.get(rng);
+		//Nodo nodo = list.get(rng);
+		Nodo nodo = list.get(55); //usar con cuidado
+		
 		
 		if (nodo.isObstaculo())
 			nodo = setCazador();
