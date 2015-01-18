@@ -146,7 +146,7 @@ public class Proceso {
 					it++;
 				}
 				
-				if (it == 2) {
+				if (it == 3) {
 					itera+=MAX_TOP;
 					return ret1;
 				}
