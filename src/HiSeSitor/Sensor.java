@@ -37,12 +37,13 @@ public class Sensor {
 		sensorKnowledge.union(getSensorGraph());
 		for (Nodo n : sensorKnowledge.getListaNodos()) {
 			//System.out.println(n.toString());
-			if (n.presa == true) {
-				n.cazada = true;
-				n.presa = false;
+			Nodo nod = estado.mapa.getNode(n.id);
+			if (nod.presa == true) {
+				nod.cazada = true;
+				nod.presa = false;
 				estado.presas--;
 
-				Logger.debug("Presa atrapada: " + n.toString());
+				Logger.debug("Presa atrapada: " + nod.toString());
 			}
 		}
 

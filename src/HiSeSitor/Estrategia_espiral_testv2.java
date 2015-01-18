@@ -41,7 +41,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int cont = 0;
 		int mem = -1;
 		int it = itPasado;
-		Nodo actual = estado.getActual();
+		Nodo actual = memoria.getNode(estado.getActual().id);
 		visitados.add(actual);
 		int fin = 0;
 		int x = (int) actual.pos.x;

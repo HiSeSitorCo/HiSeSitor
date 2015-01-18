@@ -43,11 +43,12 @@ public class Simulacion {
 				
 			}
 			Logger.debug("Simulacion terminada: " + nodo.toString()
-					+ " presas: " + estado.salvadas);
+					+ " Presas capturadas: " +(MAX_ENEMIGOS - estado.salvadas)+"\n"
+							+ "Presas salvadas: "+estado.salvadas);
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-		return estado.salvadas;
+		return (MAX_ENEMIGOS - estado.salvadas);
 
 	}
 

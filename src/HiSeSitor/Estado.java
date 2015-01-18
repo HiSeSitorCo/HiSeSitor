@@ -100,7 +100,8 @@ public class Estado {
 		for (Nodo aux : presasList) {
 			if (mapa.getDistancia(aux, inicio) <= dist) {
 				mapa.borraPresa(aux);
-				Logger.debug("Presa salvada: "+aux.toString());
+				aux.setSalvada(true);
+				Logger.debug("Presa salvada: "+aux.imprimePresa()+" Dist: "+mapa.getDistancia(aux, this.inicio));
 				this.presas--;
 				this.salvadas++;
 			}

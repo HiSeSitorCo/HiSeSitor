@@ -183,6 +183,8 @@ public class Grafo {
 					return Color.RED;
 				else if (i.cazada)
 					return Color.GREEN;
+				else if(i.salvada)
+					return Color.CYAN;
 				else if (i.isEstimacion())
 					return Color.YELLOW;
 				return Color.LIGHT_GRAY;
