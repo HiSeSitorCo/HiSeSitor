@@ -24,13 +24,12 @@ public class pruebaProcesoMain {
 		e1_vars.add(2);
 		e2_vars.add(9);
 		e2_vars.add(2);
-		e3_vars.add(3);
+		e3_vars.add(3); 
 		es.add(new Estrategia_espiral_testv2(sen, e1_vars));
-		es.add(new Estrategia_espiral_testv3(sen, e2_vars));
 		es.add(new Estrategia_FarAway(sen, e3_vars));
 		ArrayList<ArrayList<Integer>> exp = new ArrayList<ArrayList<Integer>>();
 		exp.add(e1_vars);
-		exp.add(e2_vars);
+		//exp.add(e2_vars);
 		exp.add(e3_vars);
 
 

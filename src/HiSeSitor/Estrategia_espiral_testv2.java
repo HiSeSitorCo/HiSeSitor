@@ -46,6 +46,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		int fin = 0;
 		int x = (int) actual.pos.x;
 		int y = (int) actual.pos.y;
+		int xp = (int) actual.pos.x;
+		int yp = (int) actual.pos.y;
 		int notNull = 0;
 		int first = 1;
 		espiralAux = espiral;
@@ -83,8 +85,8 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 				transitado++;
 			
 		}*/
-		System.out.println("HOLA SOY LA PUTA J Y VALGO: " + j + " LUEGO LA PUTA JGLOB VALE: " + jGlob + "  Y ES LA FURCIA SUPERMA EN EL PUTO PUNTO (" + x + "," +y+")");
-		int MAX = memoria.getListaNodos().size()/2;
+		
+		int MAX = memoria.getListaNodos().size();
 		while (espiralAux > 0 && cont < MAX) {
 			Nodo bus;
 			int itAux;
@@ -114,7 +116,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 				
 				itAux = itPasado-transitado;
 				if (transitado == itPasado && transitado > 1) {
-					
+
 					pasoPasado=(pasoPasado+1)%4;
 					paso = pasoPasado;
 					fin = 1;
@@ -142,6 +144,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							cont++;
 						} else {
 							y++;
+							cont++;
 							break;}
 					}
 					break;
@@ -155,6 +158,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							notNull=1;
 							cont++;
 						} else {y--;
+						cont++;
 						break;}
 					}
 					break;
@@ -167,6 +171,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							notNull=1;
 							cont++;
 						} else {x--;
+						cont++;
 						break;}
 					}
 					break;
@@ -179,6 +184,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 							notNull=1;
 							cont++;
 						} else {x++;
+						cont++;
 						break;}
 					}
 					break;
@@ -208,6 +214,11 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 		
 		for (Nodo n: visitados) {
 			n.score = -10;
+		}
+		if (xp == x && yp == y) {
+
+			pasoPasado=(pasoPasado+1)%4;
+			paso = pasoPasado;
 		}
 
 		
