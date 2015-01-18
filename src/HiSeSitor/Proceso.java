@@ -24,7 +24,7 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
-	public int MAX_TOP = 7;
+	public int MAX_TOP = 2;
 	public static String progressMsg;
 	public static int maxProgress;
 	public static int progress;
@@ -207,7 +207,7 @@ public class Proceso {
 			    f.setSize(400, 100);
 			    f.setResizable(false);
 			    f.setVisible(true);
-			    
+			    f.setLocationRelativeTo(null);
 			}
 		};
 		t.start();
@@ -215,6 +215,10 @@ public class Proceso {
 	
 	public void imprimeResultados(String nombre){
 		dato.procesaDatos(nombre, this.datositeraciones);
+	}
+
+	public void muestraVentana() {
+		dato.muestraVentana();
 	}
 	public static int getPseudoRand(){
 		int f = randPos.get(randGet);

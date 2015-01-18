@@ -31,9 +31,10 @@ public class pruebaProcesoMain {
 
 
 		p.iteraEstrategias(es, exp);
-		
-		System.out.println("ahora imprimo en fichero");
+
 		p.imprimeResultados("fichSalida.txt");
+		p.muestraVentana();
+		
 		System.out.println("finiquitaoh");
 
 	}
