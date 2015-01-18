@@ -79,7 +79,7 @@ public abstract class Estrategia {
 		if (memoria == null) {
 			memoria = new Grafo();
 			memoria.InitSensorGraph(estado.mapa);
-			// memoria.plotGraph("Memoria");
+			memoria.plotGraph("Memoria");
 		}
 		for (Sensor s : sensores) {
 			agregaSensorMemoria(s);

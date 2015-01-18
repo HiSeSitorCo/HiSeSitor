@@ -184,7 +184,7 @@ public class Grafo {
 				else if (i.cazada)
 					return Color.GREEN;
 				else if (i.isEstimacion())
-					return Color.PINK;
+					return Color.YELLOW;
 				return Color.LIGHT_GRAY;
 			}
 		};
@@ -309,7 +309,7 @@ public class Grafo {
 
 		int tam = list.size();
 		int rng = random.nextInt(tam);
-		Nodo nodo = list.get(rng);
+		Nodo nodo = list.get(55);
 		if (nodo.isObstaculo())
 			nodo = setCazador();
 		return setCazador(nodo);
