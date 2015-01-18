@@ -233,9 +233,9 @@ public class Proceso {
 		randGet = 0;
 		randPos = new ArrayList<>();
 		Random rd = new Random(System.currentTimeMillis());
-		for(int i = 0; i < bounds*2; i++){
+		for(int i = 0; i < bounds*4; i++){
 			randPos.add(rd.nextInt(bounds));
-			System.out.println("Generado: "+randPos.get(i));
+			//System.out.println("Generado: "+randPos.get(i));
 		}
 	}
 }
