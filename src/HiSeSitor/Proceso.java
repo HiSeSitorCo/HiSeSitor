@@ -71,7 +71,7 @@ public class Proceso {
 	 * @param d
 	 */
 	public int itera(Estrategia e, ArrayList<Integer> vars, Datos d) {
-		return iteraAux(vars.size(), e, vars, d);
+		return iteraAux(vars.size()-1, e, vars, d);
 	}
 	
 
