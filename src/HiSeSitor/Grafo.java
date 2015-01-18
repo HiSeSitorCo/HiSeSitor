@@ -44,8 +44,6 @@ public class Grafo {
 	int edgecount;
 	int x;
 	int y;
-	static HashMap<Integer, Integer> hm;
-	static ArrayList<Nodos> nods;
 	ArrayList<ArrayList<Nodo>> grafo;
 	HashMap<Integer, Punto> nodtopos;
 	HashMap<Punto, Integer> postonod;
