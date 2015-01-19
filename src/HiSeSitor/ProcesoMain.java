@@ -33,6 +33,7 @@ public class ProcesoMain {
 	static JTextField espv22;
 	static JTextField espv31;
 	static JTextField espv32;
+	static JTextField espv33;
 	static JTextField espv41;
 	static JTextField espv42;
 	static JTextField farway1;
@@ -75,10 +76,11 @@ public class ProcesoMain {
 		JPanel e = new JPanel();
 		e.setSize(150, 150);
 		o.setLayout(new BorderLayout());
-		JLabel jl = new JLabel("¡Bienvenido a HiSeSitor!");
+		JLabel jl = new JLabel("Bienvenido a HiSeSitor!");
 		JLabel mest = new JLabel("Estrategias");
 		JLabel varst = new JLabel("Variable 1");
 		JLabel varst2 = new JLabel("Variable 2    ");
+		JLabel varst3 = new JLabel("Variable 3    ");
 		JLabel conf = new JLabel("Configuracion");
 		JLabel nofit = new JLabel("Simulaciones max.");
 		JLabel nofsim = new JLabel("Iteraciones por simulacion max");
@@ -88,6 +90,7 @@ public class ProcesoMain {
 		mest.setFont(labest);
 		varst.setFont(labest);
 		varst2.setFont(labest);
+		varst3.setFont(labest);
 		conf.setFont(labest);
 		nofit.setFont(labest);
 		nofsim.setFont(labest);
@@ -102,9 +105,9 @@ public class ProcesoMain {
 		GridBagLayout gl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		e1 = new JCheckBox("Cercanos");
-		e2 = new JCheckBox("Espiral V2");
-		e3 = new JCheckBox("Espiral V3");
-		e4 = new JCheckBox("Espiral V4");
+	    e2 = new JCheckBox("Espiral simple");
+		e3 = new JCheckBox("Espiral con saltos");
+		e4 = new JCheckBox("Distancias aleatorias");
 		e5 = new JCheckBox("FarAway");
 		e1.setFont(labest);
 		e2.setFont(labest);
@@ -117,6 +120,7 @@ public class ProcesoMain {
 		espv22 = new JTextField();
 		espv31 = new JTextField();
 		espv32 = new JTextField();
+		espv33 = new JTextField();
 		espv41 = new JTextField();
 		espv42 = new JTextField();
 		farway1 = new JTextField();
@@ -147,6 +151,9 @@ public class ProcesoMain {
 		c.gridx = 2;
 		c.gridy = 1;
 		listofest.add(varst2, c);
+		c.gridx = 3;
+		c.gridy = 1;
+		listofest.add(varst3, c);
 		c.gridx = 0;
 		c.gridy = 2;
 		listofest.add(e1, c);
@@ -171,6 +178,9 @@ public class ProcesoMain {
 		c.gridx = 2;
 		c.gridy = 4;
 		listofest.add(espv32, c);
+		c.gridx = 3;
+		c.gridy = 4;
+		listofest.add(espv33, c);
 		c.gridx = 0;
 		c.gridy = 5;
 		listofest.add(e4, c);
@@ -321,90 +331,75 @@ public class ProcesoMain {
 							return;
 
 						}
-						if (e1.isSelected()) {
+						if(e1.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try {
-								e1_vars.add(Integer.parseInt(cercanos.getText()));
-								s = s + "Estrategia Cercanos con variables "
-										+ e1_vars.toString() + "\n";
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(window,
-										"Error al parsear la variable"
-												+ "\nUtilice solo numeros",
-										"Error", JOptionPane.ERROR_MESSAGE);
+							try{
+							e1_vars.add(Integer.parseInt(cercanos.getText()));
+							s = s+"Estrategia Cercanos con variables "+e1_vars.toString()+"\n";
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
+										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
 							es.add(new Estrategia_Cercanos(sen, e1_vars));
 						}
-						if (e2.isSelected()) {
+						if(e2.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try {
-								e1_vars.add(Integer.parseInt(espv21.getText()));
-								e1_vars.add(Integer.parseInt(espv22.getText()));
-								s = s + "Estrategia espiral V2 con variables "
-										+ e1_vars.toString() + "\n";
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(window,
-										"Error al parsear la variable"
-												+ "\nUtilice solo numeros",
-										"Error", JOptionPane.ERROR_MESSAGE);
+							try{
+							e1_vars.add(Integer.parseInt(espv21.getText()));
+							e1_vars.add(Integer.parseInt(espv22.getText()));
+							s = s+"Estrategia espiral simple con variables "+e1_vars.toString()+"\n";
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
+										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
-							es.add(new Estrategia_espiral_testv2(sen, e1_vars));
+							es.add(new Estrategia_de_distancias(sen, e1_vars));
 						}
-						if (e3.isSelected()) {
+						if(e3.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try {
-								e1_vars.add(Integer.parseInt(espv31.getText()));
-								e1_vars.add(Integer.parseInt(espv32.getText()));
-								s = s + "Estrategia Espiral V3 con variables "
-										+ e1_vars.toString() + "\n";
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(window,
-										"Error al parsear la variable"
-												+ "\nUtilice solo numeros",
-										"Error", JOptionPane.ERROR_MESSAGE);
+							try{
+							e1_vars.add(Integer.parseInt(espv31.getText()));
+							e1_vars.add(Integer.parseInt(espv32.getText()));
+							e1_vars.add(Integer.parseInt(espv33.getText()));
+							s = s+"Estrategia Espiral con saltos con variables "+e1_vars.toString()+"\n";
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
+										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
-							es.add(new Estrategia_espiral_testv3(sen, e1_vars));
+							es.add(new Estrategia_espiral_con_Saltos(sen, e1_vars));
 						}
-						if (e4.isSelected()) {
+						if(e4.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try {
-								e1_vars.add(Integer.parseInt(espv41.getText()));
-								e1_vars.add(Integer.parseInt(espv42.getText()));
-								s = s + "Estrategia Espiral V4 con variables "
-										+ e1_vars.toString() + "\n";
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(window,
-										"Error al parsear la variable"
-												+ "\nUtilice solo numeros",
-										"Error", JOptionPane.ERROR_MESSAGE);
+							try{
+							e1_vars.add(Integer.parseInt(espv41.getText()));
+							e1_vars.add(Integer.parseInt(espv42.getText()));
+							s = s+"Estrategia Espiral V4 con variables "+e1_vars.toString()+"\n";
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
+										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
-							es.add(new Estrategia_espiral_testv4(sen, e1_vars));
+							es.add(new Estrategia_espiral_simple(sen, e1_vars));
 						}
-						if (e5.isSelected()) {
+						if(e5.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try {
-								e1_vars.add(Integer.parseInt(farway1.getText()));
-								s = s + "Estrategia FarAway con variables "
-										+ e1_vars.toString() + "\n";
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(window,
-										"Error al parsear la variable"
-												+ "\nUtilice solo numeros",
-										"Error", JOptionPane.ERROR_MESSAGE);
+							try{
+							e1_vars.add(Integer.parseInt(farway1.getText()));
+							s = s+"Estrategia FarAway con variables "+e1_vars.toString()+"\n";
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
+										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
 							es.add(new Estrategia_FarAway(sen, e1_vars));
 						}
-
 						ProcesoMain.writeResult(s);
 						Simulacion sim = new Simulacion(15);
 						Proceso p = new Proceso(sen, sim);
@@ -445,7 +440,6 @@ public class ProcesoMain {
 
 		s.add(com);
 		window.validate();
-
 	}
 
 	public static void writeResult(String s) {

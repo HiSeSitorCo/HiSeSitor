@@ -249,4 +249,4 @@ public class Estrategia_Cercanos extends Estrategia {
 		}
 		return n.score;
 	}
-}
+}	
