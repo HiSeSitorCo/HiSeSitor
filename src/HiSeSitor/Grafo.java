@@ -310,7 +310,7 @@ public class Grafo {
 			rng = Proceso.getPseudoRand();
 		
 		//Nodo nodo = list.get(rng);
-		Nodo nodo = list.get(55); //usar con cuidado
+		Nodo nodo = list.get(rng); //usar con cuidado
 		
 		
 		if (nodo.isObstaculo())
@@ -403,8 +403,8 @@ public class Grafo {
 	public void InitSensorGraph(Grafo s) {
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		g = new SparseMultigraph<>();
-		 nodtopos = new HashMap<>();
-		 postonod = new HashMap<>();
+		nodtopos = new HashMap<>();
+		postonod = new HashMap<>();
 		int w = 0;
 		int edgecount = 0;
 		x = s.x;

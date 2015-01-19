@@ -64,6 +64,7 @@ public class Estrategia_FarAway extends Estrategia {
 
 	@Override
 	public void reset_ext() {
+		memoria = null;
 		visitados = new ArrayList<>();
 		div = 0;
 		presas = 0;

@@ -257,6 +257,7 @@ public class Estrategia_espiral_testv2 extends Estrategia {
 	@Override
 	public void reset_ext() {
 
+		memoria = null;
 		visitados = new ArrayList<>();
 		espiral = -1;
 		espiralAux = 0;
