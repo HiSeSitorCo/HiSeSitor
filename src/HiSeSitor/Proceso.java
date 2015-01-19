@@ -24,7 +24,7 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
-	public int MAX_TOP = 2;
+	public int MAX_TOP = 8;
 	public static String progressMsg;
 	public static int maxProgress;
 	public static int progress;
@@ -149,10 +149,10 @@ public class Proceso {
 			progressBar.setValue(progress);
 			System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 			id++;
-			if (flagSim != 0) {
+			if (e.memoria!=null) {
 				preparaSimulacion(e,simulacion,vars);
+				flagSim = 1;
 			}
-			flagSim = 1;
 			
 			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars), max_time);
 			iteraLocal++;
