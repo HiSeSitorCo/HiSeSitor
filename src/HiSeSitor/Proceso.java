@@ -24,7 +24,7 @@ public class Proceso {
 	private int incMax = 50;
 	private int fraccion = -10/11;
 	public int itera;
-	public int MAX_TOP = 8;
+	public static int MAX_TOP;
 	public static String progressMsg;
 	public static int maxProgress;
 	public static int progress;
@@ -34,7 +34,7 @@ public class Proceso {
 	public static ArrayList<Integer> randPos;
 	public static int randGet;
 	private int id = 0;
-	public int max_time = 137;
+	public static int max_time;
 	static JFrame f;
 	int calc;
 	
@@ -51,8 +51,18 @@ public class Proceso {
 		SALTO = 4;
 		Logger.debug = false;
 		enableGUI = false;
+		MAX_TOP = 37;
+		max_time = 137;
 		startGUI();
-		progressBar = new JProgressBar();
+		Thread initialize = new Thread (){
+			@Override
+			public void run (){
+				progressBar = new JProgressBar();
+				progressBar.validate();
+			}
+		};
+		initialize.run();
+		
 		progressMsg = "Processing...";
 	}
 
@@ -68,7 +78,7 @@ public class Proceso {
 			ArrayList<ArrayList<Integer>> v) {
 		progress = 0;
 		int dat = 0;
-		progressBar.setValue(progress);
+		progressBar.setValue(0);
 		for(ArrayList<Integer> a : v) {
 			dat= Math.max(dat, a.size());
 		}
@@ -77,7 +87,7 @@ public class Proceso {
 			itera(es.get(i), v.get(i), dato);		
 			itera = 0;
 			progress = maxProgress;
-			progressBar.setValue(progress);
+			progressBar.setValue(9999999);
 		}
 		datositeraciones.add(dato.mejorIteracionCapturados());
 		datositeraciones.add(dato.mejorIteracionOptimizada());
@@ -147,8 +157,10 @@ public class Proceso {
 			int iteraLocal = itera;
 			maxProgress = calc;
 			progress=itera;
-			progressBar.setValue(progress);
+			progressBar.setValue(iteraLocal);
+			progressBar.setMaximum(calc);
 			System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
+			ProcesoMain.writeResult("Iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 			id++;
 			if (e.memoria!=null) {
 				preparaSimulacion(e,simulacion,vars);
@@ -161,8 +173,10 @@ public class Proceso {
 				funcionDecisionParametros(num, inc, vars);
 				id++;
 				progress=itera;
-				progressBar.setValue(progress);
+				progressBar.setValue(iteraLocal);
+				progressBar.setMaximum(calc);
 				System.out.println("iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
+				ProcesoMain.writeResult("Iteracion " + iteraLocal + " de " + calc  + ", " + e.nombre);
 				preparaSimulacion(e,simulacion,vars);
 				ret2 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars), max_time);
 				iteraLocal++;

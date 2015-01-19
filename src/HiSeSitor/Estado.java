@@ -130,7 +130,7 @@ public class Estado {
 		BufferedReader br = null;
 		int[] tamanoMapa = new int[1000];
 		try {
-			archivo = new File("mapa1.txt");
+			archivo = new File(ProcesoMain.maptext.getText());
 			fr = new FileReader(archivo);
 			br = new BufferedReader(fr);
 
