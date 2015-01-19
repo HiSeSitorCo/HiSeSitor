@@ -356,7 +356,7 @@ public class ProcesoMain {
 								return;
 							}
 							exp.add(e1_vars);
-							es.add(new Estrategia_de_distancias(sen, e1_vars));
+							es.add(new Estrategia_espiral_simple(sen, e1_vars));
 						}
 						if(e3.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();
@@ -378,14 +378,14 @@ public class ProcesoMain {
 							try{
 							e1_vars.add(Integer.parseInt(espv41.getText()));
 							e1_vars.add(Integer.parseInt(espv42.getText()));
-							s = s+"Estrategia Espiral V4 con variables "+e1_vars.toString()+"\n";
+							s = s+"Estrategia Distancias Aleatorias con variables "+e1_vars.toString()+"\n";
 							}catch (Exception e){
 								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
 										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
-							es.add(new Estrategia_espiral_simple(sen, e1_vars));
+							es.add(new Estrategia_de_distancias(sen, e1_vars));
 						}
 						if(e5.isSelected()){
 							ArrayList<Integer> e1_vars = new ArrayList<>();

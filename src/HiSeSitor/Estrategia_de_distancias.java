@@ -8,8 +8,7 @@ public class Estrategia_de_distancias extends Estrategia {
 	public int periodo;
 	public ArrayList<Nodo> visitados = new ArrayList<>();
 	private int espiral;
-	private int espiralAux = 0;
-	private int pasoPasado = 0;
+	private int a,b;
 	private int div;
 	private int itPasado = 1;
 	private int jGlob = 2;
@@ -17,7 +16,7 @@ public class Estrategia_de_distancias extends Estrategia {
 	public int transitado=0;
 	public int freeze = -1;
 	
-	protected int tam = 1;
+	protected int tam = 2;
 	public Estrategia_de_distancias(ArrayList<Sensor> sen, ArrayList<Integer> v) {
 		super(sen, v);
 		nombre = "Distancias";
@@ -29,8 +28,8 @@ public class Estrategia_de_distancias extends Estrategia {
 		if (v.size() != tam) {
 			new Exception("Variables no correwspondientes con la estrategua");
 		}
-		espiral = v.get(0);
-		div = v.get(1);
+		a = v.get(0);
+		b = v.get(1);
 		
 	}
 	
@@ -70,19 +69,21 @@ public class Estrategia_de_distancias extends Estrategia {
 		memoria = null;
 		visitados = new ArrayList<>();
 		espiral = -1;
-		espiralAux = 0;
-		pasoPasado = 0;
+		a = 0;
+		b = 0;
 		div = 0;
 		itPasado = 0;
 	};
 
 	@Override
 	public double calcula(Nodo n) {
-		Nodo aux = memoria.getCazador();
-		
-		n.score = memoria.euclideanDist(
-				new Punto((int) aux.getPos().x,(int) aux.getPos().y), 
-				new Punto((int) n.getPos().x,(int) n.getPos().y));
+		Nodo aux = estado.mapa.getNode(n.id);
+		Nodo nact = estado.inicio;
+		nact.score = -10;
+		memoria.getNode(nact.id).score = -10;
+		n.score = estado.mapa.getDistancia(n, estado.inicio) * a +
+				estado.mapa.getDistancia(estado.actual, estado.inicio)*b;
+		aux.score = n.score;
 		
 		return n.score;
 	}
