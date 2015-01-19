@@ -8,17 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.apache.commons.collections15.Transformer;
-
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.SparseMultigraph;
@@ -30,14 +21,14 @@ import edu.uci.ics.jung.visualization.layout.PersistentLayout.Point;
 
 /**
  * 
- * @author Victor
+ * @author HiSeSiTor Co.
  * 
  *         Gestion de grafos.
  * 
  *         Incluye los metodos necesarios para crear y operar con grafos.
  */
 public class Grafo {
-
+	static HashMap<Nodo, HashMap<Nodo, Integer>> distancias;
 	/* Nodos son enteros y las aristas tambien hasta nuevo aviso */
 	SparseMultigraph<Nodo, Integer> g;
 	/* Autoincremento para el id de las aristas */
@@ -48,13 +39,23 @@ public class Grafo {
 	HashMap<Integer, Punto> nodtopos;
 	HashMap<Punto, Integer> postonod;
 
+	/**
+	 * Creador del Grafo
+	 */
 	public Grafo() {
 		g = new SparseMultigraph<>();
 		nodtopos = new HashMap<>();
 		postonod = new HashMap<>();
 	}
 
-	// COMPLETAR
+	/**
+	 * Añade un nodo en un grafo quasicompleto empleando un grafo completo
+	 * semejante como patron.
+	 * 
+	 * @param n
+	 * @param ref
+	 * @param time
+	 */
 	public void addNode(Nodo n, Grafo ref, int time) {
 		ArrayList<Nodo> ady = ref.getAdjacents(n);
 		g.addVertex(n);
@@ -69,8 +70,13 @@ public class Grafo {
 		}
 	}
 
-	/*
-	 * Probablemente esta funcin carezca de sentido
+	/**
+	 * Añade un nodo en un grafo quasicompleto empleando un grafo completo
+	 * semejante como patron.
+	 * 
+	 * @param n
+	 * @param ref
+	 * @param time
 	 */
 	public void addNode(Nodo n, Grafo ref) {
 		ArrayList<Nodo> ady = ref.getAdjacents(n);
@@ -80,71 +86,22 @@ public class Grafo {
 		for (Nodo ad : ady) {
 			if (contains(ad) == true) {
 				Integer i = ref.g.findEdge(n, ad);
-				try{
-				g.addEdge(i, new Nodo(n.id, n.score, n.getPos()), new Nodo(
-						ad.id, ad.score, ad.getPos()));
-				}catch(Exception e){
-					
+				try {
+					g.addEdge(i, new Nodo(n.id, n.score, n.getPos()), new Nodo(
+							ad.id, ad.score, ad.getPos()));
+				} catch (Exception e) {
+
 				}
 			}
 		}
 	}
 
 	/**
+	 * Devuelve una lista con los vecinos del Nodo n
 	 * 
-	 * @param aristas
-	 *            Lista de conexiones del nodo
 	 * @param n
-	 *            Nodo a insertar
-	 * @return True si se inserta correctamente. False en caso contrario
+	 * @return
 	 */
-	/*
-	 * public boolean addNode(List<Integer> aristas, Nodo n) { return true; }
-	 */
-
-	public List<Nodo> getShortestPath(Nodo n1, Nodo n2) {
-		List<Nodo> lv = new ArrayList<>();
-		int it = 1;
-		ArrayList<Nodos> abiertos = new ArrayList<>();
-		ArrayList<Nodo> tmp = new ArrayList<>();
-		tmp.addAll(g.getNeighbors(n1));
-		// System.out.println(tmp.toString());
-		if (tmp.contains(n2)) {
-			lv.add(n2);
-			return lv;
-		}
-		tmp.addAll(g.getNeighbors(n1));
-		for (int i = 0; i < tmp.size(); i++)
-			abiertos.add(new Nodos(tmp.get(i), it, new ArrayList<Nodos>()));
-		while (true) {
-			if (abiertos.isEmpty()) {
-				return lv;
-			}
-			if (abiertos.get(0).getId().equals(n2)) { /* Encontrado */
-				Nodos n = abiertos.get(0);
-				abiertos = abiertos.get(0).antecesores;
-				abiertos.add(n);
-				break;
-			}
-			tmp.clear();
-			tmp.addAll(g.getNeighbors(abiertos.get(0).getId()));
-			it++;
-			for (int i = 0; i < tmp.size(); i++) {
-				ArrayList<Nodos> l = new ArrayList<>();
-				l.addAll(abiertos.get(0).antecesores);
-				l.add(abiertos.get(0));
-				abiertos.add(new Nodos(tmp.get(i), it, l));
-			}
-
-			abiertos.remove(0);
-		}
-		for (int i = 0; i < abiertos.size(); i++) {
-			lv.add(abiertos.get(i).getId());
-		}
-
-		return lv;
-	}
-
 	public ArrayList<Nodo> getAdjacents(Nodo n) {
 		ArrayList<Nodo> ln = new ArrayList<>();
 		ln.addAll(g.getNeighbors(n));
@@ -152,10 +109,23 @@ public class Grafo {
 
 	}
 
+	/**
+	 * Devuelve el número de nodos que componen el grafo
+	 * 
+	 * @return
+	 */
 	public int getNodesCount() {
 		return g.getVertexCount();
 	}
 
+	/**
+	 * Añade dos nodos conectados por una arista definida por un entero (ID)
+	 * 
+	 * @param arista
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
 	public boolean addEdge(int arista, Nodo n1, Nodo n2) {
 		if (n1.equals(n2))
 			return false;
@@ -166,6 +136,11 @@ public class Grafo {
 		return g.addEdge(arista, n1, n2);
 	}
 
+	/**
+	 * Dibuja el Grafo
+	 * 
+	 * @param title
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void plotGraph(String title) {
 		StaticLayout<Nodo, Integer> layout = new StaticLayout<>(g);
@@ -181,7 +156,7 @@ public class Grafo {
 					return Color.RED;
 				else if (i.cazada)
 					return Color.GREEN;
-				else if(i.salvada)
+				else if (i.salvada)
 					return Color.CYAN;
 				else if (i.isEstimacion())
 					return Color.YELLOW;
@@ -229,16 +204,24 @@ public class Grafo {
 
 	}
 
+	/**
+	 * Devuelve un nodo dadas unas coordenadas X y Y
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Nodo getNodo(int x, int y) {
-		if(x < 1 || y < 1)
+		if (x < 1 || y < 1)
 			return null;
 		ArrayList<Nodo> al = new ArrayList<>();
 		al.addAll(g.getVertices());
 		int s = -1;
-		try{
-		s = postonod.get(new Punto(x, y));
-		}catch (NullPointerException e){
-			Logger.error("ERROR Grafo getNodo(int,int) - No se pudo acceder al punto "+x+" e "+y);
+		try {
+			s = postonod.get(new Punto(x, y));
+		} catch (NullPointerException e) {
+			Logger.error("ERROR Grafo getNodo(int,int) - No se pudo acceder al punto "
+					+ x + " e " + y);
 		}
 		int posicion = al.indexOf(new Nodo(s, 0, new Point(x, y)));
 		if (posicion == -1)
@@ -246,12 +229,22 @@ public class Grafo {
 		return al.get(posicion);
 	}
 
+	/**
+	 * Devuelve una lista con los Nodos que componen el grafo
+	 * 
+	 * @return
+	 */
 	public ArrayList<Nodo> getListaNodos() {
 		ArrayList<Nodo> aux = new ArrayList<>();
 		aux.addAll(g.getVertices());
 		return aux;
 	}
 
+	/**
+	 * Crea una presa en auxN
+	 * 
+	 * @param auxN
+	 */
 	public void creaPresa(Nodo auxN) {
 		ArrayList<Nodo> list = getListaNodos();
 		for (Nodo n : list) {
@@ -269,16 +262,12 @@ public class Grafo {
 
 	}
 
-	public Nodo getShortestPathNode(Nodo actual, Nodo objetivo) {
-		List<Nodo> nl = getShortestPath(actual, objetivo);
-		if (nl.size() == 1)
-			return getShortestPath(actual, objetivo).get(0);
-		else {
-			return getShortestPath(actual, objetivo).get(1);
-
-		}
-	}
-
+	/**
+	 * Configura el nodo para que sea el cazador.
+	 * 
+	 * @param nodo
+	 * @return
+	 */
 	public Nodo setCazador(Nodo nodo) {
 		ArrayList<Nodo> aux = getListaNodos();
 		for (Nodo n : aux) {
@@ -293,6 +282,11 @@ public class Grafo {
 		return nodo;
 	}
 
+	/**
+	 * Establece n en el mapa como el nodo de inicio.
+	 * 
+	 * @param n
+	 */
 	public void setArbolDondeCuenta(Nodo n) {
 		ArrayList<Nodo> aux = getListaNodos();
 		for (Nodo nodo : aux) {
@@ -303,21 +297,30 @@ public class Grafo {
 		}
 	}
 
+	/**
+	 * Obtiene de forma aleatoria un numero para colocar el cazador
+	 * 
+	 * @return
+	 */
 	public Nodo setCazador() {
 		ArrayList<Nodo> list = getListaNodos();
 		int rng = 999999999;
-		while(rng >= list.size())
+		while (rng >= list.size())
 			rng = Proceso.getPseudoRand();
-		
-		//Nodo nodo = list.get(rng);
-		Nodo nodo = list.get(rng); //usar con cuidado
-		
-		
+
+		// Nodo nodo = list.get(rng);
+		Nodo nodo = list.get(rng); // usar con cuidado
+
 		if (nodo.isObstaculo())
 			nodo = setCazador();
 		return setCazador(nodo);
 	}
 
+	/**
+	 * Devuelve una lista de Nodos presa
+	 * 
+	 * @return
+	 */
 	public ArrayList<Nodo> getPresas() {
 		ArrayList<Nodo> presasL = new ArrayList<>();
 		ArrayList<Nodo> list = getListaNodos();
@@ -330,7 +333,20 @@ public class Grafo {
 	}
 
 	public int getDistancia(Nodo actual, Nodo inicio) {
-		// return getShortestPath(actual, inicio).size();
+		if(ProcesoMain.EXPERIMENTAL)
+		return distancias.get(actual).get(inicio);
+		else
+			return getDistancia2(actual,inicio);
+	}
+
+	/**
+	 * Devuelve la distancia más corta entre dos nodos
+	 * 
+	 * @param actual
+	 * @param inicio
+	 * @return
+	 */
+	public int getDistancia2(Nodo actual, Nodo inicio) {
 		int res = 99;
 		Transformer<Integer, Double> wtTransformer = new Transformer<Integer, Double>() {
 			public Double transform(Integer link) {
@@ -347,6 +363,12 @@ public class Grafo {
 		return res;
 	}
 
+	/**
+	 * Evalúa si el grafo contiene al nodo n
+	 * 
+	 * @param n
+	 * @return
+	 */
 	public boolean contains(Nodo n) {
 		ArrayList<Nodo> ar = new ArrayList<>();
 		ar.addAll(g.getVertices());
@@ -354,6 +376,11 @@ public class Grafo {
 		return b;
 	}
 
+	/**
+	 * Realiza la unión del grafo con sensorGraph
+	 * 
+	 * @param sensorGraph
+	 */
 	public void union(Grafo sensorGraph) {
 		ArrayList<Nodo> sglist = sensorGraph.getListaNodos();
 		for (Nodo n : sglist) {
@@ -371,7 +398,10 @@ public class Grafo {
 					 * que aporta mas info
 					 */
 
-				} else if (s == -1) { /* El nodo nuevo aporta mï¿½s info y se copia */
+				} else if (s == -1) { /*
+									 * El nodo nuevo aporta mï¿½s info y se
+									 * copia
+									 */
 					n.setGanancia(n.getGanancia() - tm.getGanancia());
 					tm.copyNode(n);
 				} else if (s == 2) { /*
@@ -386,6 +416,11 @@ public class Grafo {
 		}
 	}
 
+	/**
+	 * Devuelve el nodo del cazador
+	 * 
+	 * @return
+	 */
 	public Nodo getCazador() {
 		ArrayList<Nodo> lista = getListaNodos();
 		for (Nodo n : lista) {
@@ -395,18 +430,27 @@ public class Grafo {
 		return null;
 	}
 
+	/**
+	 * Elimina la presa de aux
+	 * 
+	 * @param aux
+	 */
 	public void borraPresa(Nodo aux) {
 		aux.presa = false;
 
 	}
 
+	/**
+	 * Inicializa un grafo vacio con las mismas dimensiones que s.
+	 * 
+	 * @param s
+	 */
 	public void InitSensorGraph(Grafo s) {
 		ArrayList<ArrayList<Nodo>> tmp = new ArrayList<>();
 		g = new SparseMultigraph<>();
 		nodtopos = new HashMap<>();
 		postonod = new HashMap<>();
 		int w = 0;
-		int edgecount = 0;
 		x = s.x;
 		y = s.y;
 		for (int i = 0; i < s.y; i++) {
@@ -419,9 +463,15 @@ public class Grafo {
 			}
 		}
 
-		// plotGraph("Holis");
 	}
 
+	/**
+	 * Genera un grafo con un tamaño y unos obstaculos definidos por
+	 * coordenadas.
+	 * 
+	 * @param coordenadas
+	 * @param def
+	 */
 	@SuppressWarnings("unused")
 	public void generaGrafo(int[] coordenadas, int def) {
 
@@ -574,9 +624,33 @@ public class Grafo {
 			}
 
 		}
+		if (ProcesoMain.EXPERIMENTAL) {
+			ArrayList<Nodo> ndls = this.getListaNodos();
+			if (distancias == null)
+				distancias = new HashMap<>();
+			else
+				return;
+
+			System.out.println("Calculando todas las distancias");
+			for (int i = 0; i < ndls.size(); i++) {
+				HashMap<Nodo, Integer> tmpe = new HashMap<>();
+				for (int j = 0; j < ndls.size(); j++) {
+					tmpe.put(ndls.get(j),
+							this.getDistancia2(ndls.get(i), ndls.get(j)));
+				}
+				distancias.put(ndls.get(i), tmpe);
+			}
+		}
 
 	}
 
+	/**
+	 * Devuelve la distancia euclidea entre dos puntos.
+	 * 
+	 * @param p1
+	 * @param p2
+	 * @return
+	 */
 	public int euclideanDist(Punto p1, Punto p2) {
 		int x = (int) (p2.x - p1.x);
 		int y = (int) (p2.y - p1.y);
@@ -587,24 +661,29 @@ public class Grafo {
 		return res;
 	}
 
-	public void plotNewGraph() {
-		JFrame jf = new JFrame("Plotting new Graph");
-		jf.setSize(400, 400);
-		JPanel jp = new JPanel();
-		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-		jf.add(jp);
-		ArrayList<JPanel> list = new ArrayList<>();
-		for (int i = 0; i < y; i++) {
-			list.add(new JPanel());
-			list.get(i).add(new JLabel(i + ""));
-			for (int j = 0; j < x; j++) {
-				list.get(i).add(new JButton(grafo.get(i).get(j).toString()));
-			}
-			jp.add(list.get(i));
-		}
-		jf.setVisible(true);
+	/**
+	 * Devuelve la distancia euclidea entre dos puntos.
+	 * 
+	 * @param p1
+	 * @param p2
+	 * @return
+	 */
+	public int euclideanDist(Point p1, Point p2) {
+		int x = (int) (p2.x - p1.x);
+		int y = (int) (p2.y - p1.y);
+		x = (int) Math.pow(x, 2);
+		y = (int) Math.pow(y, 2);
+		int res = x + y;
+		res = (int) Math.sqrt(res);
+		return res;
 	}
 
+	/**
+	 * Actualiza la posicion del nodo dst por src.
+	 * 
+	 * @param src
+	 * @param dst
+	 */
 	public void updateNodo(Nodo src, Nodo dst) {
 		int i = 0;
 		ArrayList<Integer> lista = dst.getListaAristas();
@@ -634,6 +713,12 @@ public class Grafo {
 		i++;
 	}
 
+	/**
+	 * Devuelve el nodo referenciado por esa id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Nodo getNode(int id) {
 		ArrayList<Nodo> al = new ArrayList<>();
 		al.addAll(g.getVertices());
@@ -643,12 +728,26 @@ public class Grafo {
 		return al.get(l);
 	}
 
+	/**
+	 * Evalua si n es un nodo estimado
+	 * 
+	 * @param n
+	 * @return
+	 */
 	public boolean isEstimacion(Nodo n) {
 		return n.isEstimacion();
 	}
 
+	/**
+	 * Crea un nodo estimado en la posicion x,y
+	 * 
+	 * @param time
+	 * @param x
+	 * @param y
+	 * @param m
+	 */
 	public void creaNodoEstimacion(int time, int x, int y, Grafo m) {
-		if(x < 0 || y < 0)
+		if (x < 0 || y < 0)
 			return;
 		int id = postonod.get(new Punto(x, y));
 		Nodo n = new Nodo(id, 0, new Point(x, y));
@@ -657,52 +756,19 @@ public class Grafo {
 		addNode(n, m);
 	}
 
+	/**
+	 * Crea un nodo estimado en la posicion x,y
+	 * 
+	 * @param time
+	 * @param x
+	 * @param y
+	 * @param m
+	 */
 	public void creaNodoEstimacion(int time, double x, double y, Grafo m) {
 		int ix = (int) x;
 		int iy = (int) y;
 		creaNodoEstimacion(time, ix, iy, m);
 	}
-}
-
-/**
- * Clase auxiliar para la busqueda del camino mas corto
- * 
- * @author Victor
- * 
- */
-class Nodos {
-	Nodo id;
-	int coste;
-	ArrayList<Nodos> antecesores;
-
-	public Nodos(Nodo id, int coste, ArrayList<Nodos> antecesores) {
-		super();
-		this.id = id;
-		this.coste = coste;
-		this.antecesores = antecesores;
-	}
-
-	public Nodo getId() {
-		return id;
-	}
-
-	public void setId(Nodo id) {
-		this.id = id;
-	}
-
-	public int getCoste() {
-		return coste;
-	}
-
-	public void setCoste(int coste) {
-		this.coste = coste;
-	}
-
-	public String toString() {
-		String s = "ID: " + id + " Coste: " + coste;
-		return s;
-	}
-
 }
 
 class Punto {

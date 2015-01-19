@@ -3,6 +3,11 @@ package HiSeSitor;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * 
+ * @author HiSeSiTor Co.
+ *
+ */
 public abstract class Estrategia {
 	public String nombre;
 	public ArrayList<Sensor> sensores;
@@ -10,6 +15,11 @@ public abstract class Estrategia {
 	public Grafo memoria;
 	public ArrayList<Integer> ponderaciones = new ArrayList<>();
 
+	/**
+	 * Creador de estrategia
+	 * @param sensores
+	 * @param vars
+	 */
 	public Estrategia(ArrayList<Sensor> sensores, ArrayList<Integer> vars) {
 
 		// Comprueba que tiene los sensores necesarios
@@ -27,32 +37,49 @@ public abstract class Estrategia {
 
 	}
 
-	// override
 	public int checkSensores(ArrayList<Sensor> s) {
 		return 0;
-
-		// TODO:
 	}
 
-	// override
 	public void asignaVariables(ArrayList<Integer> v) throws Exception {
-		// TODO:
-	}
 
+	}
+	/**
+	 * Actualiza el conocimiento de los sensores
+	 * @param time
+	 * @param x
+	 * @param y
+	 * @param m
+	 */
 	public void updateSensores() {
 		for (Sensor s : sensores) {
 			s.updateKnowledge();
 		}
 	}
-
+	/**
+	 * Creador alternativo que recibe unicamente una lista de sensores.
+	 * @param time
+	 * @param x
+	 * @param y
+	 * @param m
+	 */
 	public Estrategia(ArrayList<Sensor> sen) {
 		sensores = sen;
 	}
-
+	/**
+	 * Crea un nodo estimado en la posicion x,y
+	 * @param time
+	 * @param x
+	 * @param y
+	 * @param m
+	 */
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-
+	/**
+	 * Devuelve la lista de sensores de la estrategia
+	 * @return
+	 */
 	public ArrayList<Sensor> getSensores() {
 		return sensores;
 	}

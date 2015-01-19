@@ -23,9 +23,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * 
+ * @author HiSeSiTor Co.
+ * 
+ */
 public class ProcesoMain {
 
 	static JTextField cercanos;
@@ -45,27 +48,20 @@ public class ProcesoMain {
 	static JCheckBox e3;
 	static JCheckBox e4;
 	static JCheckBox e5;
+	static JCheckBox e6;
 	static JFrame window;
 	static JTextArea ta;
+	static boolean EXPERIMENTAL;
 	static boolean errorMap;
 	static boolean working = false;
 
 	public static void main(String[] args) {
-
-		/*try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		errorMap = true;
 		window = new JFrame("HiSeSitor - Hide&seek Simulator");
-		window.setMinimumSize(new Dimension(500, 400));
+		window.setMinimumSize(new Dimension(750, 400));
 		window.setVisible(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(700, 550);
-		window.setMaximumSize(new Dimension(700,550));
+		window.setSize(750, 550);
 		window.setResizable(true);
 		BorderLayout bl = new BorderLayout();
 		window.setLayout(bl);
@@ -96,19 +92,20 @@ public class ProcesoMain {
 		nofsim.setFont(labest);
 		map.setFont(labest);
 		window.add(n, BorderLayout.NORTH);
-		window.add(o, BorderLayout.WEST);
+		window.add(o, BorderLayout.CENTER);
 		window.add(s, BorderLayout.SOUTH);
-		window.add(ce, BorderLayout.CENTER);
+		window.add(ce, BorderLayout.WEST);
 		window.add(e, BorderLayout.EAST);
 		n.add(jl);
 		o.add(mest, BorderLayout.NORTH);
 		GridBagLayout gl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		e1 = new JCheckBox("Cercanos");
-	    e2 = new JCheckBox("Espiral simple");
+		e2 = new JCheckBox("Espiral simple");
 		e3 = new JCheckBox("Espiral con saltos");
 		e4 = new JCheckBox("Distancias aleatorias");
 		e5 = new JCheckBox("FarAway");
+		e6 = new JCheckBox("Optimizacion de la ejecucion. Acelera el proceso (Experimental)");
 		e1.setFont(labest);
 		e2.setFont(labest);
 		e3.setFont(labest);
@@ -216,10 +213,10 @@ public class ProcesoMain {
 		listofest.add(maxit, c);
 		c.gridx = 0;
 		c.gridy = 10;
-		listofest.add(nofsim,c);
+		listofest.add(nofsim, c);
 		c.gridx = 1;
 		c.gridy = 10;
-		listofest.add(maxitpsim,c);
+		listofest.add(maxitpsim, c);
 		c.gridx = 0;
 		c.gridy = 11;
 		listofest.add(map, c);
@@ -230,15 +227,19 @@ public class ProcesoMain {
 		c.gridy = 11;
 		JButton loadMap = new JButton("Seleccionar");
 		listofest.add(loadMap, c);
+		c.gridx = 0;
+		c.gridy = 12;
+		listofest.add(e6,c);
 		o.add(listofest, BorderLayout.NORTH);
 		o.add(new JLabel(), BorderLayout.SOUTH);
 		ta = new JTextArea();
 		ta.setEditable(false);
 		JScrollPane sp = new JScrollPane(ta);
 		ce.setLayout(new BorderLayout());
-		ce.add(sp, BorderLayout.CENTER);
+		o.add(sp);
 		loadMap.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("resource")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				final JFileChooser fc = new JFileChooser();
@@ -324,110 +325,141 @@ public class ProcesoMain {
 							return;
 
 						}
-						if(errorMap){
+						if (errorMap) {
 							JOptionPane.showMessageDialog(window,
 									"No se ha seleccionado un mapa valido",
 									"Error", JOptionPane.ERROR_MESSAGE);
 							return;
 
 						}
-						if(e1.isSelected()){
+						if (e1.isSelected()) {
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try{
-							e1_vars.add(Integer.parseInt(cercanos.getText()));
-							s = s+"Estrategia Cercanos con variables "+e1_vars.toString()+"\n";
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
-										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
+							try {
+								e1_vars.add(Integer.parseInt(cercanos.getText()));
+								s = s + "Estrategia Cercanos con variables "
+										+ e1_vars.toString() + "\n";
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(window,
+										"Error al parsear la variable"
+												+ "\nUtilice solo numeros",
+										"Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
 							es.add(new Estrategia_Cercanos(sen, e1_vars));
 						}
-						if(e2.isSelected()){
+						if (e2.isSelected()) {
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try{
-							e1_vars.add(Integer.parseInt(espv21.getText()));
-							e1_vars.add(Integer.parseInt(espv22.getText()));
-							s = s+"Estrategia espiral simple con variables "+e1_vars.toString()+"\n";
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
-										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
+							try {
+								e1_vars.add(Integer.parseInt(espv21.getText()));
+								e1_vars.add(Integer.parseInt(espv22.getText()));
+								s = s
+										+ "Estrategia espiral simple con variables "
+										+ e1_vars.toString() + "\n";
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(window,
+										"Error al parsear la variable"
+												+ "\nUtilice solo numeros",
+										"Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
 							es.add(new Estrategia_espiral_simple(sen, e1_vars));
 						}
-						if(e3.isSelected()){
+						if (e3.isSelected()) {
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try{
-							e1_vars.add(Integer.parseInt(espv31.getText()));
-							e1_vars.add(Integer.parseInt(espv32.getText()));
-							e1_vars.add(Integer.parseInt(espv33.getText()));
-							s = s+"Estrategia Espiral con saltos con variables "+e1_vars.toString()+"\n";
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
-										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
+							try {
+								e1_vars.add(Integer.parseInt(espv31.getText()));
+								e1_vars.add(Integer.parseInt(espv32.getText()));
+								e1_vars.add(Integer.parseInt(espv33.getText()));
+								s = s
+										+ "Estrategia Espiral con saltos con variables "
+										+ e1_vars.toString() + "\n";
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(window,
+										"Error al parsear la variable"
+												+ "\nUtilice solo numeros",
+										"Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
-							es.add(new Estrategia_espiral_con_Saltos(sen, e1_vars));
+							es.add(new Estrategia_espiral_con_Saltos(sen,
+									e1_vars));
 						}
-						if(e4.isSelected()){
+						if (e4.isSelected()) {
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try{
-							e1_vars.add(Integer.parseInt(espv41.getText()));
-							e1_vars.add(Integer.parseInt(espv42.getText()));
-							s = s+"Estrategia Distancias Aleatorias con variables "+e1_vars.toString()+"\n";
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
-										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
+							try {
+								e1_vars.add(Integer.parseInt(espv41.getText()));
+								e1_vars.add(Integer.parseInt(espv42.getText()));
+								s = s
+										+ "Estrategia Distancias Aleatorias con variables "
+										+ e1_vars.toString() + "\n";
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(window,
+										"Error al parsear la variable"
+												+ "\nUtilice solo numeros",
+										"Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
 							es.add(new Estrategia_de_distancias(sen, e1_vars));
 						}
-						if(e5.isSelected()){
+						if (e5.isSelected()) {
 							ArrayList<Integer> e1_vars = new ArrayList<>();
-							try{
-							e1_vars.add(Integer.parseInt(farway1.getText()));
-							s = s+"Estrategia FarAway con variables "+e1_vars.toString()+"\n";
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window, "Error al parsear la variable"
-										+ "\nUtilice solo numeros", "Error", JOptionPane.ERROR_MESSAGE);
+							try {
+								e1_vars.add(Integer.parseInt(farway1.getText()));
+								s = s + "Estrategia FarAway con variables "
+										+ e1_vars.toString() + "\n";
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(window,
+										"Error al parsear la variable"
+												+ "\nUtilice solo numeros",
+										"Error", JOptionPane.ERROR_MESSAGE);
 								return;
 							}
 							exp.add(e1_vars);
 							es.add(new Estrategia_FarAway(sen, e1_vars));
 						}
+						if(e6.isSelected())
+							EXPERIMENTAL = true;
+						else
+							EXPERIMENTAL = false;
 						ProcesoMain.writeResult(s);
 						Simulacion sim = new Simulacion(15);
 						Proceso p = new Proceso(sen, sim);
-						if(!maxit.getText().isEmpty()){
-							try{
-								p.MAX_TOP = Integer.parseInt(maxit.getText());
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window,
-										"Error al configurar el numero maximo de simulaciones.\n"
-										+ "Se usara el valor por defecto.",
-										"Error", JOptionPane.ERROR_MESSAGE);
+						if (!maxit.getText().isEmpty()) {
+							try {
+								Proceso.MAX_TOP = Integer.parseInt(maxit.getText());
+							} catch (Exception e) {
+								JOptionPane
+										.showMessageDialog(
+												window,
+												"Error al configurar el numero maximo de simulaciones.\n"
+														+ "Se usara el valor por defecto.",
+												"Error",
+												JOptionPane.ERROR_MESSAGE);
 							}
 						}
-						if(!maxitpsim.getText().isEmpty()){
-							try{
-								p.max_time = Integer.parseInt(maxitpsim.getText());
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(window,
-										"Error al configurar el numero maximo de iteraciones.\n"
-										+ "Se usara el valor por defecto.",
-										"Error", JOptionPane.ERROR_MESSAGE);
+						if (!maxitpsim.getText().isEmpty()) {
+							try {
+								Proceso.max_time = Integer.parseInt(maxitpsim
+										.getText());
+							} catch (Exception e) {
+								JOptionPane
+										.showMessageDialog(
+												window,
+												"Error al configurar el numero maximo de iteraciones.\n"
+														+ "Se usara el valor por defecto.",
+												"Error",
+												JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						working = true;
 						p.iteraEstrategias(es, exp);
-						if (p.f != null)
-							p.f.setVisible(false);
+						if (Proceso.f != null)
+							Proceso.f.setVisible(false);
 						working = false;
+						Grafo.distancias = null;
 						p.imprimeResultados("fichSalida.txt");
 						p.muestraVentana();
 					}

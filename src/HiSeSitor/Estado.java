@@ -8,11 +8,16 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * 
+ * @author HiSeSiTor Co.
+ * 
+ * Define el estado de una simulacion en un instante en concreto
+ */
 public class Estado {
 
 	public Random random = new Random();
 	public ArrayList<Nodo> hiddenNodes = new ArrayList<>();
-	public int numHN;
 	public Nodo actual;
 	public Estrategia estrategia;
 	public Nodo inicio;
@@ -20,28 +25,28 @@ public class Estado {
 	public int salvadas = 0;
 	public int definicionMalla = 100;
 	public int time = 0;
-
-	public Grafo memoria;
 	public Grafo mapa;
 
+	/**
+	 * Inicializa el estado de la simulacion
+	 * @param estr Estrategia con la que se desarrolla la simulacion.
+	 */
 	public Estado(Estrategia estr) {
 		initGraph();
 		actual = mapa.getCazador();
 		this.estrategia = estr;
 	}
-
-	// __GUILLE
-
+	/**
+	 * Inicializa los nodos que el cazador no ve al empezar la simulacion.
+	 */
 	private void initHiddenNodes() {
 		boolean visto = false;
 		for (Nodo n : mapa.getListaNodos()) {
-			if(n.score < 0)
+			if (n.score < 0)
 				continue;
 			for (Sensor s : estrategia.getSensores()) {
 				if (s.isVisto(n)) {
-
 					visto = true;
-					//break;
 				}
 			}
 			if (!visto) {
@@ -54,47 +59,59 @@ public class Estado {
 		}
 
 	}
-
+	/**
+	 * Añade a las presas de forma aleatoria en los nodos no visibles para el cazador.
+	 */
 	public void addAleatOponent() {
-		if (hiddenNodes.size() < 1){
-			Logger.debug("INFO - No se aï¿½aden mas presas porque no hay nodos ocultos");
+		if (hiddenNodes.size() < 1) {
+			Logger.debug("INFO - No se incluyen mas presas porque no hay nodos ocultos");
 			return;
 		}
 		Nodo auxN = null;
 		int rng = 0;
-		while(auxN == null){
-		rng = Proceso.getPseudoRand();
-		if(rng >= hiddenNodes.size())
-			continue;
-	    auxN = hiddenNodes.get(rng);
+		while (auxN == null) {
+			rng = Proceso.getPseudoRand();
+			if (rng >= hiddenNodes.size())
+				continue;
+			auxN = hiddenNodes.get(rng);
 		}
-		Logger.debug("INFO - Rand: "+rng);
+		Logger.debug("INFO - Rand: " + rng);
 		mapa.creaPresa(auxN);
 		presas++;
 		hiddenNodes.remove(rng);
 	}
-
+	/**
+	 * Busca empleando la estrategia y la informacion el nodo
+	 *  objetivo.
+	 * @return Nodo destino
+	 */
 	public Nodo busca() {
 		estrategia.updateMemoria(); // recalcular subestructuras
-		Nodo objetivo = estrategia.getObjetivo(); // coger el nodo con mayor
-										// puntuaciÃ³n
-		Nodo aux = new Nodo(0,0,null);
+		Nodo objetivo = estrategia.getObjetivo();
+		Nodo aux = new Nodo(0, 0, null);
 		if (objetivo == null)
 			return null;
 		if (actual == null) {
 			aux.copyNode(mapa.getCazador());
 			actual = aux;
 		}
-		return mapa.getShortestPathNode(getActual(), objetivo);
+		return objetivo;
 
 	}
-
+	/**
+	 * Inicializa todos los recursos de Estado.
+	 */
 	public void initEstado() {
 		initHiddenNodes();
 		updateSensores();
 		inicio = getActual();
 	}
 
+	/**
+	 * Actualiza el estado actual con el nodo que recibe por parámetros y
+	 *  realiza los nuevos cálculos para la elección del próximo movimiento.
+	 * @param nodo Nodo actual.
+	 */
 	public void updateEstado(Nodo nodo) {
 
 		actual = mapa.setCazador(nodo);
@@ -104,7 +121,8 @@ public class Estado {
 			if (mapa.getDistancia(aux, inicio) <= dist) {
 				mapa.borraPresa(aux);
 				aux.setSalvada(true);
-				Logger.debug("Presa salvada: "+aux.imprimePresa()+" Dist: "+mapa.getDistancia(aux, this.inicio));
+				Logger.debug("Presa salvada: " + aux.imprimePresa() + " Dist: "
+						+ mapa.getDistancia(aux, this.inicio));
 				this.presas--;
 				this.salvadas++;
 			}
@@ -112,17 +130,33 @@ public class Estado {
 		updateSensores();
 		time++;
 	}
-	
-	
 
+	/**
+	 * Evalua si un nodo es Calculado
+	 * @param x Sensor
+	 * @param s Estrategia de la simulacion
+	 * @param n Nodo a evaluar
+	 * @return
+	 */
 	public boolean isCalcula(Sensor x, Estrategia s, Nodo n) {
 		return x.isVisto(n);
 	}
 
+	/**
+	 * Evalua si un nodo es una estimacion
+	 * @param x Sensor
+	 * @param s Estrategia de la simulacion
+	 * @param n Nodo a evaluar
+	 * @return
+	 */
 	public boolean isEstima(Sensor x, Estrategia s, Nodo n) {
 		return !isCalcula(x, s, n);
 	}
 
+	/**
+	 * Carga el Mapa.
+	 * @return
+	 */
 	@SuppressWarnings("resource")
 	public int[] loadMap() {
 		File archivo = null;
@@ -156,48 +190,70 @@ public class Estado {
 		}
 		return tamanoMapa;
 	}
-
+	/**
+	 * Inicializa la estructura del mapa.
+	 */
 	public void initGraph() {
 		this.mapa = new Grafo();
 		this.mapa.generaGrafo(this.loadMap(), this.definicionMalla);
-		if(Proceso.enableGUI)
-		this.mapa.plotGraph("Grafo Inicial");
-		if(Proceso.randPos == null){
+		if (Proceso.enableGUI)
+			this.mapa.plotGraph("Grafo Inicial");
+		if (Proceso.randPos == null) {
 			Proceso.initPseudoRand(mapa.x, mapa.y);
-		}else{
+		} else {
 			Proceso.restartPseudoRand();
 		}
 		mapa.setCazador();
 		mapa.setArbolDondeCuenta(mapa.getCazador());
 	}
-
-	public void guardaValoresEstado(Datos dato, String idIteracion, int maxEnemigos) {
-		int capt =  maxEnemigos - presas - salvadas;
+	/**
+	 * Almacena la informacion del estado actual de la simulacion
+	 * @param dato
+	 * @param idIteracion Identificador de la iteracion
+	 * @param maxEnemigos Enemigos capturados
+	 */
+	public void guardaValoresEstado(Datos dato, String idIteracion,
+			int maxEnemigos) {
+		int capt = maxEnemigos - presas - salvadas;
 		int nodos = 0;
 		ArrayList<Nodo> ld = estrategia.memoria.getListaNodos();
-		for(int i = 0; i < ld.size(); i++)
-				if(!ld.get(i).isEstimacion())
-					nodos++;
-		
+		for (int i = 0; i < ld.size(); i++)
+			if (!ld.get(i).isEstimacion())
+				nodos++;
+
 		Logger.debug("" + nodos + "");
-		dato.agregaDatos(estrategia.nombre + "," + idIteracion + "," + time + "," + nodos + "," + capt);
+		dato.agregaDatos(estrategia.nombre + "," + idIteracion + "," + time
+				+ "," + nodos + "," + capt);
 	}
 
+	/**
+	 * Encapsulamiento para conseguir los nodos adyacentes de un nodo dado.
+	 * @param n
+	 * @return
+	 */
 	public ArrayList<Nodo> getAdyacentes(Nodo n) {
 		return mapa.getAdjacents(n);
 	}
-
+	/**
+	 * Actualiza el conocimiento de los sensores en base a la estrategia
+	 */
 	public void updateSensores() {
 		estrategia.updateSensores();
 	}
-
+	/**
+	 * Evalua la victoria en el estado actual.
+	 * @return
+	 */
 	public boolean evaluaVictoria() {
 		if (presas == 0) {
 			return true;
 		}
 		return false;
 	}
-
+	/**
+	 * Devuelve el nodo donde se encuentra el cazador.
+	 * @return
+	 */
 	public Nodo getActual() {
 		return actual;
 	}

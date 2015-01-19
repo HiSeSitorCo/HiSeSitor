@@ -1,17 +1,16 @@
 package HiSeSitor;
 
-import java.awt.geom.Arc2D.Double;
 import java.util.ArrayList;
 
-import cern.jet.random.Exponential;
-
+/**
+ * 
+ * @author HiSeSiTor Co.
+ *
+ */
 public class Estrategia_FarAway extends Estrategia {
 	public int periodo;
 	public ArrayList<Nodo> visitados = new ArrayList<>();
 	private int div;
-	private int presas = 0;
-	private int itPasado = 0;
-	private int jGlob = 2;
 	
 
 	protected int tam = 1;
@@ -67,8 +66,6 @@ public class Estrategia_FarAway extends Estrategia {
 		memoria = null;
 		visitados = new ArrayList<>();
 		div = 0;
-		presas = 0;
-		itPasado = 0;
 	};
 
 	@Override
@@ -79,11 +76,6 @@ public class Estrategia_FarAway extends Estrategia {
 			l.score = -10;
 			return -10;
 		}
-//		if (estado.getActual().id == n.id){
-//			n.score = -10;
-//			l.score = -10;
-//			return n.score;
-//		}
 		if(visitados.contains(n)){
 			n.score = -5;
 			l.score = -5;

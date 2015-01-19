@@ -2,17 +2,20 @@ package HiSeSitor;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author HiSeSiTor Co.
+ * 
+ */
 public class Estrategia_Cercanos extends Estrategia {
-	;
+
 	public ArrayList<Nodo> visitados = new ArrayList<>();
 
 	private int div;
-	private int MAX = 10;
 	private int direccion = 0;
 	private int distancia = 0;
 	private int init = 0;
 	private int rand = 0;
-	private int time = 0;
 
 	protected int tam = 1;
 
@@ -64,7 +67,6 @@ public class Estrategia_Cercanos extends Estrategia {
 		memoria = null;
 		visitados = new ArrayList<>();
 		div = 0;
-		MAX = 10;
 		direccion = 0;
 		distancia = 0;
 		init = 0;
@@ -72,64 +74,63 @@ public class Estrategia_Cercanos extends Estrategia {
 
 	@Override
 	public double calcula(Nodo n) {
-		for(int i = 0; i < visitados.size(); i++)
-			if(visitados.get(i).id == estado.actual.id)
+		for (int i = 0; i < visitados.size(); i++)
+			if (visitados.get(i).id == estado.actual.id)
 				n.score = -10;
 		if (visitados.isEmpty()) {
 			estado.actual = estado.inicio;
 			visitados.add(memoria.getNode(estado.getActual().id));
 			rand = Proceso.getPseudoRand();
-		}else{
+		} else {
 			visitados.add(memoria.getNode(estado.getActual().id));
 		}
 		Nodo act = memoria.getNode(estado.getActual().id);
 		act.score = 0;
-		if(direccion == 0){
-			if(act.pos.x == 0)
+		if (direccion == 0) {
+			if (act.pos.x == 0)
 				direccion = 4;
-		}else if(direccion == 1){
-			if(act.pos.y == 0){
+		} else if (direccion == 1) {
+			if (act.pos.y == 0) {
 				direccion = 3;
 			}
-			if(act.pos.x == estado.mapa.x){
+			if (act.pos.x == estado.mapa.x) {
 				direccion = 7;
 			}
-			if(act.pos.x == estado.mapa.x && act.pos.y == 0){
+			if (act.pos.x == estado.mapa.x && act.pos.y == 0) {
 				direccion = 5;
 			}
-		}else if(direccion == 2){
-			if(act.pos.x == estado.mapa.x)
+		} else if (direccion == 2) {
+			if (act.pos.x == estado.mapa.x)
 				direccion = 6;
-		}else if(direccion == 3){
-			if(act.pos.x == estado.mapa.x)
+		} else if (direccion == 3) {
+			if (act.pos.x == estado.mapa.x)
 				direccion = 5;
-			if(act.pos.y == estado.mapa.y)
+			if (act.pos.y == estado.mapa.y)
 				direccion = 1;
-			if(act.pos.x == estado.mapa.x && act.pos.x == estado.mapa.y)
+			if (act.pos.x == estado.mapa.x && act.pos.x == estado.mapa.y)
 				direccion = 7;
-		}else if(direccion == 4){
-			if(act.pos.y == estado.mapa.y)
+		} else if (direccion == 4) {
+			if (act.pos.y == estado.mapa.y)
 				direccion = 0;
-		}else if(direccion == 5){
-			if(act.pos.x == 0)
+		} else if (direccion == 5) {
+			if (act.pos.x == 0)
 				direccion = 3;
-			if(act.pos.y == estado.mapa.y)
+			if (act.pos.y == estado.mapa.y)
 				direccion = 7;
-			if(act.pos.y == estado.mapa.y && act.pos.x == 0)
+			if (act.pos.y == estado.mapa.y && act.pos.x == 0)
 				direccion = 1;
-		}else if(direccion == 6){
-			if(act.pos.x == 0)
+		} else if (direccion == 6) {
+			if (act.pos.x == 0)
 				direccion = 2;
-		}else if(direccion == 7){
-			if(act.pos.x == 0)
+		} else if (direccion == 7) {
+			if (act.pos.x == 0)
 				direccion = 1;
-			if(act.pos.y == 0)
+			if (act.pos.y == 0)
 				direccion = 5;
-			if(act.pos.x == 0 && act.pos.y == 0)
+			if (act.pos.x == 0 && act.pos.y == 0)
 				direccion = 3;
 		}
 		if (init == 0) {
-			Nodo na = estado.actual;
 			int ls = rand % 8;
 			if (ls == 0) {
 				if (n.pos.y + 1 == estado.actual.pos.y
@@ -188,7 +189,7 @@ public class Estrategia_Cercanos extends Estrategia {
 					direccion = 7;
 				}
 			}
-		}else {
+		} else {
 			if (direccion == 0) {
 				if (n.pos.y + 1 == estado.actual.pos.y
 						&& n.pos.x == estado.actual.pos.x) {
@@ -237,16 +238,16 @@ public class Estrategia_Cercanos extends Estrategia {
 					n.score = 10;
 					init = 1;
 				}
-			}else{
+			} else {
 				n.score = 0;
 			}
-			if(n.id == estado.actual.id){
+			if (n.id == estado.actual.id) {
 				n.score = 0;
 			}
 			Nodo l = estado.mapa.getNode(n.id);
 			l.setScore(n.score);
-			
+
 		}
 		return n.score;
 	}
-}	
+}

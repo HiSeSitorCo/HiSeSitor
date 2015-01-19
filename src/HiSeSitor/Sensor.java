@@ -2,21 +2,24 @@ package HiSeSitor;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author HiSeSiTor Co.
+ * 
+ */
 public class Sensor {
-	// Funciones DUMMIE
 	public Grafo sensorKnowledge;
 	public Estado estado;
 
 	public boolean isVisto(Nodo n) {
 		return checkNode(n, estado.getActual());
-		//return sensorKnowledge.contains(n);
 	}
 
-	public void initSensor(){
+	public void initSensor() {
 		sensorKnowledge.InitSensorGraph(estado.mapa);
-		
+
 	}
-	
+
 	public Sensor(Estado est) {
 		sensorKnowledge = new Grafo();
 		estado = est;
@@ -30,13 +33,12 @@ public class Sensor {
 	public void setEstado(Estado e) {
 		estado = e;
 		initSensor();
-		
+
 	}
 
 	public void updateKnowledge() {
 		sensorKnowledge.union(getSensorGraph());
 		for (Nodo n : sensorKnowledge.getListaNodos()) {
-			//System.out.println(n.toString());
 			Nodo nod = estado.mapa.getNode(n.id);
 			if (nod.presa == true) {
 				nod.cazada = true;
@@ -58,13 +60,11 @@ public class Sensor {
 				sensorKnowledge.updateNodo(aux, n);
 			}
 			if (checkNode(n, estado.getActual()) == true)
-				sensor.addNode(n, estado.mapa); // Necesario revisar por la
-												// parte de grafo
+				sensor.addNode(n, estado.mapa);
 		}
 		return sensor;
 
 	}
-	
 
 	public Grafo getSensorKnowledge() {
 		return sensorKnowledge;
@@ -74,11 +74,7 @@ public class Sensor {
 		this.sensorKnowledge = sensorKnowledge;
 	}
 
-	/**
-	 * Estra funcion es lo que diferenciará unos sensores de otros
-	 */
 	private boolean checkNode(Nodo check, Nodo actual) {
-		// dummie
 
 		if (estado.mapa.getDistancia(check, actual) > 1) {
 			return false;
@@ -87,14 +83,14 @@ public class Sensor {
 	}
 
 	public Grafo getKnowledge() {
-		
+
 		return sensorKnowledge;
 	}
 
 	public void reset() {
 		sensorKnowledge = new Grafo();
 		initSensor();
-		
+
 	}
 
 }
