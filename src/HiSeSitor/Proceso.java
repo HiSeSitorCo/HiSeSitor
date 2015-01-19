@@ -85,7 +85,6 @@ public class Proceso {
 		calc = (int) Math.pow(MAX_TOP*es.size(), dat);
 		for (int i = 0; i < es.size(); i++) {
 			itera(es.get(i), v.get(i), dato);		
-			itera = 0;
 			progress = maxProgress;
 			progressBar.setValue(9999999);
 		}

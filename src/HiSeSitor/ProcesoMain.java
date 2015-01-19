@@ -52,13 +52,13 @@ public class ProcesoMain {
 
 	public static void main(String[] args) {
 
-		try {
+		/*try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		errorMap = true;
 		window = new JFrame("HiSeSitor - Hide&seek Simulator");
 		window.setMinimumSize(new Dimension(500, 400));
