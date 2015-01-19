@@ -31,7 +31,7 @@ public class Simulacion {
 			estado.initEstado();
 			addAleatOponents(MAX_ENEMIGOS);
 		}
-
+ 
 		Logger.debug("Comenzando. Quedan:" + estado.presas + " presas libres");
 		try {
 			while ((nodo = estado.busca()) != null && estado.presas > 0 && max_time-->0) {

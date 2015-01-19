@@ -143,7 +143,7 @@ public class Proceso {
 				}
 			}
 		} else { 
-			int iteraLocal = itera + 1;
+			int iteraLocal = itera;
 			maxProgress = calc;
 			progress=itera;
 			progressBar.setValue(progress);
@@ -151,8 +151,8 @@ public class Proceso {
 			id++;
 			if (flagSim != 0) {
 				preparaSimulacion(e,simulacion,vars);
-				flagSim = 1;
 			}
+			flagSim = 1;
 			
 			ret1 = simulacion.correSimulacion(e, d, id + "-" + this.toString(vars), max_time);
 			iteraLocal++;

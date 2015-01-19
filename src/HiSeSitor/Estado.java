@@ -76,11 +76,13 @@ public class Estado {
 	public Nodo busca() {
 		estrategia.updateMemoria(); // recalcular subestructuras
 		Nodo objetivo = estrategia.getObjetivo(); // coger el nodo con mayor
-													// puntuación
+										// puntuación
+		Nodo aux = new Nodo(0,0,null);
 		if (objetivo == null)
 			return null;
 		if (actual == null) {
-			actual = mapa.getCazador();
+			aux.copyNode(mapa.getCazador());
+			actual = aux;
 		}
 		return mapa.getShortestPathNode(getActual(), objetivo);
 
@@ -191,7 +193,7 @@ public class Estado {
 	}
 
 	public Nodo getActual() {
-		return mapa.getCazador();
+		return actual;
 	}
 
 }
