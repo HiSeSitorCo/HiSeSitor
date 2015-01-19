@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import HiSeSitor.ProcesoMain;
+
 public class Datos {
 
 	private ArrayList<DatosEstrategia> valoresEstrategias;
@@ -399,12 +401,7 @@ public class Datos {
 
 	public void muestraVentana() {
 
-		JFrame frame = new JFrame("Resultados");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.getContentPane().setLayout((new BorderLayout()));
-		Container c = new Container();
-		c.setLayout(new BoxLayout(c,BoxLayout.Y_AXIS));
 
 		ArrayList<DatosEstrategia> arrayC = new ArrayList<DatosEstrategia>();
 		ArrayList<DatosEstrategia> arrayCT = new ArrayList<DatosEstrategia>();
@@ -425,48 +422,27 @@ public class Datos {
 			arrayN.add(d3);
 		}
 
-		c.add(new JLabel("\n\n\n"));
 
 		for (DatosEstrategia d : arrayC) {
-			JLabel texto = new JLabel();
-			texto.setText("\t\tLa iteracion de la estrategia "
+			ProcesoMain.writeResult("La iteracion de la estrategia "
 					+ d.getNombreEstrategia()
 					+ " que más enemigos ha capturado ha sido con la configuracion "
 					+ d.getValoresIteraciones(0).getNombreIteracion());
-			c.add(texto);
 		}
-		frame.getContentPane().add(new JLabel("\n\n\n"));
 		for (DatosEstrategia d : arrayCT) {
-			JLabel texto = new JLabel();
-			texto.setText("\t\tLa iteracion de la estrategia "
+			ProcesoMain.writeResult("La iteracion de la estrategia "
 					+ d.getNombreEstrategia()
 					+ " más optima (capturados/tiempo) ha sido con la configuracion "
 					+ d.getValoresIteraciones(0).getNombreIteracion());
-			c.add(texto);
 		}
-		frame.getContentPane().add(new JLabel("\n\n\n"));
+
 		for (DatosEstrategia d : arrayN) {
-			JLabel texto = new JLabel();
-			texto.setText("\t\tLa iteracion de la estrategia "
+			ProcesoMain.writeResult("La iteracion de la estrategia "
 					+ d.getNombreEstrategia()
 					+ " que más nodos ha visto ha sido con la configuracion "
 					+ d.getValoresIteraciones(0).getNombreIteracion());
-			c.add(texto);
-			;
-		}
-		c.add(new JLabel("\n\n\n"));
 
-		Panel p = new Panel();
-		p.setSize(new Dimension(50,50));
-		
-		frame.getContentPane().add(p, BorderLayout.EAST);
-		
-		frame.getContentPane().add(c, BorderLayout.CENTER);
-		
-		// frame.pack();
-		frame.setSize(900, 500);
-		frame.setVisible(true);
-		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
+		}
+
 	}
 }

@@ -35,6 +35,7 @@ public class Proceso {
 	public static int randGet;
 	private int id = 0;
 	public int max_time = 137;
+	static JFrame f;
 	int calc;
 	
 	public int flagSim = 0;
@@ -196,9 +197,9 @@ public class Proceso {
 		Thread t = new Thread(){
 			@Override
 			public void run (){
-				JFrame f = new JFrame("Hisesitor");
+				f = new JFrame("Hisesitor");
 				f.setVisible(true);
-				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				Container content = f.getContentPane();
 			    progressBar = new JProgressBar();
 			    progressBar.setMaximum(maxProgress);

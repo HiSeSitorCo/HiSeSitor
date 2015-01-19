@@ -180,7 +180,6 @@ public class Estado {
 					nodos++;
 		
 		Logger.debug("" + nodos + "");
-		System.out.println(estrategia.nombre + "," + idIteracion + "," + time + "," + nodos + "," + capt);
 		dato.agregaDatos(estrategia.nombre + "," + idIteracion + "," + time + "," + nodos + "," + capt);
 	}
 
