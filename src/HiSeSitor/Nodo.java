@@ -183,6 +183,7 @@ public class Nodo {
 	 * @param n
 	 */
 	public void copyNode (Nodo n){
+		pos = new Point(n.pos.x,n.pos.y);
 		this.id = n.id;
 		this.score = n.score;
 		this.cazador = n.cazador;
@@ -190,7 +191,6 @@ public class Nodo {
 		this.obstaculo = n.obstaculo;
 		this.init = n.init;
 		this.estimacion = n.estimacion;
-		this.pos = n.pos;
 		this.norte = n.norte;
 		this.noreste = n.noreste;
 		this.este = n.este;

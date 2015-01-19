@@ -26,6 +26,7 @@ public class Estado {
 
 	public Estado(Estrategia estr) {
 		initGraph();
+		actual = mapa.getCazador();
 		this.estrategia = estr;
 	}
 
@@ -172,8 +173,14 @@ public class Estado {
 
 	public void guardaValoresEstado(Datos dato, String idIteracion, int maxEnemigos) {
 		int capt =  maxEnemigos - presas - salvadas;
-		int nodos = estrategia.memoria.getListaNodos().size();
+		int nodos = 0;
+		ArrayList<Nodo> ld = estrategia.memoria.getListaNodos();
+		for(int i = 0; i < ld.size(); i++)
+				if(!ld.get(i).isEstimacion())
+					nodos++;
+		
 		Logger.debug("" + nodos + "");
+		System.out.println(estrategia.nombre + "," + idIteracion + "," + time + "," + nodos + "," + capt);
 		dato.agregaDatos(estrategia.nombre + "," + idIteracion + "," + time + "," + nodos + "," + capt);
 	}
 

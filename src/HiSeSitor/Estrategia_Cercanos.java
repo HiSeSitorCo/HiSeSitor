@@ -61,6 +61,7 @@ public class Estrategia_Cercanos extends Estrategia {
 
 	@Override
 	public void reset_ext() {
+		memoria = null;
 		visitados = new ArrayList<>();
 		div = 0;
 		MAX = 10;
