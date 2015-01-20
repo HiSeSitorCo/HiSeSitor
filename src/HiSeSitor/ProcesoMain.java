@@ -58,10 +58,10 @@ public class ProcesoMain {
 	public static void main(String[] args) {
 		errorMap = true;
 		window = new JFrame("HiSeSitor - Hide&seek Simulator");
-		window.setMinimumSize(new Dimension(750, 400));
+		window.setMinimumSize(new Dimension(850, 400));
 		window.setVisible(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(750, 550);
+		window.setSize(850, 550);
 		window.setResizable(true);
 		BorderLayout bl = new BorderLayout();
 		window.setLayout(bl);
